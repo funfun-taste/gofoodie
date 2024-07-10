@@ -7,8 +7,6 @@ import {
   Inject,
   Logger,
 } from '@nestjs/common';
-import { LoggerService } from '@src/modules/logger/logger.service';
-import { CreateLoggerDto } from '@src/modules/logger/dto/create.logger.dto';
 
 /**
  * HttpException Catch: NestJS에서는 예외 처리를 위해 Exception Filter를 사용한다.
@@ -18,7 +16,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
 
   constructor(
-    @Inject(LoggerService) private readonly loggerService: LoggerService,
   ) {}
 
   async catch(exception: HttpException, host: ArgumentsHost) {
@@ -50,22 +47,22 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const { ip, method, originalUrl, user, body } = req;
     const userAgent = req.get('user-agent') || '';
 
-    const loggerData: CreateLoggerDto = {
-      logId: requestId,
-      ip: ip,
-      agent: userAgent,
-      method: method,
-      status: 'error',
-      statusCode: status,
-      message: errorMessage,
-      path: originalUrl,
-      createdDate: new Date(),
-      user,
-      body,
-      data: '',
-    };
-    if (!originalUrl.includes('server-events'))
-      await this.loggerService.createdLogs(loggerData);
+    // const loggerData: CreateLoggerDto = {
+    //   logId: requestId,
+    //   ip: ip,
+    //   agent: userAgent,
+    //   method: method,
+    //   status: 'error',
+    //   statusCode: status,
+    //   message: errorMessage,
+    //   path: originalUrl,
+    //   createdDate: new Date(),
+    //   user,
+    //   body,
+    //   data: '',
+    // };
+    // if (!originalUrl.includes('server-events'))
+    //   await this.loggerService.createdLogs(loggerData);
 
     this.logger.error(exception);
 

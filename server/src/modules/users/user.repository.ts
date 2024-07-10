@@ -14,8 +14,8 @@ export class UserRepository {
     private readonly userModel: Model<UserDocument>
   ) {}
 
-  async find(filter: UserDocument, projection?: Projection<UserDocument>): Promise<UserDocument[]> {
-    return this.userModel.find(filter, projection).lean();
+  async find($filter: UserDocument, $projection?: Projection<UserDocument>): Promise<UserDocument[]> {
+    return this.userModel.find({$filter}, {$projection}).lean();
   }
 
   async findOne(filter: FilterQuery<UserDocument>, projection?: Projection<UserDocument>): Promise<UserDocument> {
