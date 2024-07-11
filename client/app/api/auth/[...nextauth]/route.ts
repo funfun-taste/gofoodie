@@ -3,8 +3,8 @@ import KakaoProvider from "next-auth/providers/kakao";
 import { AuthOptions, User } from "next-auth";
 import { userCheckApi } from "@apis/users";
 
-const clientId = process.env.KAKAO_CLIENT_ID || "";
-const clientSecret = process.env.KAKAO_CLIENT_SECRET || "";
+const clientId = process.env.KAKAO_CLIENT_ID as string;
+const clientSecret = process.env.KAKAO_CLIENT_SECRET as string;
 export const authOptions: AuthOptions = {
   providers: [
     KakaoProvider({
@@ -25,11 +25,10 @@ export const authOptions: AuthOptions = {
     async jwt({ user, token, account }) {
       if (user && Object.entries(user) && account) {
         const id = account.providerAccountId;
-        console.log(token, account, user);
-        await userCheckApi(user as User);
-        // token.apiToken = data.data.token;
-        // token.id = id;
-        // token.profile = data.data.profile;
+        const { data } = await userCheckApi(user as User);
+        token.apiToken = data.data.token;
+        token.id = id;
+        token.profile = data.data.profile;
       }
       return token;
     },
