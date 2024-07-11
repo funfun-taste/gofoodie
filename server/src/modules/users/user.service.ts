@@ -3,6 +3,10 @@ import { UserRepository } from '@modules/users/user.repository';
 import { ProfileUpdateDto } from './dto/profile.update.dto';
 import { JwtPayloadDto } from '@modules/auth/dto/jwt.payload.dto';
 import { AuthService } from '@modules/auth/auth.service';
+import { SignInDto, UserDto } from './dto/sign-in.dto';
+import { CreateUserDto } from './dto/create.user.dto';
+import { createUuid } from '@lib/uuid';
+import { UserDocument } from './schema/user.schema';
 
 @Injectable()
 export class UserService {
@@ -13,32 +17,34 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async createUser(user: UserDto) {
-    const userData = {};
+  async createUser(user: UserDto): Promise<UserDocument> {
+    const { name, id, image } = user;
+    const userData: CreateUserDto = {
+      username: name,
+      creatorId: id,
+      uniqueId: createUuid(),
+      profileImage: image || 'default.png',
+    };
     return this.userRepository.createUser(userData);
   }
 
   //todo 타입 미정
-  async userVerify(user: any) {
-    this.logger.log(`${user}, 'user Data'`);
+  async userVerify(user: UserDto): Promise<SignInDto> {
     const { id, name } = user;
+    let userData = null;
     const findUser = await this.findOneByCreatorId(id);
     if (!findUser) {
-      const data = {
-        username: name,
-        id,
-      };
-      await this.createUser(data);
-    }
+      userData = await this.createUser(user);
+    } else userData = findUser;
 
     const token = await this.authService.createToken({
       id,
       username: name,
-      profile: findUser.profileImage,
+      profile: userData.profileImage,
     });
     return {
       token,
-      profile: findUser.profileImage,
+      profile: userData.profileImage,
     };
   }
 

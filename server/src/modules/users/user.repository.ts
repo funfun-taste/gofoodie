@@ -4,6 +4,7 @@ import { User, UserDocument } from '@modules/users/schema/user.schema';
 import { ConnectionNames } from '@database/database.config';
 import { FilterQuery, Model, UpdateQuery, UpdateWriteOpResult } from 'mongoose';
 import { Projection } from '@lib/type/projection.type';
+import { CreateUserDto } from './dto/create.user.dto';
 
 @Injectable()
 export class UserRepository {
@@ -40,7 +41,7 @@ export class UserRepository {
     return this.userModel.updateOne(filter, { $set }).exec();
   }
 
-  async createUser(userData) {
+  async createUser(userData: CreateUserDto): Promise<UserDocument> {
     const model = new this.userModel(userData);
     return model.save();
   }

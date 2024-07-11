@@ -12,13 +12,14 @@ import { JwtAuthGuard } from '@modules/auth/guards/jwt.guard';
 import { ProfileUpdateDto } from './dto/profile.update.dto';
 import { User } from './decorators/user-info.decorator';
 import { JwtPayloadDto } from '@modules/auth/dto/jwt.payload.dto';
+import { SignInDto, UserDto } from './dto/sign-in.dto';
 
-@Controller()
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/auth')
-  async userCheck(@Body() user: any) {
+  async userCheck(@Body() user: UserDto): Promise<SignInDto> {
     return this.userService.userVerify(user);
   }
 
