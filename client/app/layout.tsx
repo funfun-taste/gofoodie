@@ -15,22 +15,22 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="kr">
-    <body>
-    <AuthContext>
-      <TanstackQueryProviders>
-        <AuthProvider>
-          <Layout>{children}</Layout>
-        </AuthProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </TanstackQueryProviders>
-    </AuthContext>
-    </body>
+      <body>
+        <AuthContext>
+          <TanstackQueryProviders>
+            <AuthProvider>
+              <Layout>{children}</Layout>
+            </AuthProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </TanstackQueryProviders>
+        </AuthContext>
+      </body>
     </html>
   );
 }

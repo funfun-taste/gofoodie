@@ -1,15 +1,13 @@
-"use client";
+import { OptionLists } from "@components/management/OptionLists";
+import { ReactElement } from "react";
 
-import { signOut } from "next-auth/react";
-
-export default function ManagementPage() {
-  const handleClick = async () => {
-    await signOut();
-  };
+export default function ManagementPage(): ReactElement {
   return (
     <div>
-      관리 페이지
-      <button onClick={handleClick}>TEST</button>
+      <div>
+        프로필 공간
+      </div>
+      <OptionLists />
     </div>
   );
 }

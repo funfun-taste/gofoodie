@@ -15,7 +15,6 @@ export const Layout = ({ children }: Props): ReactElement => {
     <main className={styles.appLayout}>
       <AppBanner />
       <div className={styles.appContainer}>
-        <Header />
         {children}
         <Footer />
         <ModalContainer />

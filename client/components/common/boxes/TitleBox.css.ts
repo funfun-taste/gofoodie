@@ -1,0 +1,25 @@
+import { vars } from "@styles/theme.css";
+import { style } from "@vanilla-extract/css";
+
+export const titleBoxLayout = style({
+  width: "100%",
+  backgroundColor: vars.colors.white000,
+  position: "relative",
+  borderBottom: "1px solid #dddddd",
+  padding: "0 1em",
+  zIndex: 99,
+  display: "flex",
+  height: 56,
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+export const title = style({
+  position: "absolute",
+  left: "50%",
+  transform: "translateX(-50%)",
+});
+
+export const childrenContainer = style({
+  marginRight: "auto",
+});

@@ -22,12 +22,14 @@ export const FeedList = ({ pending, feedList }: FeedListProps) => {
     );
   }
   return (
-    <>
+    <div>
       {feedList.length === 0 ? (
-        <Typography>작성된 피드가 없어요.</Typography>
+        <div>
+          <Typography>작성된 피드가 없어요.</Typography>
+        </div>
       ) : (
         <div>피드 목록</div>
       )}
-    </>
+    </div>
   );
 };
