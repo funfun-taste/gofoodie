@@ -11,13 +11,19 @@ export const footerLayout = style({
 export const information = style({
   backgroundColor: vars.colors.backgroundColor,
   color: vars.colors.black100,
-  height: 160,
+  height: 140,
   width: "100%",
   display: "flex",
   flexDirection: "column",
   gap: 10,
   padding: "0.8em 1em",
   justifyContent: "center",
+});
+
+export const informationLabel = style({
+  color: vars.colors.gray500,
+  fontWeight: 400,
+  fontSize: 14,
 });
 
 export const copyright = style({
@@ -30,4 +36,10 @@ export const copyright = style({
   justifyContent: "center",
   alignItems: "center",
   gap: 10,
+});
+
+export const copyrightLabel = style({
+  color: vars.colors.white000,
+  fontWeight: 400,
+  fontSize: 14,
 });
