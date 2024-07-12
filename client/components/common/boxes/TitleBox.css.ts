@@ -21,5 +21,8 @@ export const title = style({
 });
 
 export const childrenContainer = style({
-  marginRight: "auto",
+  display: "flex",
+  width: "100%",
+  justifyContent: "space-between",
+  padding: "0 0.8em",
 });

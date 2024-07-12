@@ -6,6 +6,7 @@ import { ReommendUser } from "@components/users/RecommendUser";
 import { RegionFilter } from "@components/feeds/RegionFilter";
 import { FeedHome } from "@components/feeds/FeedHome";
 import { Header } from "@components/header/Header";
+import { Footer } from "@components/footer/Footer";
 
 export default async function Home() {
   return (
@@ -23,6 +24,7 @@ export default async function Home() {
         {/* 피드 홈 */}
         <FeedHome />
       </div>
+      <Footer />
     </>
   );
 }

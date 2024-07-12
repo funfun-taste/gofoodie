@@ -3,10 +3,13 @@
 import { ReactElement } from "react";
 import { TitleBox } from "@components/common/boxes/TitleBox";
 import { IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export const ManagementTitle = (): ReactElement => {
+  const router = useRouter();
+
   const handleClickHistoryBack = () => {
-    //todo 뒤로가기
+    router.back();
   };
   return (
     <TitleBox title="마이페이지">
