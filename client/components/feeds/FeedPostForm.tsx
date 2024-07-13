@@ -13,8 +13,13 @@ import { FileUploadButton } from "@components/common/button/FileUploadButton";
 import Image from "next/image";
 import { queryClient } from "@lib/tanstack/queryClient";
 import { User } from "@interfaces/users/user";
+import useModalStore from "@store/modalStore";
+import { postImageUploadApud } from "@apis/files/upload.api";
+import { feedSubmitApi } from "@apis/feeds/create.feed.api";
+import { FeedPostBody } from "@interfaces/feeds/feed.post";
 
 export const FeedPostForm = (): ReactElement => {
+  const { setIsOpen, setModalType } = useModalStore();
   const user: User = {
     nickname: "",
     description: "",
@@ -58,14 +63,9 @@ export const FeedPostForm = (): ReactElement => {
     files.forEach((file: File) => {
       formData.append(`files`, file);
     });
-    const headers = {
-      "Content-Type": "multipart/form-data",
-    };
 
     try {
-      // await axiosInstance.post(`/files/upload/${postId}`, formData, {
-      //   headers,
-      // });
+      await postImageUploadApud(postId, formData);
     } catch (e) {
       console.log(e);
     }
@@ -75,22 +75,23 @@ export const FeedPostForm = (): ReactElement => {
     try {
       e.preventDefault();
 
-      const body = {
+      const body: FeedPostBody = {
         ...postForm,
       };
-      // const { data } = await feedSubmitApi(body);
-      // if (data.result) {
-      //   if (postForm.files.length > 0) {
-      //     const { _id } = data.data;
-      //     await fileUpload(_id);
-      //   }
+      const { data } = await feedSubmitApi(body);
+      if (data.result) {
+        if (postForm.files.length > 0) {
+          const { _id } = data.data;
+          await fileUpload(_id);
+        }
 
-      //   await queryClient.invalidateQueries([
-      //     queryKeys.feeds.lists,
-      //     queryKeys.maps.marker,
-      //   ]);
-      //   await router.push("/");
-      // }
+        //todo 쿼리 초기화 후 마이 피드로 이동
+        //   await queryClient.invalidateQueries([
+        //   queryKeys.feeds.lists,
+        //   queryKeys.maps.marker,
+        // ]);
+        // await router.push("/");
+      }
     } catch (e) {
       console.log(e);
     }
@@ -112,114 +113,100 @@ export const FeedPostForm = (): ReactElement => {
 
   const handleClickLocation = async () => {
     // setModalType("registerShop");
-    // setIsOpen(true);
+    setIsOpen(true);
   };
 
   const handleChangeFile = (previewUrls: string[], fileList: File[]) => {
-    // setPreviewUrl(previewUrls);
-    // setPostForm({
-    //   ...postForm,
-    //   files: fileList,
-    // });
+    setPreviewUrl(previewUrls);
+    setPostForm({
+      ...postForm,
+      files: fileList,
+    });
   };
   return (
     <form className={styles.postLayout}>
       <div className={styles.postLayout}>
-        <div>
-          <FlexBox
-            className={styles.postBodyContainer}
-            flexDirection="row"
-            alignItems="flex-center"
-            justifyContent="flex-start"
-          >
-            <div className={styles.avatarWrapper}>
-              <Avatar alt={user.nickname} src={user.profileImage} />
-            </div>
-            <Textarea
-              placeholder={"여러분의 이야기를 들려주세요."}
-              onChangeTextarea={onChangeTextarea}
-            />
-          </FlexBox>
-          {postForm.item.title.length > 0 && (
-            <div className={styles.locationItemContainer}>
-              <div className={styles.locationItemBox}>
-                <FlexBox
-                  flexDirection={"row"}
-                  justifyContent={"space-between"}
-                  gap={2}
-                >
-                  <FlexBox
-                    justifyContent={"flex-start"}
-                    alignItems={"flex-start"}
-                  >
-                    <Typography fontSize={14} fontWeight={500}>
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      color={"gray400"}
-                      fontSize={14}
-                      fontWeight={300}
-                    >
-                      {item.category}
-                    </Typography>
-                    <Typography
-                      color={"gray400"}
-                      fontSize={14}
-                      fontWeight={300}
-                    >
-                      {item.address.sido} / {item.address.sigungu}
-                    </Typography>
-                    <Typography
-                      color={"gray400"}
-                      fontSize={14}
-                      fontWeight={300}
-                    >
-                      {item.address.name}
-                    </Typography>
-                  </FlexBox>
-
-                  <Button
-                    className={styles.removeLocationButton}
-                    variant={"icon"}
-                    onClick={handleClickRemoveLocationData}
-                  >
-                    <IoTrashOutline size={24} color={"#d3d3d3"} />
-                  </Button>
-                </FlexBox>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div>
-          <FlexBox
-            flexDirection="row"
-            justifyContent="space-between"
-            className={styles.postOptionContainer}
-          >
-            <FileUploadButton onFileChange={handleChangeFile} />
-
-            <button type={"button"} onClick={handleClickLocation}>
-              <FlexBox flexDirection="row" justifyContent="flex-end" gap={4}>
-                <FiMapPin color={"#FF7101"} />
-                <Typography color="primary" as="span" fontSize={14}>
-                  장소
-                </Typography>
-              </FlexBox>
-            </button>
-          </FlexBox>
-          <div className={styles.imagesContainer}>
-            {previewUrl.map((url, index) => (
-              <Image
-                width={40}
-                height={40}
-                key={index}
-                src={url}
-                alt={`Preview ${index}`}
-                className={styles.images}
-              />
-            ))}
+        <FlexBox
+          className={styles.postBodyContainer}
+          flexDirection="row"
+          alignItems="flex-center"
+          justifyContent="flex-start"
+        >
+          <div className={styles.avatarWrapper}>
+            <Avatar alt={user.nickname} src={user.profileImage} />
           </div>
+          <Textarea
+            placeholder={"여러분의 이야기를 들려주세요."}
+            onChangeTextarea={onChangeTextarea}
+          />
+        </FlexBox>
+        {postForm.item.title.length > 0 && (
+          <div className={styles.locationItemContainer}>
+            <div className={styles.locationItemBox}>
+              <FlexBox
+                flexDirection={"row"}
+                justifyContent={"space-between"}
+                gap={2}
+              >
+                <FlexBox
+                  justifyContent={"flex-start"}
+                  alignItems={"flex-start"}
+                >
+                  <Typography fontSize={14} fontWeight={500}>
+                    {item.title}
+                  </Typography>
+                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
+                    {item.category}
+                  </Typography>
+                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
+                    {item.address.sido} / {item.address.sigungu}
+                  </Typography>
+                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
+                    {item.address.name}
+                  </Typography>
+                </FlexBox>
+
+                <Button
+                  className={styles.removeLocationButton}
+                  variant={"icon"}
+                  onClick={handleClickRemoveLocationData}
+                >
+                  <IoTrashOutline size={24} color={"#d3d3d3"} />
+                </Button>
+              </FlexBox>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div>
+        <FlexBox
+          flexDirection="row"
+          justifyContent="space-between"
+          className={styles.postOptionContainer}
+        >
+          <FileUploadButton onFileChange={handleChangeFile} />
+
+          <button type={"button"} onClick={handleClickLocation}>
+            <FlexBox flexDirection="row" justifyContent="flex-end" gap={4}>
+              <FiMapPin color={"#FF7101"} />
+              <Typography color="primary" as="span" fontSize={14}>
+                장소
+              </Typography>
+            </FlexBox>
+          </button>
+        </FlexBox>
+        <div className={styles.imagesContainer}>
+          {previewUrl.map((url, index) => (
+            <Image
+              width={40}
+              height={40}
+              key={index}
+              src={url}
+              alt={`Preview ${index}`}
+              className={styles.images}
+            />
+          ))}
         </div>
       </div>
     </form>

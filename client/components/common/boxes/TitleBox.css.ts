@@ -4,12 +4,13 @@ import { style } from "@vanilla-extract/css";
 export const titleBoxLayout = style({
   width: "100%",
   backgroundColor: vars.colors.white000,
-  position: "relative",
+  position: "sticky",
+  top: 0,
   borderBottom: "1px solid #dddddd",
   padding: "0 1em",
   zIndex: 99,
   display: "flex",
-  height: 56,
+  height: 80,
   alignItems: "center",
   justifyContent: "center",
 });

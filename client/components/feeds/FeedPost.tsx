@@ -10,12 +10,12 @@ export const FeedPost = () => {
     alert("저장");
   };
   return (
-    <div>
+    <>
       <FeedPostTitle
         onClickFeedSave={onClickFeedSave}
         historyBack={() => router.back()}
       />
       <FeedPostForm />
-    </div>
+    </>
   );
 };
