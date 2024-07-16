@@ -2,7 +2,7 @@ import { axiosInstance } from "@lib/axios";
 
 const FILES = "/files";
 
-export const postImageUploadApud = async (
+export const postImageUploadApi= async (
   postId: string,
   formData: FormData
 ): Promise<any> => {

@@ -3,7 +3,9 @@ import { combine, devtools } from "zustand/middleware";
 
 export enum ModalType {
   EMPTY = '',
-  SIGN_ALERT = 'signInAlertModal'
+  SIGN_ALERT = 'signInAlertModal',
+  REGISTER_SHOP = 'registerShop',
+
 }
 
 type ModalInitialState = {

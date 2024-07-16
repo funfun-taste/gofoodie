@@ -50,10 +50,9 @@ export class FeedService {
         if (!shop) {
           shop = await this.shopService.createShop(userId, item);
         }
-
         createFeed.ShopId = String(shop._id);
-        return this.feedRepository.saveFeed(createFeed);
       }
+      return this.feedRepository.saveFeed(createFeed);
     } catch (e) {}
   }
 

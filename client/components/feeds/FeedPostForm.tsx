@@ -1,6 +1,4 @@
-"use client";
-
-import { FormEventHandler, ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import * as styles from "./FeedPostForm.css";
 import FlexBox from "@components/common/boxes/FlexBox";
 import { Avatar } from "@components/common/avatar/Avatar";
@@ -11,93 +9,30 @@ import { Button } from "@components/common/button/Button";
 import { FiMapPin } from "react-icons/fi";
 import { FileUploadButton } from "@components/common/button/FileUploadButton";
 import Image from "next/image";
-import { queryClient } from "@lib/tanstack/queryClient";
 import { User } from "@interfaces/users/user";
-import useModalStore from "@store/modalStore";
-import { postImageUploadApud } from "@apis/files/upload.api";
-import { feedSubmitApi } from "@apis/feeds/create.feed.api";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 
-export const FeedPostForm = (): ReactElement => {
-  const { setIsOpen, setModalType } = useModalStore();
-  const user: User = {
-    nickname: "",
-    description: "",
-    _id: "",
-    creatorId: "",
-    created_at: new Date(),
-    updated_at: new Date(),
-    type: "",
-    profileImage: "",
-    files: [],
-    username: "",
-  };
-  const [previewUrl, setPreviewUrl] = useState<string[]>([]);
-  const [postForm, setPostForm] = useState<any>({
-    content: "",
-    item: {
-      title: "",
-      category: "",
-      address: {
-        name: "",
-        sigungu: "",
-        sido: "",
-        x: "",
-        y: "",
-      },
-    },
-    files: [],
-  });
+interface FeedPostFormProps {
+  user: User;
+  postForm: FeedPostBody;
+  previewUrl: string[];
+  onChangeTextarea: (content: string) => void;
+  onChangeFileList: (previewUrls: string[], fileList: File[]) => void;
+  onClickModalIsOpen: () => void;
+  onClickRemoveLocation: () => void;
+}
 
-  const onChangeTextarea = (content: string) => {
-    setPostForm({
-      ...postForm,
-      content,
-    });
-  };
-
-  const fileUpload = async (postId: string) => {
-    const { files } = postForm;
-    const formData = new FormData();
-
-    files.forEach((file: File) => {
-      formData.append(`files`, file);
-    });
-
-    try {
-      await postImageUploadApud(postId, formData);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-
-  const handleClickRemoveLocationData = () => {
-    // setFeedItem({
-    //   title: "",
-    //   category: "",
-    //   address: {
-    //     name: "",
-    //     sigungu: "",
-    //     sido: "",
-    //     x: "",
-    //     y: "",
-    //   },
-    // });
-  };
-
-  const handleClickLocation = async () => {
-    // setModalType("registerShop");
-    setIsOpen(true);
-  };
-
-  const handleChangeFile = (previewUrls: string[], fileList: File[]) => {
-    setPreviewUrl(previewUrls);
-    setPostForm({
-      ...postForm,
-      files: fileList,
-    });
-  };
+export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
+  const {
+    user,
+    postForm,
+    previewUrl,
+    onChangeTextarea,
+    onChangeFileList,
+    onClickModalIsOpen,
+    onClickRemoveLocation,
+  } = props;
+  
 
   return (
     <div className={styles.postLayout}>
@@ -129,23 +64,24 @@ export const FeedPostForm = (): ReactElement => {
                   alignItems={"flex-start"}
                 >
                   <Typography fontSize={14} fontWeight={500}>
-                    {item.title}
+                    {postForm.item.title}
                   </Typography>
                   <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {item.category}
+                    {postForm.item.category}
                   </Typography>
                   <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {item.address.sido} / {item.address.sigungu}
+                    {postForm.item.address.sido} /{" "}
+                    {postForm.item.address.sigungu}
                   </Typography>
                   <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {item.address.name}
+                    {postForm.item.address.name}
                   </Typography>
                 </FlexBox>
 
                 <Button
                   className={styles.removeLocationButton}
                   variant={"icon"}
-                  onClick={handleClickRemoveLocationData}
+                  onClick={onClickRemoveLocation}
                 >
                   <IoTrashOutline size={24} color={"#d3d3d3"} />
                 </Button>
@@ -161,9 +97,13 @@ export const FeedPostForm = (): ReactElement => {
           justifyContent="space-between"
           className={styles.postOptionContainer}
         >
-          <FileUploadButton onFileChange={handleChangeFile} />
+          <FileUploadButton
+            onFileChange={(previewUrls: string[], fileList: File[]) =>
+              onChangeFileList(previewUrls, fileList)
+            }
+          />
 
-          <button type={"button"} onClick={handleClickLocation}>
+          <button type={"button"} onClick={onClickModalIsOpen}>
             <FlexBox flexDirection="row" justifyContent="flex-end" gap={4}>
               <FiMapPin color={"#FF7101"} />
               <Typography color="primary" as="span" fontSize={14}>
