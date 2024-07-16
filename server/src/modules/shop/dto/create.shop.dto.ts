@@ -30,7 +30,28 @@ export class ShopDto {
   address: Address;
 }
 
-export class CreateShopDto extends ShopDto {
+export class CreateShopDto {
   @IsString()
   userId: string;
+
+  @IsString()
+  title: string;
+
+  @IsString()
+  category: string;
+
+  @IsString()
+  fullAddress: string;
+
+  @IsString()
+  sigungu: string;
+
+  @IsString()
+  sido: string;
+
+  @IsString()
+  x: string;
+
+  @IsString()
+  y: string;
 }

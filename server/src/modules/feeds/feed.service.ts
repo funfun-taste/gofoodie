@@ -37,7 +37,7 @@ export class FeedService {
         content: body.content,
         userId: userId,
       };
-
+      console.log(body, this.addressItemCheck(body.item));
       if (this.addressItemCheck(body.item)) {
         const { item } = body;
         const { address } = item;
@@ -50,7 +50,7 @@ export class FeedService {
         if (!shop) {
           shop = await this.shopService.createShop(userId, item);
         }
-        createFeed.ShopId = String(shop._id);
+        createFeed.shopId = objectIdToString(shop._id);
       }
       return this.feedRepository.saveFeed(createFeed);
     } catch (e) {}

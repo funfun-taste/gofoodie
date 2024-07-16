@@ -13,9 +13,15 @@ export class ShopService {
   }
 
   async createShop(userId: string, shop: ShopDto): Promise<ShopDocument> {
+    const { address } = shop;
     const payload: CreateShopDto = {
       userId,
       ...shop,
+      fullAddress: address.name,
+      sigungu: address.sigungu,
+      sido: address.sido,
+      x: address.x,
+      y: address.y,
     };
     return this.shopRespository.saveShop(payload);
   }

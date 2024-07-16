@@ -32,5 +32,5 @@ export class CreateFeedPayloadDto {
 
   @IsObject()
   @IsOptional()
-  ShopId?: string;
+  shopId?: string;
 }
