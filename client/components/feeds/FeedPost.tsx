@@ -3,13 +3,14 @@
 import { useRouter } from "next/navigation";
 import { FeedPostTitle } from "./FeedPostTitle";
 import { FeedPostForm } from "./FeedPostForm";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 import { feedSubmitApi } from "@apis/feeds/create.feed.api";
 import { postImageUploadApi } from "@apis/files/upload.api";
 import useModalStore, { ModalType } from "@store/modalStore";
 import { User } from "@interfaces/users/user";
 import * as styles from "./FeedPost.css";
+import useFeedStore from "@store/feedStore";
 
 const user: User = {
   nickname: "",
@@ -42,7 +43,15 @@ export const FeedPost = () => {
   });
   const [previewUrl, setPreviewUrl] = useState<string[]>([]);
   const { setIsOpen, setModalType } = useModalStore();
+  const { item, setFeedItem } = useFeedStore();
   const router = useRouter();
+
+  useEffect(() => {
+    setPostForm({
+      ...postForm,
+      item,
+    });
+  }, [item]);
 
   const handleSubmitFeedPost: FormEventHandler<HTMLFormElement> = async (e) => {
     try {
@@ -93,17 +102,17 @@ export const FeedPost = () => {
   };
 
   const onClickRemoveLocation = () => {
-    // setFeedItem({
-    //   title: "",
-    //   category: "",
-    //   address: {
-    //     name: "",
-    //     sigungu: "",
-    //     sido: "",
-    //     x: "",
-    //     y: "",
-    //   },
-    // });
+    setFeedItem({
+      title: "",
+      category: "",
+      address: {
+        name: "",
+        sigungu: "",
+        sido: "",
+        x: "",
+        y: "",
+      },
+    });
   };
 
   const fileUpload = async (postId: string) => {
