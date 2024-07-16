@@ -78,7 +78,7 @@ export class FeedService {
 
   // 피드 상세 조회
   async findOneFeedByFeedId(feedId: string): Promise<FeedDocument> {
-    const _id: ObjectId = await stringToObjectId(feedId);
+    const _id: ObjectId = stringToObjectId(feedId);
     const feed = await this.feedRepository.findOneFeedDetail(_id);
     if (!feed)
       throw new NotFoundException('게시물이 존재하지 않습니다.');
@@ -99,7 +99,7 @@ export class FeedService {
     if (!findUser)
       throw new NotFoundException('로그인 정보가 유효하지 않습니다.');
 
-    const userId = await objectIdToString(findUser._id);
+    const userId = objectIdToString(findUser._id);
 
     if (isNaN(page)) page = 1;
     const $limit = 20;
