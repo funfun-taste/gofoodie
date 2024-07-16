@@ -60,7 +60,6 @@ export const FeedPost = () => {
       const body: FeedPostBody = {
         ...postForm,
       };
-      console.log(body);
       const { data } = await feedSubmitApi(body);
       if (data.result) {
         if (postForm.files.length > 0) {
@@ -74,6 +73,7 @@ export const FeedPost = () => {
         //   queryKeys.maps.marker,
         // ]);
         router.push("/");
+        onClickRemoveLocation();
       }
     } catch (e) {
       console.log(e);

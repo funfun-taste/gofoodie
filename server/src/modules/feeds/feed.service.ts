@@ -37,7 +37,6 @@ export class FeedService {
         content: body.content,
         userId: userId,
       };
-      console.log(body, this.addressItemCheck(body.item));
       if (this.addressItemCheck(body.item)) {
         const { item } = body;
         const { address } = item;

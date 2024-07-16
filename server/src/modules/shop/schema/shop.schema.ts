@@ -1,6 +1,7 @@
 import { COLLECTIONS, ConnectionNames } from '@database/database.config';
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 @Schema({ collection: COLLECTIONS.SHOP, versionKey: false })
 export class Shop {
@@ -46,7 +47,7 @@ export class Shop {
   @Prop({ type: Boolean, dafault: false })
   isDeleted: boolean;
 
-  @Prop({ type: String })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: COLLECTIONS.USERS })
   userId: string;
 }
 
