@@ -6,6 +6,6 @@ export class AppController {
 
   @Get('/health-check')
   getHello(): string {
-    return 'say hello'
+    return 'say hello';
   }
 }

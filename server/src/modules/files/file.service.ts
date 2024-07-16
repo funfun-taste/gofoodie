@@ -1,13 +1,17 @@
 import { UserService } from '@modules/users/user.service';
-import {BadRequestException, Injectable, UnauthorizedException} from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
 import fs from 'fs';
-import {FeedService} from "@modules/feeds/feed.service";
-import {UserDocument} from "@modules/users/schema/user.schema";
-import {FileObjectDto} from "@modules/files/dto/file.object.dto";
-import {FileToS3} from "@modules/files/enums/file.enum";
+import { FeedService } from '@modules/feeds/feed.service';
+import { UserDocument } from '@modules/users/schema/user.schema';
+import { FileObjectDto } from '@modules/files/dto/file.object.dto';
+import { FileToS3 } from '@modules/files/enums/file.enum';
 
 @Injectable()
 export class FileService {
@@ -50,7 +54,9 @@ export class FileService {
   ) {
     if (files.length === 0)
       throw new BadRequestException('파일이 존재하지 않습니다.');
-    const findUser: UserDocument = await this.userService.findOneByCreatorId(user.id);
+    const findUser: UserDocument = await this.userService.findOneByCreatorId(
+      user.id,
+    );
 
     if (!findUser)
       throw new UnauthorizedException(
@@ -58,7 +64,7 @@ export class FileService {
       );
 
     const fileObjs = await this.fileUploadToS3(files);
-    let path = '';
+    const path = '';
     // for (const file of fileObjs) {
     //   const createData = {
     //     ...file,

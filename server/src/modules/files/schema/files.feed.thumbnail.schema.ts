@@ -1,8 +1,8 @@
-import {MongooseModule, Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import {COLLECTIONS, ConnectionNames} from "@database/database.config";
-import {HydratedDocument} from "mongoose";
+import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { COLLECTIONS, ConnectionNames } from '@database/database.config';
+import { HydratedDocument } from 'mongoose';
 
-@Schema({collection: COLLECTIONS.FILES_FEED_THUMBNAIL, versionKey: false})
+@Schema({ collection: COLLECTIONS.FILES_FEED_THUMBNAIL, versionKey: false })
 export class FilesFeedThumbnail {
   @Prop({ type: String })
   originName: string;
@@ -32,10 +32,12 @@ export class FilesFeedThumbnail {
   feedId: string;
 }
 
-export const FilesFeedThumbnailSchema = SchemaFactory.createForClass(FilesFeedThumbnail);
+export const FilesFeedThumbnailSchema =
+  SchemaFactory.createForClass(FilesFeedThumbnail);
 
 export type FilesFeedThumbnailDocument = HydratedDocument<FilesFeedThumbnail>;
 
-export const FilesFeedThumbnailFeature = MongooseModule.forFeature([
-  { name: FilesFeedThumbnail.name, schema: FilesFeedThumbnailSchema}
-], ConnectionNames.GO_FOODIE)
+export const FilesFeedThumbnailFeature = MongooseModule.forFeature(
+  [{ name: FilesFeedThumbnail.name, schema: FilesFeedThumbnailSchema }],
+  ConnectionNames.GO_FOODIE,
+);

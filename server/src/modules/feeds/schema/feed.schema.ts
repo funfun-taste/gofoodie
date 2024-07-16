@@ -1,7 +1,7 @@
 import { COLLECTIONS, ConnectionNames } from '@database/database.config';
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 @Schema({ collection: COLLECTIONS.FEEDS, versionKey: false })
 export class Feed {
@@ -23,7 +23,10 @@ export class Feed {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: COLLECTIONS.SHOP })
   shopId: string;
 
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: COLLECTIONS.FILES_FEED_THUMBNAIL })
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: COLLECTIONS.FILES_FEED_THUMBNAIL,
+  })
   feedFileIds: string[];
 }
 

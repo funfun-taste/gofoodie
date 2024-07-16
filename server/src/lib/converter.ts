@@ -1,5 +1,5 @@
-import {ObjectId} from "mongodb";
-import {BadRequestException} from "@nestjs/common";
+import { ObjectId } from 'mongodb';
+import { BadRequestException } from '@nestjs/common';
 
 /**
  * @description string id를 ObjectId로 변환
@@ -13,9 +13,9 @@ export const stringToObjectId = (id: string): ObjectId => {
   try {
     return new ObjectId(id);
   } catch (e) {
-    throw new BadRequestException('id 형식을 확인해 주세요.')
+    throw new BadRequestException('id 형식을 확인해 주세요.');
   }
-}
+};
 
 /**
  * @description ObjectId를 string으로 변환
@@ -29,6 +29,6 @@ export const objectIdToString = (_id: ObjectId): string => {
   try {
     return _id.toHexString();
   } catch (e) {
-    throw new BadRequestException('id 형식을 확인해 주세요.')
+    throw new BadRequestException('id 형식을 확인해 주세요.');
   }
-}
+};

@@ -1,15 +1,19 @@
-import {Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
-import {FeedRepository} from './feed.repository';
-import {CreateFeedDto, CreateFeedPayloadDto} from './dto/create.feed.dto';
-import {UserPayloadDto} from '@modules/users/dto/user.payload.dto';
-import {FilterDto} from './dto/filter.dto';
-import {UserService} from '@modules/users/user.service';
-import {ShopService} from '@modules/shop/shop.service';
-import {ShopDocument} from '@modules/shop/schema/shop.schema';
-import {ShopDto} from '@modules/shop/dto/create.shop.dto';
-import {ObjectId} from 'mongodb';
-import {FeedDocument} from "@modules/feeds/schema/feed.schema";
-import {objectIdToString, stringToObjectId} from "@lib/converter";
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { FeedRepository } from './feed.repository';
+import { CreateFeedDto, CreateFeedPayloadDto } from './dto/create.feed.dto';
+import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
+import { FilterDto } from './dto/filter.dto';
+import { UserService } from '@modules/users/user.service';
+import { ShopService } from '@modules/shop/shop.service';
+import { ShopDocument } from '@modules/shop/schema/shop.schema';
+import { ShopDto } from '@modules/shop/dto/create.shop.dto';
+import { ObjectId } from 'mongodb';
+import { FeedDocument } from '@modules/feeds/schema/feed.schema';
+import { objectIdToString, stringToObjectId } from '@lib/converter';
 
 @Injectable()
 export class FeedService {
@@ -80,17 +84,15 @@ export class FeedService {
   async findOneFeedByFeedId(feedId: string): Promise<FeedDocument> {
     const _id: ObjectId = stringToObjectId(feedId);
     const feed = await this.feedRepository.findOneFeedDetail(_id);
-    if (!feed)
-      throw new NotFoundException('게시물이 존재하지 않습니다.');
+    if (!feed) throw new NotFoundException('게시물이 존재하지 않습니다.');
     return feed;
   }
-
 
   // 최근 피드 조회
   async findRecentlyFeed(creatorId: string) {
     const findUser = await this.userService.findOneByCreatorId(creatorId);
     if (!findUser)
-      throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.')
+      throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.');
     return this.feedRepository.findRecentlyFeed(findUser._id);
   }
 

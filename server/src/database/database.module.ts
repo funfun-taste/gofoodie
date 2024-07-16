@@ -1,7 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import {ConnectionNames, DbNames} from "@database/database.config";
+import { ConnectionNames, DbNames } from '@database/database.config';
 
 const mongooseModule = (connectionName: ConnectionNames, dbName: DbNames) => {
   return MongooseModule.forRootAsync({
@@ -16,8 +16,6 @@ const mongooseModule = (connectionName: ConnectionNames, dbName: DbNames) => {
 };
 
 @Module({
-  imports: [
-    mongooseModule(ConnectionNames.GO_FOODIE, DbNames.GO_FOODIE),
-  ],
+  imports: [mongooseModule(ConnectionNames.GO_FOODIE, DbNames.GO_FOODIE)],
 })
 export class DatabaseModule {}

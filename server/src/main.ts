@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {ValidationPipe, VersioningType} from "@nestjs/common";
-import {ResponseInterceptor} from "./common/interceptors/response.interceptor";
-import {TimeoutInterceptor} from "./common/interceptors/time-out.interceptor";
+import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { TimeoutInterceptor } from './common/interceptors/time-out.interceptor';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 
