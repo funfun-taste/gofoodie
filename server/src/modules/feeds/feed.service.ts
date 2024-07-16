@@ -1,12 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { FeedRepository } from './feed.repository';
-import { CreateFeedDto, CreateFeedPayloadDto } from './dto/create.feed.dto';
-import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
-import { FilterDto } from './dto/filter';
-import { UserService } from '@modules/users/user.service';
-import { ShopService } from '@modules/shop/shop.service';
-import { ShopDocument } from '@modules/shop/schema/shop.schema';
-import { ShopDto } from '@modules/shop/dto/create.shop.dto';
+import {Injectable, NotFoundException} from '@nestjs/common';
+import {FeedRepository} from './feed.repository';
+import {CreateFeedDto, CreateFeedPayloadDto} from './dto/create.feed.dto';
+import {UserPayloadDto} from '@modules/users/dto/user.payload.dto';
+import {FilterDto} from './dto/filter.dto';
+import {UserService} from '@modules/users/user.service';
+import {ShopService} from '@modules/shop/shop.service';
+import {ShopDocument} from '@modules/shop/schema/shop.schema';
+import {ShopDto} from '@modules/shop/dto/create.shop.dto';
+import {ObjectId} from 'mongodb';
+import {FeedDocument} from "@modules/feeds/schema/feed.schema";
+import {objectIdToString, stringToObjectId} from "@lib/converter";
 
 @Injectable()
 export class FeedService {
@@ -64,13 +67,43 @@ export class FeedService {
   }
 
   // 피드 리스트 조회
-  async findFeedLists(filters: FilterDto) {}
+  async findFeedLists(filters: FilterDto) {
+    const { region, page: filterPage } = filters;
+    let page = +filterPage;
+    if (isNaN(page)) page = 1;
+    const $limit = 20;
+    const $skip = $limit * (page - 1);
+    return this.feedRepository.findFeedLists(region, $skip, $limit);
+  }
 
   // 피드 상세 조회
-  async findOneFeedByFeedId(feedId: string) {}
+  async findOneFeedByFeedId(feedId: string): Promise<FeedDocument> {
+    const _id: ObjectId = await stringToObjectId(feedId);
+    const feed = await this.feedRepository.findOneFeedDetail(_id);
+    if (!feed)
+      throw new NotFoundException('게시물이 존재하지 않습니다.');
+    return feed;
+  }
+
 
   // 최근 피드 조회
-  async findRecentlyFeed(creatorId: string) {}
+  async findRecentlyFeed(creatorId: string) {
+    const findUser = await this.userService.findOneByCreatorId(creatorId);
+    if (!findUser)
+      throw new NotFoundException('로그인 정보가 유효하지 않습니다.')
+    return this.feedRepository.findRecentlyFeed(findUser._id);
+  }
 
-  async findMyFeedList(user: UserPayloadDto, page: number) {}
+  async findMyFeedList(user: UserPayloadDto, page: number) {
+    const findUser = await this.userService.findOneByCreatorId(user.id);
+    if (!findUser)
+      throw new NotFoundException('로그인 정보가 유효하지 않습니다.');
+
+    const userId = await objectIdToString(findUser._id);
+
+    if (isNaN(page)) page = 1;
+    const $limit = 20;
+    const $skip = $limit * (page - 1);
+    return this.feedRepository.findMyFeedLists(userId, $skip, $limit);
+  }
 }

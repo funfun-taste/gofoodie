@@ -12,7 +12,7 @@ import { JwtAuthGuard } from '@modules/auth/guards/jwt.guard';
 import { CreateFeedDto } from './dto/create.feed.dto';
 import { UserObject } from '@modules/users/decorators/user-info.decorator';
 import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
-import { FilterDto } from './dto/filter';
+import { FilterDto } from './dto/filter.dto';
 
 @Controller({
   path: 'feeds',
