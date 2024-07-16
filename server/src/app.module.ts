@@ -3,10 +3,12 @@ import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
 import { UserModule } from '@modules/users/user.module';
 import { DatabaseModule } from '@database/database.module';
-import { AuthModule } from '@modules/auth/auth.module';
+import {FeedModule} from "@modules/feeds/feed.module";
+import {FileModule} from "@modules/files/file.module";
+import {ShopModule} from "@modules/shop/shop.module";
 
 const envFilePath = ['.env'];
 
@@ -24,6 +26,9 @@ const envFilePath = ['.env'];
       },
     ]),
     UserModule,
+    FeedModule,
+    ShopModule,
+    FileModule
   ],
   controllers: [AppController],
   providers: [

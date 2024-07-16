@@ -1,17 +1,21 @@
 import { UserService } from '@modules/users/user.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable, UnauthorizedException} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
 import fs from 'fs';
+import {FeedService} from "@modules/feeds/feed.service";
+import {UserDocument} from "@modules/users/schema/user.schema";
+import {FileObjectDto} from "@modules/files/dto/file.object.dto";
+import {FileToS3} from "@modules/files/enums/file.enum";
 
 @Injectable()
-export class FileSerivce {
+export class FileService {
   private readonly s3Client: S3Client;
 
   constructor(
     private readonly userService: UserService,
-    // private readonly feedService: FeedService,
+    private readonly feedService: FeedService,
     private readonly configService: ConfigService,
   ) {
     this.s3Client = new S3Client({
@@ -46,17 +50,15 @@ export class FileSerivce {
   ) {
     if (files.length === 0)
       throw new BadRequestException('파일이 존재하지 않습니다.');
-    // const findUser: UserEntity = await this.userService.findOneUserByCreatorId(
-    //   user.id,
-    // );
+    const findUser: UserDocument = await this.userService.findOneByCreatorId(user.id);
 
-    // if (!findUser)
-    //   throw new UnauthorizedException(
-    //     '사용자 정보가 유효하지 않습니다. 로그인 정보를 다시 확인해 주세요.',
-    //   );
+    if (!findUser)
+      throw new UnauthorizedException(
+        '사용자 정보가 유효하지 않습니다. 로그인 정보를 다시 확인해 주세요.',
+      );
 
-    // const fileObjs = await this.fileUploadToS3(files);
-    // let path = '';
+    const fileObjs = await this.fileUploadToS3(files);
+    let path = '';
     // for (const file of fileObjs) {
     //   const createData = {
     //     ...file,
@@ -67,7 +69,7 @@ export class FileSerivce {
     //   await this.fileImageRepository.createFileData(createData);
     // }
 
-    await this.userService.profileUpdate({ profileImage: path }, user);
+    // await this.userService.profileUpdate({ profileImage: path }, user);
   }
 
   async fileUploadToS3(

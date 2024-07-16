@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import {FeedRepository} from './feed.repository';
 import {CreateFeedDto, CreateFeedPayloadDto} from './dto/create.feed.dto';
 import {UserPayloadDto} from '@modules/users/dto/user.payload.dto';
@@ -90,14 +90,14 @@ export class FeedService {
   async findRecentlyFeed(creatorId: string) {
     const findUser = await this.userService.findOneByCreatorId(creatorId);
     if (!findUser)
-      throw new NotFoundException('로그인 정보가 유효하지 않습니다.')
+      throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.')
     return this.feedRepository.findRecentlyFeed(findUser._id);
   }
 
   async findMyFeedList(user: UserPayloadDto, page: number) {
     const findUser = await this.userService.findOneByCreatorId(user.id);
     if (!findUser)
-      throw new NotFoundException('로그인 정보가 유효하지 않습니다.');
+      throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.');
 
     const userId = objectIdToString(findUser._id);
 

@@ -1,5 +1,6 @@
-import {Prop, Schema} from "@nestjs/mongoose";
-import {COLLECTIONS} from "@database/database.config";
+import {MongooseModule, Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
+import {COLLECTIONS, ConnectionNames} from "@database/database.config";
+import {HydratedDocument} from "mongoose";
 
 @Schema({collection: COLLECTIONS.FILES_FEED_THUMBNAIL, versionKey: false})
 export class FilesFeedThumbnail {
@@ -30,3 +31,11 @@ export class FilesFeedThumbnail {
   @Prop({ type: String })
   feedId: string;
 }
+
+export const FilesFeedThumbnailSchema = SchemaFactory.createForClass(FilesFeedThumbnail);
+
+export type FilesFeedThumbnailDocument = HydratedDocument<FilesFeedThumbnail>;
+
+export const FilesFeedThumbnailFeature = MongooseModule.forFeature([
+  { name: FilesFeedThumbnail.name, schema: FilesFeedThumbnailSchema}
+], ConnectionNames.GO_FOODIE)
