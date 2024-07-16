@@ -7,7 +7,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileSerivce } from './file.service';
+import { FileService } from './file.service';
 import { diskStorage } from 'multer';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
@@ -18,7 +18,7 @@ import * as fs from 'node:fs';
 export class FileController {
   private readonly filesPath: string;
 
-  constructor(private readonly fileService: FileSerivce) {
+  constructor(private readonly fileService: FileService) {
     this.filesPath = path.join(__dirname, 'uploads/');
     if (!fs.existsSync(this.filesPath)) {
       fs.mkdirSync(this.filesPath);

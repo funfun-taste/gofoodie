@@ -10,7 +10,7 @@ import {
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '@modules/auth/guards/jwt.guard';
 import { ProfileUpdateDto } from './dto/profile.update.dto';
-import { User } from './decorators/user-info.decorator';
+import { UserObject } from './decorators/user-info.decorator';
 import { JwtPayloadDto } from '@modules/auth/dto/jwt.payload.dto';
 import { SignInDto, UserDto } from './dto/sign-in.dto';
 
@@ -27,7 +27,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   async profileUpdate(
     @Body() body: ProfileUpdateDto,
-    @User() user: JwtPayloadDto,
+    @UserObject() user: JwtPayloadDto,
   ) {
     return this.userService.profileUpdate(body, user);
   }

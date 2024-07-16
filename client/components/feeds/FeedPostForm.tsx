@@ -71,31 +71,6 @@ export const FeedPostForm = (): ReactElement => {
     }
   };
 
-  const handleSubmitFeedPost: FormEventHandler<HTMLFormElement> = async (e) => {
-    try {
-      e.preventDefault();
-
-      const body: FeedPostBody = {
-        ...postForm,
-      };
-      const { data } = await feedSubmitApi(body);
-      if (data.result) {
-        if (postForm.files.length > 0) {
-          const { _id } = data.data;
-          await fileUpload(_id);
-        }
-
-        //todo 쿼리 초기화 후 마이 피드로 이동
-        //   await queryClient.invalidateQueries([
-        //   queryKeys.feeds.lists,
-        //   queryKeys.maps.marker,
-        // ]);
-        // await router.push("/");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const handleClickRemoveLocationData = () => {
     // setFeedItem({
@@ -123,8 +98,9 @@ export const FeedPostForm = (): ReactElement => {
       files: fileList,
     });
   };
+
   return (
-    <form className={styles.postLayout}>
+    <div className={styles.postLayout}>
       <div className={styles.postLayout}>
         <FlexBox
           className={styles.postBodyContainer}
@@ -209,6 +185,6 @@ export const FeedPostForm = (): ReactElement => {
           ))}
         </div>
       </div>
-    </form>
+    </div>
   );
 };

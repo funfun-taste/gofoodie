@@ -12,7 +12,7 @@ export const Header = () => {
     <header className={styles.headerLayout}>
       <ul className={styles.headerLists}>
         <li>
-          <Link href={"/"}>
+          <Link href={"/"} scroll={false}>
             <Image
               priority={true}
               className={styles.logo}
