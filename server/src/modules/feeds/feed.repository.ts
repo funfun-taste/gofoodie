@@ -107,15 +107,8 @@ export class FeedRepository {
         {
           $lookup: {
             from: COLLECTIONS.SHOP,
-            let: { shopId: { $toString: '$shopId' } },
-            pipeline: [
-              {
-                $match: {
-                  $expr: { $eq: ['$_id', { $toObjectId: '$$shopId' }] },
-                },
-              },
-              { $match: { sido: region } },
-            ],
+            localField: 'shopId',
+            foreignField: '_id',
             as: 'shop',
           },
         },
@@ -125,34 +118,16 @@ export class FeedRepository {
         {
           $lookup: {
             from: COLLECTIONS.FILES_FEED_THUMBNAIL,
-            let: { feedFileIds: '$feedFileIds' },
-            pipeline: [
-              {
-                $match: {
-                  $expr: {
-                    $in: [
-                      '$_id',
-                      {
-                        $map: {
-                          input: '$$feedFileIds',
-                          as: 'id',
-                          in: { $toObjectId: '$$id' },
-                        },
-                      },
-                    ],
-                  },
-                },
-              },
-              { $project: { path1: 1, _id: 0 } },
-            ],
+            localField: 'feedFileIds',
+            foreignField: '_id',
             as: 'filePaths',
           },
         },
         {
-          $skip: $skip,
+          $skip,
         },
         {
-          $limit: $limit,
+          $limit,
         },
       ])
       .exec();

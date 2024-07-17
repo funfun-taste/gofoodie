@@ -1,13 +1,15 @@
 import FlexBox from "@components/common/boxes/FlexBox";
 import { FeedSkeleton } from "@components/common/skeleton/FeedSkeleton";
 import { Typography } from "@components/common/typography/Typography";
+import { Fragment } from "react";
 
 interface FeedListProps {
   pending: boolean;
-  feedList: any[];
+  pages: any[];
 }
 
-export const FeedList = ({ pending, feedList }: FeedListProps) => {
+export const FeedList = ({ pending, pages }: FeedListProps) => {
+  console.log(pages);
   if (pending) {
     return (
       <div>
@@ -23,12 +25,22 @@ export const FeedList = ({ pending, feedList }: FeedListProps) => {
   }
   return (
     <div>
-      {feedList.length === 0 ? (
+      {pages.length === 0 ? (
         <div>
           <Typography>작성된 피드가 없어요.</Typography>
         </div>
       ) : (
-        <div>피드 목록</div>
+        <div>
+          {pages.map((page, index) => {
+            return (
+              <Fragment key={`feed_page_${index}`}>
+                {page.map((feed) => {
+                  return <article key={feed._id}>{feed.content}</article>;
+                })}
+              </Fragment>
+            );
+          })}
+        </div>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { RecommendUserList } from "./RecommendUserList";
 import * as styles from "./RecommendUser.css";
 
-export const ReommendUser = (): ReactElement => {
+export const ReocmmendUser = (): ReactElement => {
   const [pending, setPending] = useState(true);
   useEffect(() => {
     setPending(false);

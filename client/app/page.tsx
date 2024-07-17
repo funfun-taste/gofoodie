@@ -2,13 +2,25 @@ import { KakaoMap } from "@components/kakao/KakaoMap";
 import * as styles from "./page.css";
 import React from "react";
 import { RecentFeed } from "@components/feeds/RecentFeed";
-import { ReommendUser } from "@components/users/RecommendUser";
+import { ReocmmendUser } from "@components/users/RecommendUser";
 import { RegionFilter } from "@components/feeds/RegionFilter";
 import { FeedHome } from "@components/feeds/FeedHome";
 import { Header } from "@components/header/Header";
 import { Footer } from "@components/footer/Footer";
+import { queryClient } from "@lib/tanstack/queryClient";
+import { feedListsApi } from "@apis/feeds/fees.api";
+import { queryKeys } from "services/keys/query.key";
+
+const filter = {
+  sido: "전체",
+};
 
 export default async function Home() {
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: queryKeys.feeds.posts(filter),
+    queryFn: ({ pageParam = 1 }) => feedListsApi(filter, { pageParam }),
+  });
+
   return (
     <>
       <Header />
@@ -18,7 +30,7 @@ export default async function Home() {
         {/* 최근 작성한 여행기 */}
         <RecentFeed />
         {/* 추천 유저 */}
-        <ReommendUser />
+        <ReocmmendUser />
         {/* 지역 필터 */}
         <RegionFilter />
         {/* 피드 홈 */}
