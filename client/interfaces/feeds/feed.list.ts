@@ -40,7 +40,26 @@ export interface FeedListShop {
   };
 }
 
+interface Shop {
+  category: string;
+  createdDate: Date;
+  fullAddress: string;
+  sido: string;
+  sigungu: string;
+  title: string;
+  x: string;
+  y: string;
+}
+
+export interface FeedsList {
+  _id: string;
+  content: string;
+  createdDate: Date;
+  shop: Shop;
+}
+
 export interface FeedLists {
+  
   feedId: string;
   feedContent: string;
   feedCreatedDate: string;

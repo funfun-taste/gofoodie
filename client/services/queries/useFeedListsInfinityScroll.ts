@@ -9,7 +9,9 @@ export const useFeedListsInfinityScroll = (filter: FeedFilter) => {
     queryKey: queryKeys.feeds.posts(filter),
     queryFn: async ({ pageParam = 1 }) => {
       try {
-        return await feedListsApi(filter, { pageParam });
+        return await feedListsApi(filter, { pageParam } as {
+          pageParam: number;
+        });
       } catch (e) {
         const error = e as AxiosError;
         if (error.response && error.response.data) {
@@ -18,12 +20,13 @@ export const useFeedListsInfinityScroll = (filter: FeedFilter) => {
             message: string;
           };
           if (statusCode === 404) {
-            return undefined;
+            return [];
           }
         }
         throw e;
       }
     },
+    initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;
       return lastPage ? nextPage : undefined;
@@ -32,10 +35,6 @@ export const useFeedListsInfinityScroll = (filter: FeedFilter) => {
       pages: data.pages,
       pageParams: data.pageParams,
     }),
-    staleTime: 60 * 1000,
-    cacheTime: 5 * 60 * 1000, // 1 minute
-    keepPreviousData: true,
-    refetchOnWindowFocus: false,
-    useErrorBoundary: false,
+    staleTime: 300000,
   });
 };

@@ -1,15 +1,15 @@
 import FlexBox from "@components/common/boxes/FlexBox";
 import { FeedSkeleton } from "@components/common/skeleton/FeedSkeleton";
 import { Typography } from "@components/common/typography/Typography";
+import { FeedsList } from "@interfaces/feeds/feed.list";
 import { Fragment } from "react";
 
 interface FeedListProps {
   pending: boolean;
-  pages: any[];
+  pages: FeedsList[][] | any;
 }
 
 export const FeedList = ({ pending, pages }: FeedListProps) => {
-  console.log(pages);
   if (pending) {
     return (
       <div>
@@ -31,10 +31,10 @@ export const FeedList = ({ pending, pages }: FeedListProps) => {
         </div>
       ) : (
         <div>
-          {pages.map((page, index) => {
+          {pages.map((page: FeedsList[], index: number) => {
             return (
               <Fragment key={`feed_page_${index}`}>
-                {page.map((feed) => {
+                {page.map((feed: FeedsList) => {
                   return <article key={feed._id}>{feed.content}</article>;
                 })}
               </Fragment>
