@@ -2,19 +2,20 @@ import * as styles from "./styles/RegionFilterBar.css";
 import { Typography } from "@components/common/typography/Typography";
 import classNames from "classnames";
 import { useState } from "react";
+import {RegionList} from "@components/feeds/initialState/region";
 
 interface RegionFilterBarProps {
-  lists: any[];
+  regionList: RegionList[];
+  currentFilter: string;
   onClickHandle: (value: string) => void;
 }
 
-const DEFAULT = "전체";
-
 export const RegionFilterBar = ({
-  lists,
+                                  regionList,
+  currentFilter,
   onClickHandle,
 }: RegionFilterBarProps) => {
-  const [active, setActive] = useState(DEFAULT);
+  const [active, setActive] = useState(currentFilter);
 
   const onClickItem = (key: string, value: string) => {
     onClickHandle(value);
@@ -28,7 +29,7 @@ export const RegionFilterBar = ({
   return (
     <nav className={styles.navBarLayout}>
       <ul className={styles.navBarLists}>
-        {lists.map((list) => {
+        {regionList.map((list) => {
           return (
             <li
               className={classNames(

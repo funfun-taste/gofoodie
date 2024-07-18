@@ -6,15 +6,17 @@ import { region } from "./initialState/region";
 import * as styles from "./styles/RegionFilter.css";
 import { Typography } from "@components/common/typography/Typography";
 import { RegionFilterButton } from "./RegionFilterButton";
+import useRegionFilterStore from "@store/regionFilterStore";
 
 export const RegionFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {setFilter, filter} = useRegionFilterStore();
 
-  const currentRegion = (value: string) => {
-    console.log(value);
+  const currentRegion = (value: string): void=> {
+    setFilter(value);
   };
 
-  const handleClickFilterOpen = (isOpen: boolean) => {
+  const handleClickFilterOpen = (isOpen: boolean): void => {
     setIsOpen(isOpen);
   };
 
@@ -41,7 +43,7 @@ export const RegionFilter = () => {
         }}
         className={styles.filterLists}
       >
-        <RegionFilterBar onClickHandle={currentRegion} lists={region} />
+        <RegionFilterBar currentFilter={filter} onClickHandle={currentRegion} regionList={region} />
       </div>
     </>
   );
