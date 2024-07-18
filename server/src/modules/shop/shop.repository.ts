@@ -13,6 +13,16 @@ export class ShopRepository {
     private readonly shopModel: Model<ShopDocument>,
   ) {}
 
+  async findShopCoordinateByUserId(userId: string): Promise<ShopDocument[]> {
+    return this.shopModel.aggregate([
+      {
+        $match: {
+          userId
+        }
+      }
+    ])
+  }
+
   async saveShop(payload: CreateShopDto): Promise<ShopDocument> {
     const model = new this.shopModel(payload);
     return model.save();

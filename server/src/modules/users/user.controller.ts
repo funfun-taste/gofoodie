@@ -4,7 +4,7 @@ import {
   Get,
   Param,
   Patch,
-  Post,
+  Post, Query,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -14,7 +14,9 @@ import { UserObject } from './decorators/user-info.decorator';
 import { JwtPayloadDto } from '@modules/auth/dto/jwt.payload.dto';
 import { SignInDto, UserDto } from './dto/sign-in.dto';
 
-@Controller('users')
+@Controller({
+  path: 'users'
+})
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -30,6 +32,11 @@ export class UserController {
     @UserObject() user: JwtPayloadDto,
   ) {
     return this.userService.profileUpdate(body, user);
+  }
+
+  @Get('recommend')
+  async todayRecommendUser(@Query('creatorId') creatorId: string) {
+    return this.userService.randomRecommendUser(creatorId);
   }
 
   @Get('/profile/:id')

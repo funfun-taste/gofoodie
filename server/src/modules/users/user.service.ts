@@ -28,7 +28,10 @@ export class UserService {
     return this.userRepository.createUser(userData);
   }
 
-  //todo 타입 미정
+  async randomRecommendUser(creatorId: string) {
+    return this.userRepository.randomRecommendUser(creatorId);
+  }
+
   async userVerify(user: UserDto): Promise<SignInDto> {
     const { id, name } = user;
     let userData = null;

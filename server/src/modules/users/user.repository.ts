@@ -45,4 +45,18 @@ export class UserRepository {
     const model = new this.userModel(userData);
     return model.save();
   }
+
+  async randomRecommendUser(creatorId: string): Promise<UserDocument[]> {
+    return this.userModel.aggregate([
+      { $match: { creatorId: { $ne: creatorId } } },
+      { $sample: { size: 10 } },
+      { $project:
+          {
+          _id: 1,
+          username: 1,
+          profileImage: 1,
+          description: 1
+        }}
+    ]);
+  }
 }

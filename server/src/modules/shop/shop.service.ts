@@ -2,14 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { ShopRepository } from './shop.repository';
 import { ShopDocument } from './schema/shop.schema';
 import { CreateShopDto, ShopDto } from './dto/create.shop.dto';
+import {UserService} from "@modules/users/user.service";
 
 @Injectable()
 export class ShopService {
-  constructor(private readonly shopRespository: ShopRepository) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly shopRepository: ShopRepository) {}
+
+  async drawShopMarker(creatorId: string) {
+    const findUser = await this.userService.findOneByCreatorId(creatorId);
+    return this.shopRepository.findShopCoordinateByUserId(findUser._id);
+  }
 
   // x,y 좌표로 shop 조회
   async findOneByXy(x: string, y: string): Promise<ShopDocument> {
-    return this.shopRespository.findOneShop({ x, y });
+    return this.shopRepository.findOneShop({ x, y });
   }
 
   async createShop(userId: string, shop: ShopDto): Promise<ShopDocument> {
@@ -23,6 +31,6 @@ export class ShopService {
       x: address.x,
       y: address.y,
     };
-    return this.shopRespository.saveShop(payload);
+    return this.shopRepository.saveShop(payload);
   }
 }
