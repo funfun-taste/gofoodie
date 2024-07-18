@@ -117,6 +117,17 @@ export class FeedRepository {
         },
         {
           $lookup: {
+            from: COLLECTIONS.USERS,
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: '$user',
+        },
+        {
+          $lookup: {
             from: COLLECTIONS.FILES_FEED_THUMBNAIL,
             localField: 'feedFileIds',
             foreignField: '_id',

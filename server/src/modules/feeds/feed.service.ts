@@ -14,6 +14,7 @@ import { ShopDto } from '@modules/shop/dto/create.shop.dto';
 import { ObjectId } from 'mongodb';
 import { FeedDocument } from '@modules/feeds/schema/feed.schema';
 import { objectIdToString, stringToObjectId } from '@lib/converter';
+import { FeedListDto } from "@modules/feeds/dto/feed.list.dto";
 
 @Injectable()
 export class FeedService {
@@ -69,13 +70,42 @@ export class FeedService {
   }
 
   // 피드 리스트 조회
-  async findFeedLists(filters: FilterDto) {
+  async findFeedLists(filters: FilterDto): Promise<FeedListDto[]> {
     const { region, page: filterPage } = filters;
     let page = +filterPage;
     if (isNaN(page)) page = 1;
     const $limit = 20;
     const $skip = $limit * (page - 1);
-    return this.feedRepository.findFeedLists(region, $skip, $limit);
+    const result = await this.feedRepository.findFeedLists(region, $skip, $limit);
+
+    return result.map((feedModel) => {
+      const {_id, content, createdDate, shop, files, user} = feedModel;
+      const feedId = objectIdToString(_id);
+
+      const obj: FeedListDto = {
+        feedId,
+        content,
+        createdDate,
+        user: {
+          username: user.username,
+          profileImage: user.profileImage,
+        }
+      }
+
+      if (shop) {
+        obj.shop = {
+          title: shop.title,
+          category: shop.category,
+          fullAddress: shop.fullAddress
+        }
+      }
+
+      if (files && files.length > 0) {
+        obj.files = files.map(file => file.path1);
+      }
+
+      return obj
+    })
   }
 
   // 피드 상세 조회
