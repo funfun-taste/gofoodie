@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { FeedTitle } from "./FeedTitle";
+import { FeedTitle } from "./layouts/FeedTitle";
 import { useRouter } from "next/navigation";
 
 export const MyFeedList = (): ReactElement => {

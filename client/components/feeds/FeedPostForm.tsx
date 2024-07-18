@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import * as styles from "./FeedPostForm.css";
+import * as styles from "./styles/FeedPostForm.css";
 import FlexBox from "@components/common/boxes/FlexBox";
 import { Avatar } from "@components/common/avatar/Avatar";
 import { Textarea } from "@components/common/textarea/Textarea";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FeedPostTitle } from "./FeedPostTitle";
+import { FeedPostTitle } from "./layouts/FeedPostTitle";
 import { FeedPostForm } from "./FeedPostForm";
 import { FormEventHandler, useEffect, useState } from "react";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
@@ -9,7 +9,7 @@ import { feedSubmitApi } from "@apis/feeds/create.feed.api";
 import { postImageUploadApi } from "@apis/files/upload.api";
 import useModalStore, { ModalType } from "@store/modalStore";
 import { User } from "@interfaces/users/user";
-import * as styles from "./FeedPost.css";
+import * as styles from "./styles/FeedPost.css";
 import useFeedStore from "@store/feedStore";
 
 const user: User = {

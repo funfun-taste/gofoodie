@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { RegionFilterBar } from "./RegionFIlterBar";
 import { region } from "./initialState/region";
-import * as styles from "./RegionFilter.css";
+import * as styles from "./styles/RegionFilter.css";
 import { Typography } from "@components/common/typography/Typography";
 import { RegionFilterButton } from "./RegionFilterButton";
 

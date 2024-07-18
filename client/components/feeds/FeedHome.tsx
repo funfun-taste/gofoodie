@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { FeedList } from "./FeedList";
-import * as styles from "./FeedHome.css";
+import * as styles from "./styles/FeedHome.css";
 import { FeedFilter } from "@interfaces/feeds/feed.filter";
-import { useFeedListsInfinityScroll } from "services/queries/useFeedListsInfinityScroll";
+import { useFeedListsInfinityScroll } from "@services/queries/useFeedListsInfinityScroll";
 import { useIntersectionObserver } from "@hooks/useIntersectionObserver";
 
 export const FeedHome = () => {

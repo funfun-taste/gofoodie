@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import * as styles from "./RecentFeedCard.css";
+import * as styles from "./styles/RecentFeedCard.css";
 import FlexBox from "../common/boxes/FlexBox";
 import Image from "next/image";
 

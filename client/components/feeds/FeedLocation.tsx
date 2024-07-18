@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactElement, useState } from "react";
-import * as styles from "./FeedLocation.css";
+import * as styles from "./styles/FeedLocation.css";
 import useModalStore, { ModalType } from "@store/modalStore";
 import { IoAdd, IoClose, IoLocate, IoLocation } from "react-icons/io5";
 import { Typography } from "@components/common/typography/Typography";

@@ -3,7 +3,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { HorizontalBar } from "../navigation/HorizontalBar";
 import { RecentFeedList } from "./RecentFeedList";
-import * as styles from "./RecentFeed.css";
+import * as styles from "./styles/RecentFeed.css";
 import { Typography } from "@components/common/typography/Typography";
 
 export const RecentFeed = (): ReactElement => {

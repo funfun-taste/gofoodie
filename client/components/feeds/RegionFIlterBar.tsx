@@ -1,4 +1,4 @@
-import * as styles from "./RegionFilterBar.css";
+import * as styles from "./styles/RegionFilterBar.css";
 import { Typography } from "@components/common/typography/Typography";
 import classNames from "classnames";
 import { useState } from "react";
