@@ -13,7 +13,6 @@ export interface FeedDetailSate  {
     };
   };
 }
-export interface RecentlyFeedListsState  {}
 
 export interface FeedListUser {
   userId: string;
@@ -40,30 +39,31 @@ export interface FeedListShop {
   };
 }
 
-interface Shop {
+interface FeedUser {
+  username: string;
+  profileImage: string;
+}
+
+
+interface FeedFiles {
+  name: string;
+  path: string;
+}
+
+interface FeedShop {
   category: string;
-  createdDate: Date;
   fullAddress: string;
-  sido: string;
-  sigungu: string;
   title: string;
-  x: string;
-  y: string;
 }
 
 export interface FeedsList {
-  _id: string;
+  feedId: string;
   content: string;
   createdDate: Date;
-  shop: Shop;
+  shop?: FeedShop;
+  files?: FeedFiles[];
+  user: FeedUser;
 }
 
-export interface FeedLists {
-  
-  feedId: string;
-  feedContent: string;
-  feedCreatedDate: string;
-  user: FeedListUser;
-  shop: FeedListShop | null;
-  files: FeedThumbnail[];
-}
+export interface Feed extends FeedsList{}
+
