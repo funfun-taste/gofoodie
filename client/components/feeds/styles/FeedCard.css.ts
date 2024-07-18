@@ -1,5 +1,5 @@
-import { style } from "@vanilla-extract/css";
-import { vars } from "@styles/theme.css";
+import {style} from "@vanilla-extract/css";
+import {vars} from "@styles/theme.css";
 
 export const feedOptionList = style({
   position: "absolute",
@@ -21,6 +21,10 @@ export const feedCardLayout = style({
   height: "auto",
   padding: "1em",
 });
+
+export const feedUserBox = style({
+  width: "100%",
+})
 
 export const profileBox = style({
   width: 44,

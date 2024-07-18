@@ -14,7 +14,7 @@ import { ShopDto } from '@modules/shop/dto/create.shop.dto';
 import { ObjectId } from 'mongodb';
 import { FeedDocument } from '@modules/feeds/schema/feed.schema';
 import { objectIdToString, stringToObjectId } from '@lib/converter';
-import { FeedListDto } from "@modules/feeds/dto/feed.list.dto";
+import { FeedListDto } from '@modules/feeds/dto/feed.list.dto';
 
 @Injectable()
 export class FeedService {
@@ -56,19 +56,6 @@ export class FeedService {
     } catch (e) {}
   }
 
-  private addressItemCheck(item: ShopDto): boolean {
-    for (const key in item) {
-      if (typeof item[key] === 'object') {
-        for (const innerKey in item[key]) {
-          if (item[key][innerKey] === '') return false;
-        }
-      } else {
-        if (item[key] === '') return false;
-      }
-    }
-    return true;
-  }
-
   // 피드 리스트 조회
   async findFeedLists(filters: FilterDto): Promise<FeedListDto[]> {
     const { region, page: filterPage } = filters;
@@ -76,10 +63,13 @@ export class FeedService {
     if (isNaN(page)) page = 1;
     const $limit = 20;
     const $skip = $limit * (page - 1);
-    const result = await this.feedRepository.findFeedLists(region, $skip, $limit);
-
-    return result.map((feedModel) => {
-      const {_id, content, createdDate, shop, files, user} = feedModel;
+    const result = await this.feedRepository.findFeedLists(
+      region,
+      $skip,
+      $limit,
+    );
+    return result.map((feedModel: any) => {
+      const { _id, content, createdDate, shop, files, user } = feedModel;
       const feedId = objectIdToString(_id);
 
       const obj: FeedListDto = {
@@ -89,23 +79,23 @@ export class FeedService {
         user: {
           username: user.username,
           profileImage: user.profileImage,
-        }
-      }
+        },
+      };
 
       if (shop) {
         obj.shop = {
           title: shop.title,
           category: shop.category,
-          fullAddress: shop.fullAddress
-        }
+          fullAddress: shop.fullAddress,
+        };
       }
 
       if (files && files.length > 0) {
-        obj.files = files.map(file => file.path1);
+        obj.files = files.map((file) => file.path1);
       }
 
-      return obj
-    })
+      return obj;
+    });
   }
 
   // 피드 상세 조회
@@ -135,5 +125,18 @@ export class FeedService {
     const $limit = 20;
     const $skip = $limit * (page - 1);
     return this.feedRepository.findMyFeedLists(userId, $skip, $limit);
+  }
+
+  private addressItemCheck(item: ShopDto): boolean {
+    for (const key in item) {
+      if (typeof item[key] === 'object') {
+        for (const innerKey in item[key]) {
+          if (item[key][innerKey] === '') return false;
+        }
+      } else {
+        if (item[key] === '') return false;
+      }
+    }
+    return true;
   }
 }

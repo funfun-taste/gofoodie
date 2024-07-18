@@ -1,9 +1,9 @@
 import FlexBox from "@components/common/boxes/FlexBox";
-import { FeedSkeleton } from "@components/common/skeleton/FeedSkeleton";
-import { Typography } from "@components/common/typography/Typography";
-import { Feed, FeedsList } from "@interfaces/feeds/feed.list";
-import { Fragment, ReactElement } from "react";
-import { FeedCard } from "@components/feeds/cards/FeedCard";
+import {FeedSkeleton} from "@components/common/skeleton/FeedSkeleton";
+import {Typography} from "@components/common/typography/Typography";
+import {Feed, FeedsList} from "@interfaces/feeds/feed.list";
+import {Fragment, ReactElement} from "react";
+import {FeedCard} from "@components/feeds/cards/FeedCard";
 import * as styles from './styles/FeedList.css';
 
 interface FeedListProps {
@@ -11,13 +11,13 @@ interface FeedListProps {
   pages: FeedsList[][];
 }
 
-export const FeedList = ({ pending, pages }: FeedListProps): ReactElement => {
+export const FeedList = ({pending, pages}: FeedListProps): ReactElement => {
   if (pending) {
     return (
       <div>
         <FlexBox flexDirection={"column"}>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <FeedSkeleton key={`feed_card_skeleton_${index}`} isLoading={true} />
+          {Array.from({length: 5}).map((_, index) => (
+            <FeedSkeleton key={`feed_card_skeleton_${index}`} isLoading={true}/>
           ))}
         </FlexBox>
       </div>
@@ -27,7 +27,7 @@ export const FeedList = ({ pending, pages }: FeedListProps): ReactElement => {
   return (
     <section className={styles.feedListsLayout}>
       {pages.length === 0 ? (
-        <FlexBox  className={styles.emptyLabel} alignItems="flex-center">
+        <FlexBox className={styles.emptyLabel} alignItems="flex-center">
           <Typography
             fontWeight={500}
             fontSize={14}
@@ -36,17 +36,17 @@ export const FeedList = ({ pending, pages }: FeedListProps): ReactElement => {
         </FlexBox>
       ) : (
         <>
-          {pages.map((page: Feed[], index: number) => {
+          {pages.length > 0 && pages.map((page: Feed[], index: number) => {
             return (
-              <div className={styles.feedCardWrapper} key={`feed_page_${index}`}>
+              <Fragment key={`feed_page_${index}`}>
                 {page.map((feed: Feed) => {
                   return (
-                    <Fragment key={feed.feedId}>
-                      <FeedCard feed={feed} />
-                    </Fragment>
+                    <div key={feed.feedId} className={styles.feedCardWrapper}>
+                      <FeedCard feed={feed}/>
+                    </div>
                   );
                 })}
-              </div>
+              </Fragment>
             );
           })}
         </>

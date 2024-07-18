@@ -8,8 +8,10 @@ services:
       - "3000:3000"
     volumes:
       - "../client:/app/client"
+    env_file:
+      - ../client/.env
     environment:
-      - DEV_ENV=docker
+      - DOCKER_RUN=docker
       - NODE_ENV=development
 
   server:

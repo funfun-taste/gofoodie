@@ -1,11 +1,11 @@
 "use client";
 
-import { FeedList } from "./FeedList";
+import {FeedList} from "./FeedList";
 import * as styles from "./styles/FeedHome.css";
-import { useFeedListsInfinityScroll } from "@services/queries/useFeedListsInfinityScroll";
-import { useIntersectionObserver } from "@hooks/useIntersectionObserver";
+import {useFeedListsInfinityScroll} from "@services/queries/useFeedListsInfinityScroll";
+import {useIntersectionObserver} from "@hooks/useIntersectionObserver";
 import useRegionFilterStore from "@store/regionFilterStore";
-import { BounceSpinner, Spinner } from "@components/common/spinner";
+import {BounceSpinner, Spinner} from "@components/common/spinner";
 
 export const FeedHome = () => {
   const {filter} = useRegionFilterStore();
@@ -17,17 +17,17 @@ export const FeedHome = () => {
     hasNextPage,
   } = useFeedListsInfinityScroll(filter);
 
-  const { setTarget } = useIntersectionObserver({
+  const {setTarget} = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Spinner/>;
 
   return (
     <div className={styles.FeedHomeLayout}>
-      <FeedList pending={isLoading} pages={listQueryData?.pages || []} />
-      {isFetchingNextPage ? <BounceSpinner /> : <div ref={setTarget} />}
+      <FeedList pending={isLoading} pages={listQueryData?.pages || []}/>
+      {isFetchingNextPage ? <BounceSpinner/> : <div ref={setTarget}/>}
     </div>
   );
 };

@@ -2,9 +2,10 @@ import { ConnectionNames } from '@database/database.config';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Shop, ShopDocument } from './schema/shop.schema';
-import { Model, FilterQuery } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Projection } from '@lib/type/projection.type';
 import { CreateShopDto } from './dto/create.shop.dto';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class ShopRepository {
@@ -13,14 +14,14 @@ export class ShopRepository {
     private readonly shopModel: Model<ShopDocument>,
   ) {}
 
-  async findShopCoordinateByUserId(userId: string): Promise<ShopDocument[]> {
+  async findShopCoordinateByUserId(userId: ObjectId): Promise<ShopDocument[]> {
     return this.shopModel.aggregate([
       {
         $match: {
-          userId
-        }
-      }
-    ])
+          userId,
+        },
+      },
+    ]);
   }
 
   async saveShop(payload: CreateShopDto): Promise<ShopDocument> {
