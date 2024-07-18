@@ -1,19 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FeedList } from "./FeedList";
 import * as styles from "./styles/FeedHome.css";
-import { FeedFilter } from "@interfaces/feeds/feed.filter";
 import { useFeedListsInfinityScroll } from "@services/queries/useFeedListsInfinityScroll";
 import { useIntersectionObserver } from "@hooks/useIntersectionObserver";
+import useRegionFilterStore from "@store/regionFilterStore";
+import { BounceSpinner, Spinner } from "@components/common/spinner";
 
 export const FeedHome = () => {
-  const [pending, setPending] = useState(true);
-
-  const [filter, setFilter] = useState<FeedFilter>({
-    sido: "전체",
-  });
-
+  const {filter} = useRegionFilterStore();
   const {
     data: listQueryData,
     isLoading,
@@ -27,18 +22,12 @@ export const FeedHome = () => {
     fetchNextPage,
   });
 
-  useEffect(() => {
-    setPending(false);
-  }, []);
-
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) return <Spinner />;
 
   return (
-    <>
-      <section className={styles.FeedHomeLayout}>
-        <FeedList pending={isLoading} pages={listQueryData?.pages || []} />
-      </section>
-      {/* {isFetchingNextPage ? <p>TESt</p> : <div ref={setTarget} />} */}
-    </>
+    <div className={styles.FeedHomeLayout}>
+      <FeedList pending={isLoading} pages={listQueryData?.pages || []} />
+      {isFetchingNextPage ? <BounceSpinner /> : <div ref={setTarget} />}
+    </div>
   );
 };

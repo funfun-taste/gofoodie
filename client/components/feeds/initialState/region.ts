@@ -1,4 +1,10 @@
-export const region = [
+export interface RegionList {
+  key: string;
+  label: string;
+  value: string;
+}
+
+export const region: RegionList[] = [
   {label: '전체', key: '전체', value: '전체'},
   {
     label: "서울",
