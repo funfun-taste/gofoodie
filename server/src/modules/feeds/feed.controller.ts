@@ -31,6 +31,7 @@ export class FeedController {
 
   @Get('/lists')
   async getFeedLists(@Query() filters: FilterDto) {
+    console.log(filters);
     return this.feedService.findFeedLists(filters);
   }
 

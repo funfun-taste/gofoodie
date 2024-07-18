@@ -37,5 +37,6 @@ export const useFeedListsInfinityScroll = (filter: string) => {
       pageParams: data.pageParams,
     }),
     staleTime: 300000,
+    placeholderData: (previousData) => previousData
   });
 };

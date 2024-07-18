@@ -46,52 +46,65 @@ export class FeedRepository {
     $skip: number,
     $limit: number,
   ): Promise<FeedDocument[]> {
-    return this.feedModel
-      .aggregate([
-        {
-          $match: { isDeleted: false },
+    const pipeline: any[] = [
+      {
+        $match: { isDeleted: false },
+      },
+      {
+        $lookup: {
+          from: COLLECTIONS.SHOP,
+          localField: 'shopId',
+          foreignField: '_id',
+          as: 'shop',
         },
-        {
-          $lookup: {
-            from: COLLECTIONS.SHOP,
-            localField: 'shopId',
-            foreignField: '_id',
-            as: 'shop',
-          },
+      },
+      {
+        $unwind: '$shop',
+      },
+    ];
+
+    if (region !== '전체') {
+      pipeline.push({
+        $match: { 'shop.sido': region },
+      });
+    }
+
+    pipeline.push(
+      {
+        $lookup: {
+          from: COLLECTIONS.USERS,
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user',
         },
-        {
-          $unwind: '$shop',
+      },
+      {
+        $unwind: '$user',
+      },
+      {
+        $lookup: {
+          from: COLLECTIONS.FILES_FEED_THUMBNAIL,
+          localField: 'feedFileIds',
+          foreignField: '_id',
+          as: 'filePaths',
         },
-        {
-          $lookup: {
-            from: COLLECTIONS.USERS,
-            localField: 'userId',
-            foreignField: '_id',
-            as: 'user',
-          },
-        },
-        {
-          $unwind: '$user',
-        },
-        {
-          $lookup: {
-            from: COLLECTIONS.FILES_FEED_THUMBNAIL,
-            localField: 'feedFileIds',
-            foreignField: '_id',
-            as: 'filePaths',
-          },
-        },
-        {
-          $skip,
-        },
-        {
-          $limit,
-        },
-      ])
-      .exec();
+      },
+      {
+        $skip,
+      },
+      {
+        $limit,
+      },
+    );
+
+    return this.feedModel.aggregate(pipeline).exec();
   }
 
-  async findMyFeedLists(userId: string, $skip: number, $limit: number): Promise<FeedDocument[]> {
+  async findMyFeedLists(
+    userId: string,
+    $skip: number,
+    $limit: number,
+  ): Promise<FeedDocument[]> {
     return this.feedModel
       .aggregate([
         { $match: { userId, isDeleted: false } },
