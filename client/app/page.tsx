@@ -9,14 +9,15 @@ import { Header } from "@components/header/Header";
 import { Footer } from "@components/footer/Footer";
 import { queryClient } from "@lib/tanstack/queryClient";
 import { feedListsApi } from "@apis/feeds/fees.api";
-import { queryKeys } from "services/keys/query.key";
+import { queryKeys } from "@services/keys/query.key";
 
 const filter = {
   sido: "전체",
 };
 
-export default async function Home() {
+export default async function HomePage() {
   await queryClient.prefetchInfiniteQuery({
+    initialPageParam: 1,
     queryKey: queryKeys.feeds.posts(filter),
     queryFn: ({ pageParam = 1 }) => feedListsApi(filter, { pageParam }),
   });
