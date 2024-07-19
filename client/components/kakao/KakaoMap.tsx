@@ -8,7 +8,7 @@ import {useSession} from "next-auth/react";
 import '@styles/lib/kakao.map.label.scss';
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
-
+//todo 맵 데이터를 받아서 하는 방향으로 바꾸면 되지 않을까???
 export const KakaoMap = (): ReactElement => {
   const {data: session} = useSession();
   const mapContainer = useRef<HTMLDivElement>(null);

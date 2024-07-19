@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import {ReactElement} from "react";
 import * as styles from "./styles/RecentFeedCard.css";
 import FlexBox from "../common/boxes/FlexBox";
 import Image from "next/image";
@@ -22,13 +22,13 @@ interface RecentFeedCardProps {
 }
 
 export const RecentFeedCard = ({
-  recentFeed,
-}: RecentFeedCardProps): ReactElement => {
-  const { thumbnail, content, shop } = recentFeed;
+                                 recentFeed,
+                               }: RecentFeedCardProps): ReactElement => {
+  const {thumbnail, content, shop} = recentFeed;
 
   return (
     <article className={styles.recentFeedCardLayout}>
-      <FlexBox gap={8} justifyContent={"flex-start"}>
+      <FlexBox gap={8} justifyContent={"flex-start"} flexDirection={'column'}>
         {thumbnail && (
           <div className={styles.recentFeedThumbnailImageBox}>
             <Image

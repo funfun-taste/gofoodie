@@ -8,9 +8,10 @@ import {FeedHome} from "@components/feeds/FeedHome";
 import {Header} from "@components/header/Header";
 import {Footer} from "@components/footer/Footer";
 import {queryClient} from "@lib/tanstack/queryClient";
-import {feedListsApi} from "@apis/feeds/fees.api";
+import {feedListsApi, recentlyFeedApi} from "@apis/feeds/fees.api";
 import {queryKeys} from "@services/keys/query.key";
-
+import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
+import {cookies} from "next/headers";
 
 export default async function HomePage() {
   await queryClient.prefetchInfiniteQuery({
@@ -19,8 +20,23 @@ export default async function HomePage() {
     queryFn: ({pageParam = 1}) => feedListsApi("전체", {pageParam}),
   });
 
+  const allCookies = cookies();
+  const foodieId = allCookies.get('food-id');
+
+  if (foodieId?.value) {
+    await queryClient.prefetchQuery({
+      queryKey: queryKeys.feeds.recently(foodieId.value),
+      queryFn: () => recentlyFeedApi(foodieId.value)
+    })
+  }
+
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.feeds.recently(''),
+    queryFn: () => recentlyFeedApi('')
+  })
+
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <Header/>
       <div className={styles.homeContainerLayout}>
         {/* 카카오맵 */}
@@ -35,6 +51,6 @@ export default async function HomePage() {
         <FeedHome/>
       </div>
       <Footer/>
-    </>
+    </HydrationBoundary>
   );
 }

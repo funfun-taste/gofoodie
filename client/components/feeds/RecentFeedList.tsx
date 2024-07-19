@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import {ReactElement} from "react";
 import FlexBox from "@components/common/boxes/FlexBox";
-import { MyFeedSkeleton } from "@components/common/skeleton/MyFeedSkeleton";
+import {MyFeedSkeleton} from "@components/common/skeleton/MyFeedSkeleton";
 import Link from "next/link";
-import { RecentFeedCard } from "./RecentFeedCard";
+import {RecentFeedCard} from "./RecentFeedCard";
 
 interface RecentFeedListProps {
   recentFeedList: any[];
@@ -10,17 +10,17 @@ interface RecentFeedListProps {
 }
 
 export const RecentFeedList = ({
-  pending,
-  recentFeedList,
-}: RecentFeedListProps): ReactElement => {
+                                 pending,
+                                 recentFeedList,
+                               }: RecentFeedListProps): ReactElement => {
+ 
   if (pending)
     return (
       <div>
         <FlexBox gap={12}>
-          <MyFeedSkeleton isLoading={true} />
-          <MyFeedSkeleton isLoading={true} />
-          <MyFeedSkeleton isLoading={true} />
-          <MyFeedSkeleton isLoading={true} />
+          {Array.from({length: 5}).map((_, index) => (
+            <MyFeedSkeleton key={`feed_card_skeleton_${index}`} isLoading={true}/>
+          ))}
         </FlexBox>
       </div>
     );
@@ -35,8 +35,8 @@ export const RecentFeedList = ({
         ) : (
           <>
             {recentFeedList.map((recentFeed) => (
-              <Link href={`/feeds/${recentFeed.id}`} key={recentFeed.id}>
-                <RecentFeedCard recentFeed={recentFeed} />
+              <Link href={`/feeds/${recentFeed._id}`} key={recentFeed._id}>
+                <RecentFeedCard recentFeed={recentFeed}/>
               </Link>
             ))}
           </>

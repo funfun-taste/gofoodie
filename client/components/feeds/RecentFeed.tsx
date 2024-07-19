@@ -1,16 +1,20 @@
 "use client";
 
-import { ReactElement, useEffect, useState } from "react";
-import { HorizontalBar } from "../navigation/HorizontalBar";
-import { RecentFeedList } from "./RecentFeedList";
+import {ReactElement,} from "react";
+import {HorizontalBar} from "../navigation/HorizontalBar";
+import {RecentFeedList} from "./RecentFeedList";
 import * as styles from "./styles/RecentFeed.css";
-import { Typography } from "@components/common/typography/Typography";
+import {Typography} from "@components/common/typography/Typography";
+import {useRecentlyFeedList} from "@services/queries/useRecentlyFeedList";
+import {useAuth} from "@providers/AuthProvider";
+import useCookie from "@hooks/useCookie";
 
 export const RecentFeed = (): ReactElement => {
-  const [pending, setPending] = useState(true);
-  useEffect(() => {
-    setPending(false);
-  }, []);
+  const {getCookie} = useCookie();
+  const {userId} = useAuth();
+  const id: string = getCookie('foodie-id') || userId || '';
+
+  const {data, isLoading} = useRecentlyFeedList(id);
 
   return (
     <section className={styles.recentFeedLayout}>
@@ -18,7 +22,7 @@ export const RecentFeed = (): ReactElement => {
         <Typography variant="h2">최근 여행한 기록</Typography>
       </div>
       <HorizontalBar>
-        <RecentFeedList pending={pending} recentFeedList={[]} />
+        <RecentFeedList pending={isLoading} recentFeedList={data || []}/>
       </HorizontalBar>
     </section>
   );
