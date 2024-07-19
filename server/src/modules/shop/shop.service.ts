@@ -2,17 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { ShopRepository } from './shop.repository';
 import { ShopDocument } from './schema/shop.schema';
 import { CreateShopDto, ShopDto } from './dto/create.shop.dto';
-import {UserService} from "@modules/users/user.service";
+import { UserService } from '@modules/users/user.service';
 
 @Injectable()
 export class ShopService {
   constructor(
     private readonly userService: UserService,
-    private readonly shopRepository: ShopRepository) {}
+    private readonly shopRepository: ShopRepository,
+  ) {}
 
   async drawShopMarker(creatorId: string) {
     const findUser = await this.userService.findOneByCreatorId(creatorId);
-    return this.shopRepository.findShopCoordinateByUserId(findUser._id);
+    if (findUser)
+      return this.shopRepository.findShopCoordinateByUserId(findUser._id);
   }
 
   // x,y 좌표로 shop 조회

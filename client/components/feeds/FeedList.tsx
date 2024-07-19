@@ -8,7 +8,7 @@ import * as styles from './styles/FeedList.css';
 
 interface FeedListProps {
   pending: boolean;
-  pages: FeedsList[][];
+  pages: Array<FeedsList[]> | any;
 }
 
 export const FeedList = ({pending, pages}: FeedListProps): ReactElement => {

@@ -1,34 +1,95 @@
-"use client";
+'use client';
 
-import { ReactElement, useEffect, useRef, useState } from "react";
+import {ReactElement, useEffect, useRef, useState} from "react";
 import {Skeleton} from "@components/common/skeleton/Skeleton";
 import {useAuth} from "@providers/AuthProvider";
+import {getMarkerApi} from "@apis/shop/marker.api";
+import {useSession} from "next-auth/react";
+import '@styles/lib/kakao.map.label.scss';
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
 
 export const KakaoMap = (): ReactElement => {
+  const {data: session} = useSession();
   const mapContainer = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState(true);
-  const { userId } = useAuth();
+  const {userId} = useAuth();
 
-
-  // const { data: mapData, isLoading } = useQuery(
-  //   [queryKeys.maps.marker, userId],
-  //   () => getMarkerApi(userId),
+  // const {data: mapData, isLoading} = useQuery(
   //   {
-  //     staleTime: 3 * 60 * 1000,
-  //     cacheTime: 5 * 60 * 1000,
-  //     keepPreviousData: true,
-  //     refetchOnWindowFocus: false,
-  //     useErrorBoundary: false,
+  //     queryKey: queryKeys.map.marker(userId),
+  //     queryFn: () => getMarkerApi(userId),
+  //     placeholderData: (previousData) => previousData,
+  //     gcTime: 6 * 1000,
+  //     staleTime: 6 * 1000
   //   }
   // );
 
-  const mapData: any[] = [];
 
-  const drawMarker = async (kakao: any, map: any): Promise<void> => {
+  useEffect(() => {
+    const id = userId || session?.id || '';
+
+    if (!id) {
+      setPending(false);
+      return;
+    }
+
+    setPending(true);
+
+    getMarkerApi(id).then(res => {
+      const {data} = res;
+      if (data.result) {
+        const script = document.createElement("script");
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&autoload=false`;
+        script.type = "text/javascript";
+        script.async = true;
+        document.head.appendChild(script);
+
+        script.onload = async () => {
+          const kakao: any = (window as any).kakao;
+
+          kakao.maps.load(() => {
+            const mapElement = document.getElementById("map");
+            navigator.geolocation.getCurrentPosition(function (position) {
+              const lat = position.coords.latitude, // 위도
+                lon = position.coords.longitude; // 경도
+              const options = {
+                center: new kakao.maps.LatLng(lat, lon),
+                level: 7,
+              };
+              const map = new kakao.maps.Map(mapElement, options);
+              map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC); // 교통 정보 삭제
+              const locPosition = new kakao.maps.LatLng(lat, lon);
+
+              if (res.data.data) drawMarker(kakao, map, res.data.data);
+              map.setCenter(locPosition);
+              setPending(false); // 모든 작업이 끝난 후에만 pending을 false로 설정
+            });
+          });
+        };
+      }
+    });
+
+    setPending(false);
+
+    return () => {
+      const scripts = document.head.getElementsByTagName("script");
+      for (let i = 0; i < scripts.length; i++) {
+        const script = scripts[i];
+        if (
+          script.parentNode &&
+          script.src &&
+          script.src.includes("dapi.kakao.com")
+        ) {
+          script.parentNode.removeChild(script);
+        }
+      }
+    };
+  }, [mapContainer, userId, session]);
+
+  const drawMarker = async (kakao: any, map: any, mapData: any[]): Promise<void> => {
     const positions = mapData.map((value: any) => {
-      const { _id, x, y, title, shopId, fullAddress, sido, sigungu, category } =
+      const {_id, x, y, title, shopId, fullAddress, sido, sigungu, category} =
         value;
       return {
         feedId: _id,
@@ -70,7 +131,7 @@ export const KakaoMap = (): ReactElement => {
         title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image: markerImage, // 마커 이미지
       });
-      const { La, Ma } = marker.getPosition();
+      const {La, Ma} = marker.getPosition();
       const position = new kakao.maps.LatLng(Ma, La);
       const overlay = new kakao.maps.CustomOverlay({
         content: content,
@@ -98,58 +159,10 @@ export const KakaoMap = (): ReactElement => {
     }
   };
 
-  useEffect(() => {
-    setPending(true);
-
-    const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&autoload=false`;
-    script.type = "text/javascript";
-    script.async = true;
-    document.head.appendChild(script);
-
-    script.onload = async () => {
-      const kakao: any = (window as any).kakao;
-
-      kakao.maps.load(() => {
-        const mapElement = document.getElementById("map");
-        navigator.geolocation.getCurrentPosition(function (position) {
-          const lat = position.coords.latitude, // 위도
-            lon = position.coords.longitude; // 경도
-          const options = {
-            center: new kakao.maps.LatLng(lat, lon),
-            level: 7,
-          };
-          const map = new kakao.maps.Map(mapElement, options);
-          map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC); // 교통 정보 삭제
-          const locPosition = new kakao.maps.LatLng(lat, lon);
-
-          // if (!!mapData) drawMarker(kakao, map);
-          drawMarker(kakao, map);
-          setPending(false);
-          map.setCenter(locPosition);
-        });
-      });
-    };
-    setPending(false);
-    return () => {
-      const scripts = document.head.getElementsByTagName("script");
-      for (let i = 0; i < scripts.length; i++) {
-        const script = scripts[i];
-        if (
-          script.parentNode &&
-          script.src &&
-          script.src.includes("dapi.kakao.com")
-        ) {
-          script.parentNode.removeChild(script);
-        }
-      }
-    };
-  }, [mapContainer]);
-
   return (
     <>
       {pending ? (
-        <Skeleton height={300} isLoading={pending} />
+        <Skeleton height={300} isLoading={pending}/>
       ) : (
         <div
           id={"map"}

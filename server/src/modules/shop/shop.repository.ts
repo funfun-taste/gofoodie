@@ -15,13 +15,15 @@ export class ShopRepository {
   ) {}
 
   async findShopCoordinateByUserId(userId: ObjectId): Promise<ShopDocument[]> {
-    return this.shopModel.aggregate([
-      {
-        $match: {
-          userId,
+    return this.shopModel
+      .aggregate([
+        {
+          $match: {
+            userId,
+          },
         },
-      },
-    ]);
+      ])
+      .exec();
   }
 
   async saveShop(payload: CreateShopDto): Promise<ShopDocument> {
