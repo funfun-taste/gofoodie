@@ -23,12 +23,12 @@ export default async function HomePage() {
   const allCookies = cookies();
   const foodieId = allCookies.get('food-id');
 
-  // if (!!foodieId?.value) {
-  //   await queryClient.prefetchQuery({
-  //     queryKey: queryKeys.feeds.recently(foodieId.value),
-  //     queryFn: () => recentlyFeedApi(foodieId.value),
-  //   })
-  // }
+  if (!!foodieId?.value) {
+    await queryClient.prefetchQuery({
+      queryKey: queryKeys.feeds.recently(foodieId.value),
+      queryFn: () => recentlyFeedApi(foodieId.value),
+    })
+  }
 
   await queryClient.prefetchQuery({
     queryKey: queryKeys.feeds.recently(''),

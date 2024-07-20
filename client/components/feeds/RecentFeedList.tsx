@@ -13,7 +13,6 @@ export const RecentFeedList = ({
                                  pending,
                                  recentFeedList,
                                }: RecentFeedListProps): ReactElement => {
- 
   if (pending)
     return (
       <div>

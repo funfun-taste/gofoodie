@@ -1,4 +1,4 @@
-import {ReactElement} from "react";
+import React, {ReactElement} from "react";
 import * as styles from "./styles/RecentFeedCard.css";
 import FlexBox from "../common/boxes/FlexBox";
 import Image from "next/image";
@@ -21,9 +21,9 @@ interface RecentFeedCardProps {
   recentFeed: RecentFeed;
 }
 
-export const RecentFeedCard = ({
-                                 recentFeed,
-                               }: RecentFeedCardProps): ReactElement => {
+export const RecentFeedCard = React.memo(({
+                                            recentFeed,
+                                          }: RecentFeedCardProps): ReactElement => {
   const {thumbnail, content, shop} = recentFeed;
 
   return (
@@ -70,4 +70,6 @@ export const RecentFeedCard = ({
       </FlexBox>
     </article>
   );
-};
+})
+
+RecentFeedCard.displayName = 'RecentFeedCard';

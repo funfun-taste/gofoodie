@@ -7,11 +7,13 @@ import {RecommendUserList} from "./RecommendUserList";
 import * as styles from "./RecommendUser.css";
 import {useAuth} from "@providers/AuthProvider";
 import {useRecommendUserQuery} from "@services/queries/users/useRecommendUserQuery";
+import {useSession} from "next-auth/react";
 
 export const RecommendUser = (): ReactElement => {
   const {userId} = useAuth();
-
-  const {data, isLoading} = useRecommendUserQuery(userId);
+  const {data: session} = useSession();
+  const id = userId || session?.id || '';
+  const {data, isLoading} = useRecommendUserQuery(id);
 
   return (
     <section className={styles.recommendUserLayout}>

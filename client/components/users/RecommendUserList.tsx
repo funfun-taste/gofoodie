@@ -17,7 +17,7 @@ export const RecommendUserList = ({
       <div>
         <FlexBox gap={12}>
           {Array.from({length: 5}).map((_, index) => (
-            <AvatarCardSkeleton isLoading={true}/>
+            <AvatarCardSkeleton isLoading={true} key={`recommend_user_${index}`}/>
           ))}
         </FlexBox>
       </div>
