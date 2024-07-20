@@ -15,13 +15,12 @@ export const AvatarCardSkeleton = (props: SkeletonProps): ReactElement => {
       {isLoading ? (
         <div className={styles.skeletonContainer}>
           <FlexBox flexDirection={'column'} gap={10}>
-            <div className={classNames(styles.avatar, styles.skeletonOverlay)} />
+            <div className={classNames(styles.avatar, styles.skeletonOverlay)}/>
             <FlexBox flexDirection={'column'} gap={4}>
-              <div className={classNames(styles.description, styles.skeletonOverlay)} />
-              <div className={classNames(styles.description, styles.skeletonOverlay)} />
-              <div className={classNames(styles.description, styles.skeletonOverlay)} />
+              <div className={classNames(styles.description, styles.skeletonOverlay)}/>
+              <div className={classNames(styles.description, styles.skeletonOverlay)}/>
+              <div className={classNames(styles.description, styles.skeletonOverlay)}/>
             </FlexBox>
-
           </FlexBox>
         </div>
       ) : null}

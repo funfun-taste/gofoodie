@@ -24,7 +24,10 @@ export const feedListsApi = async (
 };
 
 export const recentlyFeedApi = async (creatorId: string) => {
+  if (!creatorId) return [];
   const url = `${FEEDS}/recently/${creatorId}`;
   const {data} = await axiosInstance.get(url);
-  return axiosResponseData(data);
+  const result = axiosResponseData(data);
+  if (!result) return [];
+  return result;
 }

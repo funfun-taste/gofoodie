@@ -1,8 +1,8 @@
 import {useQuery} from "@tanstack/react-query";
 import {queryKeys} from "@services/keys/query.key";
-import {recentlyFeedApi} from "@apis/feeds/fees.api";
+import {recentlyFeedApi} from "@apis/feeds/feeds.api";
 
-export const useRecentlyFeedList = (creatorId: string) => {
+export const useRecentlyFeedListQuery = (creatorId: string) => {
   return useQuery<any, unknown, any, string[]>({
     queryKey: queryKeys.feeds.recently(creatorId),
     queryFn: () => recentlyFeedApi(creatorId),

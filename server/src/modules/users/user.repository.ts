@@ -50,13 +50,14 @@ export class UserRepository {
     return this.userModel.aggregate([
       { $match: { creatorId: { $ne: creatorId } } },
       { $sample: { size: 10 } },
-      { $project:
-          {
+      {
+        $project: {
           _id: 1,
           username: 1,
           profileImage: 1,
-          description: 1
-        }}
+          description: 1,
+        },
+      },
     ]);
   }
 }

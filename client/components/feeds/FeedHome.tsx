@@ -2,7 +2,7 @@
 
 import {FeedList} from "./FeedList";
 import * as styles from "./styles/FeedHome.css";
-import {useFeedListsInfinityScroll} from "@services/queries/useFeedListsInfinityScroll";
+import {useFeedListsInfinityScrollQuery} from "@services/queries/feeds/useFeedListsInfinityScrollQuery";
 import {useIntersectionObserver} from "@hooks/useIntersectionObserver";
 import useRegionFilterStore from "@store/regionFilterStore";
 import {BounceSpinner, Spinner} from "@components/common/spinner";
@@ -15,7 +15,7 @@ export const FeedHome = () => {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-  } = useFeedListsInfinityScroll(filter);
+  } = useFeedListsInfinityScrollQuery(filter);
 
   const {setTarget} = useIntersectionObserver({
     hasNextPage,

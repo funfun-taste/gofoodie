@@ -5,7 +5,7 @@ import {HorizontalBar} from "../navigation/HorizontalBar";
 import {RecentFeedList} from "./RecentFeedList";
 import * as styles from "./styles/RecentFeed.css";
 import {Typography} from "@components/common/typography/Typography";
-import {useRecentlyFeedList} from "@services/queries/useRecentlyFeedList";
+import {useRecentlyFeedListQuery} from "@services/queries/feeds/useRecentlyFeedListQuery";
 import {useAuth} from "@providers/AuthProvider";
 import useCookie from "@hooks/useCookie";
 
@@ -13,8 +13,7 @@ export const RecentFeed = (): ReactElement => {
   const {getCookie} = useCookie();
   const {userId} = useAuth();
   const id: string = getCookie('foodie-id') || userId || '';
-
-  const {data, isLoading} = useRecentlyFeedList(id);
+  const {data, isLoading} = useRecentlyFeedListQuery(id);
 
   return (
     <section className={styles.recentFeedLayout}>

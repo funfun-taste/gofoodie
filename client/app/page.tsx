@@ -2,13 +2,13 @@ import {KakaoMap} from "@components/kakao/KakaoMap";
 import * as styles from "./page.css";
 import React from "react";
 import {RecentFeed} from "@components/feeds/RecentFeed";
-import {ReocmmendUser} from "@components/users/RecommendUser";
+import {RecommendUser} from "@components/users/RecommendUser";
 import {RegionFilter} from "@components/feeds/RegionFilter";
 import {FeedHome} from "@components/feeds/FeedHome";
 import {Header} from "@components/header/Header";
 import {Footer} from "@components/footer/Footer";
 import {queryClient} from "@lib/tanstack/queryClient";
-import {feedListsApi, recentlyFeedApi} from "@apis/feeds/fees.api";
+import {feedListsApi, recentlyFeedApi} from "@apis/feeds/feeds.api";
 import {queryKeys} from "@services/keys/query.key";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {cookies} from "next/headers";
@@ -23,12 +23,12 @@ export default async function HomePage() {
   const allCookies = cookies();
   const foodieId = allCookies.get('food-id');
 
-  if (foodieId?.value) {
-    await queryClient.prefetchQuery({
-      queryKey: queryKeys.feeds.recently(foodieId.value),
-      queryFn: () => recentlyFeedApi(foodieId.value)
-    })
-  }
+  // if (!!foodieId?.value) {
+  //   await queryClient.prefetchQuery({
+  //     queryKey: queryKeys.feeds.recently(foodieId.value),
+  //     queryFn: () => recentlyFeedApi(foodieId.value),
+  //   })
+  // }
 
   await queryClient.prefetchQuery({
     queryKey: queryKeys.feeds.recently(''),
@@ -44,7 +44,7 @@ export default async function HomePage() {
         {/* 최근 작성한 여행기 */}
         <RecentFeed/>
         {/* 추천 유저 */}
-        <ReocmmendUser/>
+        <RecommendUser/>
         {/* 지역 필터 */}
         <RegionFilter/>
         {/* 피드 홈 */}

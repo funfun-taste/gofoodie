@@ -1,9 +1,9 @@
-import {feedListsApi} from "@apis/feeds/fees.api";
+import {feedListsApi} from "@apis/feeds/feeds.api";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {AxiosError} from "axios";
-import {queryKeys} from "services/keys/query.key";
+import {queryKeys} from "@services/keys/query.key";
 
-export const useFeedListsInfinityScroll = (filter: string) => {
+export const useFeedListsInfinityScrollQuery = (filter: string) => {
   return useInfiniteQuery({
     queryKey: queryKeys.feeds.posts(filter),
     queryFn: async ({pageParam = 1}) => {

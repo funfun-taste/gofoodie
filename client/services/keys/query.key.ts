@@ -5,5 +5,8 @@ export const queryKeys = {
   },
   map: {
     marker: (creatorId: string) => ['map_marker_key', creatorId],
+  },
+  users: {
+    recommend: (creatorId?: string) => ['today_recommend_user', creatorId]
   }
 }

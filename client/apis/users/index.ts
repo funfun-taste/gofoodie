@@ -1,1 +1,1 @@
-export * from './validtion.api';
+export * from './validation.api';

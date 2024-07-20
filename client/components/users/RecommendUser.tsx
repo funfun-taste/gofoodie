@@ -1,24 +1,25 @@
 "use client";
 
-import { Typography } from "@components/common/typography/Typography";
-import { HorizontalBar } from "@components/navigation/HorizontalBar";
-import { ReactElement, useEffect, useState } from "react";
-import { RecommendUserList } from "./RecommendUserList";
+import {Typography} from "@components/common/typography/Typography";
+import {HorizontalBar} from "@components/navigation/HorizontalBar";
+import {ReactElement} from "react";
+import {RecommendUserList} from "./RecommendUserList";
 import * as styles from "./RecommendUser.css";
+import {useAuth} from "@providers/AuthProvider";
+import {useRecommendUserQuery} from "@services/queries/users/useRecommendUserQuery";
 
-export const ReocmmendUser = (): ReactElement => {
-  const [pending, setPending] = useState(true);
-  useEffect(() => {
-    setPending(false);
-  }, []);
+export const RecommendUser = (): ReactElement => {
+  const {userId} = useAuth();
+
+  const {data, isLoading} = useRecommendUserQuery(userId);
 
   return (
     <section className={styles.recommendUserLayout}>
-      <div className={styles.recommendUserTitlWrapper}>
+      <div className={styles.recommendUserTitleWrapper}>
         <Typography variant="h2">추천 미식가</Typography>
       </div>
       <HorizontalBar>
-        <RecommendUserList pending={pending} recommendUserList={[]} />
+        <RecommendUserList pending={isLoading} recommendUserList={data?.data || []}/>
       </HorizontalBar>
     </section>
   );

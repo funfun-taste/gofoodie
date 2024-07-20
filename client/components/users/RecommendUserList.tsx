@@ -1,25 +1,24 @@
 import FlexBox from "@components/common/boxes/FlexBox";
-import { AvatarCardSkeleton } from "@components/common/skeleton/AvatarCardSkeleton";
-import { Typography } from "@components/common/typography/Typography";
-import { ReactElement } from "react";
+import {AvatarCardSkeleton} from "@components/common/skeleton/AvatarCardSkeleton";
+import {Fragment, ReactElement} from "react";
+import {ProfileCard, ProfileUserCard} from './cards/ProfileCard';
 
 interface RecommendUserProps {
   pending: boolean;
-  recommendUserList: any[];
+  recommendUserList: ProfileUserCard[];
 }
 
 export const RecommendUserList = ({
-  pending,
-  recommendUserList,
-}: RecommendUserProps): ReactElement => {
+                                    pending,
+                                    recommendUserList,
+                                  }: RecommendUserProps): ReactElement => {
   if (pending)
     return (
       <div>
         <FlexBox gap={12}>
-          <AvatarCardSkeleton isLoading={true} />
-          <AvatarCardSkeleton isLoading={true} />
-          <AvatarCardSkeleton isLoading={true} />
-          <AvatarCardSkeleton isLoading={true} />
+          {Array.from({length: 5}).map((_, index) => (
+            <AvatarCardSkeleton isLoading={true}/>
+          ))}
         </FlexBox>
       </div>
     );
@@ -33,13 +32,10 @@ export const RecommendUserList = ({
           </div>
         ) : (
           <>
-            {recommendUserList.map((recommendUser) => (
-              <div key={recommendUser.id}>
-                <Typography>프로필 이미지</Typography>
-                <Typography>닉네임</Typography>
-
-                <button>팔로우</button>
-              </div>
+            {recommendUserList.map((user) => (
+              <Fragment key={user._id}>
+                <ProfileCard user={user}/>
+              </Fragment>
             ))}
           </>
         )}
