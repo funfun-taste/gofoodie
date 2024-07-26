@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import * as styles from "./Header.css";
-import { IoSearchOutline } from "react-icons/io5";
+import {IoSearchOutline} from "react-icons/io5";
 import Link from "next/link";
 
 const SEARCH_TO = "/search";
@@ -24,8 +24,8 @@ export const Header = () => {
           </Link>
         </li>
         <li>
-          <Link href={SEARCH_TO}>
-            <IoSearchOutline size={24} color={"#5e5e5e"} />
+          <Link href={SEARCH_TO} scroll={false}>
+            <IoSearchOutline size={24} color={"#5e5e5e"}/>
           </Link>
         </li>
       </ul>
