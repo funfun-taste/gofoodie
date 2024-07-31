@@ -23,7 +23,7 @@ export const RecentFeed = (): ReactElement => {
   return (
     <section className={styles.recentFeedLayout}>
       <div className={styles.recentFeedTitleWrapper}>
-        <Typography variant="h2">최근 여행한 기록</Typography>
+        <Typography className={styles.recentFeedTitle} variant="h2">최근 여행한 기록</Typography>
       </div>
       <HorizontalBar>
         <RecentFeedList pending={pending} recentFeedList={data || []}/>
