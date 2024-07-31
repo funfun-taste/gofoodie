@@ -10,21 +10,6 @@ export type Variant =
   | "p"
   | "caption";
 export type FontWeightType = 100 | 300 | 400 | 500 | 600 | 700;
-export type FontSizeType =
-  | 12
-  | 13
-  | 14
-  | 15
-  | 16
-  | 17
-  | 18
-  | 20
-  | 22
-  | 24
-  | 26
-  | 28
-  | 30
-  | 32;
 export type FontColorType =
   | "black000"
   | "black100"
@@ -36,23 +21,13 @@ export type FontColorType =
   | "primary"
 
 export type LetterSpacing = "-2" | "-1.5" | "-1" | "-0.5" | "1";
-export type LineHeight =
-  | 18
-  | 20
-  | 22
-  | 24
-  | 26
-  | 28
-  | 30
-  | 32
-  | 34;
 
 export interface TypographyProps extends ComponentProps<"p"> {
   variant?: Variant;
   fontWeight?: FontWeightType;
-  fontSize?: FontSizeType;
+  fontSize?: number;
   color?: FontColorType;
   letterSpacing?: LetterSpacing;
-  lineHeight?: LineHeight;
+  lineHeight?: number;
   as?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 }

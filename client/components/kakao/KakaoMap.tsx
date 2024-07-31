@@ -47,6 +47,11 @@ export const KakaoMap = (): ReactElement => {
 
         script.onload = async () => {
           const kakao: any = (window as any).kakao;
+          if (!kakao) {
+            console.error("Kakao Maps API가 로드되지 않았습니다.");
+            setPending(false);
+            return;
+          }
 
           kakao.maps.load(() => {
             const mapElement = document.getElementById("map");
@@ -63,7 +68,7 @@ export const KakaoMap = (): ReactElement => {
 
               if (res.data.data) drawMarker(kakao, map, res.data.data);
               map.setCenter(locPosition);
-              setPending(false); // 모든 작업이 끝난 후에만 pending을 false로 설정
+              setPending(false);
             });
           });
         };

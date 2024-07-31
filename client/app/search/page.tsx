@@ -1,9 +1,6 @@
-export default function SearchPage() {
-  return (
-    <div>
-      <div>
-        검색 페이지
-      </div>
-    </div>
-  )
+import {ReactElement} from "react";
+import {SearchForm} from "@components/search/SearchForm";
+
+export default function SearchPage(): ReactElement {
+  return <SearchForm/>
 }
