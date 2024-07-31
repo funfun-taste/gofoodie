@@ -18,7 +18,7 @@ export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
   const {feedId, content, createdDate, user, shop, files} = feed;
   return (
     <article className={styles.feedCardLayout}>
-      <FlexBox gap={10} flexDirection={"row"} justifyContent={"flex-start"}>
+      <FlexBox gap={10} flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
         <Link href={`/feeds/${feedId}`} className={styles.feedUserBox}>
           <FlexBox
             flexDirection={"row"}
@@ -37,7 +37,7 @@ export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
             </Typography>
           </FlexBox>
         </Link>
-        <FlexBox gap={10} flexDirection={"row"} justifyContent={"flex-end"}>
+        <FlexBox gap={10} flexDirection={"row"} justifyContent={"flex-end"} alignItems={"center"}>
           <Typography as={"span"} color={"gray400"} fontSize={12}>
             {formatDate(new Date(createdDate))}
           </Typography>
@@ -53,7 +53,7 @@ export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
 
       {files && files.length > 0 && <CarouselSwipe items={files}/>}
 
-      {shop && Object.entries(shop) && (
+      {shop && Object.entries(shop).length > 0 && (
         <div className={styles.storeInfoBox}>
           <Typography fontSize={14} fontWeight={500}>
             {shop?.title}
@@ -69,11 +69,11 @@ export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
         justifyContent={"flex-start"}
         gap={10}
         className={styles.storeOptions}>
-        <FaRegHeart color={"#888888"}/>
+        <FaRegHeart color={"#FF7101"}/>
         <Typography fontSize={14} fontWeight={300} color={"gray400"}>
           0
         </Typography>
-        <FaComment color={"#888888"}/>
+        <FaComment color={"#FF7101"}/>
         <Typography fontSize={14} fontWeight={300} color={"gray400"}>
           0
         </Typography>

@@ -49,17 +49,16 @@ export const RecentFeedCard = React.memo(({
             alignItems={"flex-start"}
             gap={10}
           >
-            <p>{shop.title}</p>
+            <p className={styles.shopTitle}>{shop.title}</p>
             <FlexBox
               flexDirection={"row"}
               alignItems={"flex-start"}
               justifyContent={"flex-start"}
               gap={4}
+              className={styles.shopDetails}
             >
-              <p>{shop.category}</p>
-              <p>
-                {shop.sido} / {shop.sigungu}
-              </p>
+              <p className={styles.shopCategory}>{shop.category}</p>
+              <p>{shop.sido} / {shop.sigungu}</p>
             </FlexBox>
           </FlexBox>
         )}

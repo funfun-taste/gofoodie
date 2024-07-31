@@ -3,6 +3,7 @@ import FlexBox from "@components/common/boxes/FlexBox";
 import {MyFeedSkeleton} from "@components/common/skeleton/MyFeedSkeleton";
 import Link from "next/link";
 import {RecentFeedCard} from "./RecentFeedCard";
+import * as styles from './styles/RecentFeed.css';
 
 interface RecentFeedListProps {
   recentFeedList: any[];
@@ -15,7 +16,7 @@ export const RecentFeedList = ({
                                }: RecentFeedListProps): ReactElement => {
   if (pending)
     return (
-      <div>
+      <div className={styles.recentFeedListLayout}>
         <FlexBox gap={12}>
           {Array.from({length: 5}).map((_, index) => (
             <MyFeedSkeleton key={`feed_card_skeleton_${index}`} isLoading={true}/>
@@ -25,7 +26,7 @@ export const RecentFeedList = ({
     );
 
   return (
-    <div>
+    <div className={styles.recentFeedListLayout}>
       <FlexBox gap={12}>
         {recentFeedList.length === 0 ? (
           <div>
