@@ -8,11 +8,6 @@ export const recentFeedCardLayout = style({
   border: "1px solid #F4F4F4",
   padding: 20,
   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-  transition: "transform 0.3s, box-shadow 0.3s",
-  ":hover": {
-    transform: "translateY(-5px)",
-    boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
-  },
 });
 
 export const recentFeedThumbnailImageBox = style({

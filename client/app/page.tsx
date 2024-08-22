@@ -1,6 +1,6 @@
 import * as styles from "./page.css";
 import React from "react";
-import {RecentFeed} from "@components/feeds/RecentFeed";
+import {RecentFeed} from "@components/feeds/cards/RecentFeed";
 import {RecommendUser} from "@components/users/RecommendUser";
 import {RegionFilter} from "@components/feeds/RegionFilter";
 import {FeedHome} from "@components/feeds/FeedHome";

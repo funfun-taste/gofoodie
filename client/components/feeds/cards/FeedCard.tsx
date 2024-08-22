@@ -2,7 +2,7 @@
 
 import {ReactElement, useState} from "react";
 import {Feed} from "@interfaces/feeds/feed.list";
-import * as styles from '../styles/FeedCard.css';
+import * as styles from './styles/FeedCard.css';
 import FlexBox from "@components/common/boxes/FlexBox";
 import Link from "next/link";
 import {Avatar} from "@components/common/avatar/Avatar";
