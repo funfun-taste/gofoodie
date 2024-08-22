@@ -1,6 +1,7 @@
 export const queryKeys = {
   feeds: {
     posts: (filter: string) => ['feed_posts_key', filter],
+    myPosts: () => ['my_feed_posts_key'],
     recently: (creatorId: string) => ['recently_feed_list_key', creatorId],
   },
   map: {

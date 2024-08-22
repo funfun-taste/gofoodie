@@ -19,6 +19,7 @@ export const title = style({
   position: "absolute",
   left: "50%",
   transform: "translateX(-50%)",
+  fontWeight: 600
 });
 
 export const childrenContainer = style({

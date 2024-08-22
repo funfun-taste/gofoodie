@@ -16,9 +16,8 @@ export const KeywordLists = (props: KeywordListsProps) => {
   return (
     <section className={styles.KeywordListLayout}>
       <FlexBox justifyContent={'flex-end'} alignItems={'flex-end'} gap={6}>
-        <Typography>전체 삭제</Typography>
         <button type={'button'} onClick={onDeleteAll}>
-          <BsFillTrashFill color={'#4d4d4d'} size={14}/>
+          <Typography as={'span'} fontSize={12} color={"gray350"} fontWeight={300}>전체 삭제</Typography>
         </button>
       </FlexBox>
 
@@ -26,7 +25,7 @@ export const KeywordLists = (props: KeywordListsProps) => {
         {keywords.length > 0 && keywords.map((keyword, index) => {
           return (
             <li key={`search_keyword_${keyword.text}_${index}`} className={styles.Keyword}>
-              <Typography fontSize={14}>
+              <Typography fontSize={13} color={"black100"}>
                 {keyword.text}
               </Typography>
               <button type={'button'} onClick={() => onDeleteKeyword(keyword.id)}>

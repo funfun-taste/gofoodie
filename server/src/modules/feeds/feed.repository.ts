@@ -101,7 +101,7 @@ export class FeedRepository {
   }
 
   async findMyFeedLists(
-    userId: string,
+    userId: ObjectId,
     $skip: number,
     $limit: number,
   ): Promise<FeedDocument[]> {

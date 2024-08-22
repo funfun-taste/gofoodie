@@ -34,6 +34,15 @@ export class FeedController {
     return this.feedService.findFeedLists(filters);
   }
 
+  @Get("/my/lists")
+  @UseGuards(JwtAuthGuard)
+  async getMyFeedLists(
+    @UserObject() user: UserPayloadDto,
+    @Query('page') page: number) {
+    const {id} = user;
+    return this.feedService.getMyFeedLists(id, page);
+  }
+
   @Get('/recently/:creatorId')
   async findRecentlyFeed(@Param('creatorId') creatorId: string) {
     return this.feedService.findRecentlyFeed(creatorId);

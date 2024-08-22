@@ -5,7 +5,7 @@ import {Skeleton} from "@components/common/skeleton/Skeleton";
 
 const KakaoMap = React.lazy(() =>
   new Promise(resolve => {
-    setTimeout(() => resolve(import('./KakaoMap')), 2000); // 2초 지연
+    setTimeout(() => resolve(import('./KakaoMap')), 2000);
   })
 );
 

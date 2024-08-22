@@ -21,6 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Serif+KR:wght@300&display=swap"
+              rel="stylesheet" />
+          <link
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+            rel="stylesheet"
+          />
+      </head>
       <body>
         <AuthContext>
           <TanstackQueryProviders>

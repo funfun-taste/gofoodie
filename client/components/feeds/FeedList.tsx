@@ -25,14 +25,14 @@ export const FeedList = ({pending, pages}: FeedListProps): ReactElement => {
   }
 
   return (
-    <section className={styles.feedListsLayout}>
+    <div className={styles.feedListsLayout}>
       {pages.length === 0 ? (
         <FlexBox className={styles.emptyLabel} alignItems="flex-center">
           <Typography
             fontWeight={500}
             fontSize={14}
             color="gray500"
-            variant="h2">작성된 피드가 없어요.</Typography>
+            variant="h2">작성된 피드가 없어요. 😕</Typography>
         </FlexBox>
       ) : (
         <>
@@ -41,9 +41,9 @@ export const FeedList = ({pending, pages}: FeedListProps): ReactElement => {
               <Fragment key={`feed_page_${index}`}>
                 {page.map((feed: Feed) => {
                   return (
-                    <div key={feed.feedId} className={styles.feedCardWrapper}>
+                    <article key={feed.feedId} className={styles.feedCardWrapper}>
                       <FeedCard feed={feed}/>
-                    </div>
+                    </article>
                   );
                 })}
               </Fragment>
@@ -51,6 +51,6 @@ export const FeedList = ({pending, pages}: FeedListProps): ReactElement => {
           })}
         </>
       )}
-    </section>
+    </div>
   );
 };

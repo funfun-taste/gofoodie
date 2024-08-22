@@ -8,9 +8,12 @@ export const vars = createGlobalTheme(':root', {
     black500: '#555555',
     white000: '#ffffff',
     gray000: '#ededed',
+    gray200: '#d2d2d2',
     gray300: '#c0c0c0',
+    gray350: "#a5a5a5",
     gray400: '#9e9e9e',
     gray500: '#656565',
+
     backgroundColor: '#f5f5f5',
   }
 })

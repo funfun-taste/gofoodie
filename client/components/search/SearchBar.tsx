@@ -9,7 +9,6 @@ interface SearchBarProps {
   keyword?: string;
 }
 
-
 export const SearchBar = (props: SearchBarProps) => {
   const {onAddKeyword, keyword} = props;
   const [searchValue, setSearchValue] = useState(keyword || "");

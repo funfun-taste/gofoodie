@@ -13,6 +13,7 @@ import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {MapRenderer} from "@components/kakao/MapRenderer";
 
 export default async function HomePage() {
+
   await queryClient.prefetchInfiniteQuery({
     initialPageParam: 1,
     queryKey: queryKeys.feeds.posts("전체"),

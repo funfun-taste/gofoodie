@@ -98,6 +98,18 @@ export class FeedService {
     });
   }
 
+  async getMyFeedLists(creatorId: string, page: number) {
+    if (isNaN(page)) page = 1;
+    const $limit = 20;
+    const $skip = $limit * (page - 1);
+
+    const findUser = await this.userService.findOneByCreatorId(creatorId);
+    if (!findUser)
+      throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.');
+
+    return this.feedRepository.findMyFeedLists(findUser._id, $skip, $limit);
+  }
+
   // 피드 상세 조회
   async findOneFeedByFeedId(feedId: string): Promise<FeedDocument> {
     const _id: ObjectId = stringToObjectId(feedId);
@@ -114,17 +126,15 @@ export class FeedService {
     return this.feedRepository.findRecentlyFeed(findUser._id);
   }
 
-  async findMyFeedList(user: UserPayloadDto, page: number) {
+  async findMyFeedList(user: UserPayloadDto, page: number): Promise<FeedDocument[]> {
     const findUser = await this.userService.findOneByCreatorId(user.id);
     if (!findUser)
       throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.');
 
-    const userId = objectIdToString(findUser._id);
-
     if (isNaN(page)) page = 1;
     const $limit = 20;
     const $skip = $limit * (page - 1);
-    return this.feedRepository.findMyFeedLists(userId, $skip, $limit);
+    return this.feedRepository.findMyFeedLists(findUser._id, $skip, $limit);
   }
 
   private addressItemCheck(item: ShopDto): boolean {

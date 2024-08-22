@@ -27,7 +27,7 @@ export const FeedHome = () => {
   return (
     <div className={styles.FeedHomeLayout}>
       <FeedList pending={isLoading} pages={listQueryData?.pages || []}/>
-      {isFetchingNextPage ? <BounceSpinner/> : <div ref={setTarget}/>}
+      {isFetchingNextPage ? <BounceSpinner/> : <div ref={setTarget} />}
     </div>
   );
 };

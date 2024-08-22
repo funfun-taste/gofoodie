@@ -17,7 +17,7 @@ interface FeedCardProps {
 export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
   const {feedId, content, createdDate, user, shop, files} = feed;
   return (
-    <article className={styles.feedCardLayout}>
+    <div className={styles.feedCardLayout}>
       <FlexBox gap={10} flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
         <Link href={`/feeds/${feedId}`} className={styles.feedUserBox}>
           <FlexBox
@@ -78,6 +78,6 @@ export const FeedCard = ({feed}: FeedCardProps): ReactElement => {
           0
         </Typography>
       </FlexBox>
-    </article>
+    </div>
   )
 }
