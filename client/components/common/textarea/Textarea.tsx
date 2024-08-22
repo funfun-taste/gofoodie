@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, ReactElement, useRef, useState } from "react";
-import * as styles from './Textarea.css'
+import * as styles from './styles/Textarea.css'
 
 interface TextareaProps {
   onChangeTextarea: (value: string) => void;

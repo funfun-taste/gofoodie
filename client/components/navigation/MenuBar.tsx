@@ -1,7 +1,7 @@
 "use client";
 
 import {ReactElement, useEffect, useState} from "react";
-import * as styles from "./MenuBar.css";
+import * as styles from "./styles/MenuBar.css";
 import {RiHome5Line, RiMessage3Line, RiPencilFill, RiUserLine,} from "react-icons/ri";
 import {usePathname, useRouter} from "next/navigation";
 import {CiViewList} from "react-icons/ci";

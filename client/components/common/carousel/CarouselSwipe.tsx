@@ -2,7 +2,7 @@ import {Swiper, SwiperClass, SwiperSlide} from "swiper/react" // basic
 import "swiper/scss"
 import "swiper/scss/navigation"
 import "swiper/scss/pagination"
-import * as styles from './Carousel.css';
+import * as styles from './styles/Carousel.css';
 import Image from "next/image";
 import {useState} from "react";
 import {SwiperProps} from "swiper/swiper-react";

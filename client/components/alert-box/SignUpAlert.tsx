@@ -1,5 +1,5 @@
 import { KakaoButton } from "@components/kakao/KakaoButton";
-import * as styles from "./SignUpAlert.css";
+import * as styles from "./styles/SignUpAlert.css";
 import FlexBox from "@components/common/boxes/FlexBox";
 import Image from "next/image";
 import { Typography } from "@components/common/typography/Typography";

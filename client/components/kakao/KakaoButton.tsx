@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography } from "@components/common/typography/Typography";
-import * as styles from "./KakaoButton.css";
+import * as styles from "./styles/KakaoButton.css";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 

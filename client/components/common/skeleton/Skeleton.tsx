@@ -1,6 +1,6 @@
 
 import { CSSProperties, ReactElement } from "react";
-import * as styles from "./Skeleton.css";
+import * as styles from "./styles/Skeleton.css";
 
 interface SkeletonProps {
   isLoading: boolean;

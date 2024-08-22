@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import {ComponentProps, CSSProperties, ReactElement} from "react";
-import * as styles from "./Button.css";
+import * as styles from "./styles/Button.css";
 
 export type ButtonType = "button" | "submit" | "reset";
 export type ButtonVariant = "primary" | "icon";

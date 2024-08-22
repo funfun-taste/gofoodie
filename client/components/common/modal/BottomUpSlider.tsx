@@ -4,7 +4,7 @@ import {AnimatePresence, motion,} from 'framer-motion';
 import React, {ReactElement} from 'react';
 import {ModalProps} from "./ModalHandler";
 import useModalHook from "@hooks/useModal";
-import * as styles from './BottomUpSlider.css';
+import * as styles from './styles/BottomUpSlider.css';
 
 
 export const BottomUpSlider = (props: ModalProps): ReactElement => {

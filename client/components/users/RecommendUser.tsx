@@ -4,7 +4,7 @@ import {Typography} from "@components/common/typography/Typography";
 import {HorizontalBar} from "@components/navigation/HorizontalBar";
 import {ReactElement} from "react";
 import {RecommendUserList} from "./RecommendUserList";
-import * as styles from "./RecommendUser.css";
+import * as styles from "./styles/RecommendUser.css";
 import {useAuth} from "@providers/AuthProvider";
 import {useRecommendUserQuery} from "@services/queries/users/useRecommendUserQuery";
 import {useSession} from "next-auth/react";

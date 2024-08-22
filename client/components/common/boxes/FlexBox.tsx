@@ -5,7 +5,7 @@ import React, {
   PropsWithChildren,
   Ref,
 } from "react";
-import {FlexProps} from "@components/common/boxes/FlexBox.type";
+import {FlexProps} from "@components/common/boxes/types/FlexBox.type";
 
 
 

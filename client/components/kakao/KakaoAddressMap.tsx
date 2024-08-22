@@ -4,13 +4,12 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import useFeedStore from "@store/feedStore";
 import { AddressState } from "@interfaces/feeds/feed.post";
 import { Skeleton } from "@components/common/skeleton/Skeleton";
-
-const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
+import {KAKAO_API_KEY} from "@config/processConfig";
 
 export const KakaoAddressMap = (): ReactElement => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const { setFeedItem, item } = useFeedStore();
-  const [csrLoading, setCsrLoading] = useState(false);
+  const [pending, setPending] = useState(true);
   const [address, setAddress] = useState<AddressState>({
     name: "",
     x: "",
@@ -18,11 +17,6 @@ export const KakaoAddressMap = (): ReactElement => {
     sido: "",
     sigungu: "",
   });
-  const [pending, setPending] = useState(true);
-
-  useEffect(() => {
-    setCsrLoading(true);
-  }, []);
 
   useEffect(() => {
     setFeedItem({
@@ -33,9 +27,8 @@ export const KakaoAddressMap = (): ReactElement => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setPending(true);
       const script = document.createElement("script");
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&autoload=false&libraries=services`;
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
       script.type = "text/javascript";
       script.async = true;
       document.head.appendChild(script);
@@ -58,7 +51,6 @@ export const KakaoAddressMap = (): ReactElement => {
             const infowindow = new kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
             searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-            setPending(false);
 
             kakao.maps.event.addListener(
               map,
@@ -153,6 +145,8 @@ export const KakaoAddressMap = (): ReactElement => {
       };
     }
 
+    setPending(false);
+
     return () => {
       const scripts = document.head.getElementsByTagName("script");
       for (let i = 0; i < scripts.length; i++) {
@@ -166,7 +160,7 @@ export const KakaoAddressMap = (): ReactElement => {
         }
       }
     };
-  }, [mapContainer, csrLoading]);
+  }, [mapContainer]);
 
   return (
     <>

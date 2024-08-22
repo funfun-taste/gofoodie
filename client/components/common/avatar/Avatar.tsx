@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import * as styles from "./Avatar.css";
+import * as styles from "./styles/Avatar.css";
 import Image from "next/image";
 
 interface AvatarProp {

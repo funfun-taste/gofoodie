@@ -1,5 +1,5 @@
 import { ReactElement} from "react";
-import * as styles from './MyFeedSkeleton.css';
+import * as styles from './styles/MyFeedSkeleton.css';
 import FlexBox from "@components/common/boxes/FlexBox";
 import classNames from "classnames";
 

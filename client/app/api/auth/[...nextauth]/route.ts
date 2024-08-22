@@ -2,14 +2,13 @@ import NextAuth from "next-auth/next";
 import KakaoProvider from "next-auth/providers/kakao";
 import { AuthOptions, User } from "next-auth";
 import { userCheckApi } from "@apis/users";
+import {NEXT_AUTH_KAKAO_CLIENT_ID, NEXT_AUTH_KAKAO_SECRET_KEY, NEXT_AUTH_SECRET_KEY} from "@config/processConfig";
 
-const clientId = process.env.KAKAO_CLIENT_ID as string;
-const clientSecret = process.env.KAKAO_CLIENT_SECRET as string;
 export const authOptions: AuthOptions = {
   providers: [
     KakaoProvider({
-      clientId,
-      clientSecret,
+      clientId: NEXT_AUTH_KAKAO_CLIENT_ID,
+      clientSecret: NEXT_AUTH_KAKAO_SECRET_KEY,
     }),
   ],
   callbacks: {
@@ -39,7 +38,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: NEXT_AUTH_SECRET_KEY,
 };
 
 const handler = NextAuth(authOptions);

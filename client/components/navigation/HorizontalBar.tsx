@@ -1,4 +1,4 @@
-import * as styles from "./HorizontalBar.css";
+import * as styles from "./styles/HorizontalBar.css";
 import {PropsWithChildren} from "react";
 
 interface HorizontalNavBarProps extends PropsWithChildren {

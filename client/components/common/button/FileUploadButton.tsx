@@ -3,7 +3,7 @@
 import { Typography } from "@components/common/typography/Typography";
 import { ChangeEvent, ReactElement, useMemo, useRef, useState } from "react";
 import { FiCamera } from "react-icons/fi";
-import * as styles from "./FileUploadButton.css";
+import * as styles from "./styles/FileUploadButton.css";
 
 interface FileUploadProps {
   onFileChange: (urls: string[], fileList: File[]) => void;

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import * as styles from "./OptionLists.css";
+import * as styles from "./styles/OptionLists.css";
 import { Typography } from "@components/common/typography/Typography";
 import { useAuth } from "@providers/AuthProvider";
 import { Cookies } from "react-cookie";

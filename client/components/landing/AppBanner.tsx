@@ -1,4 +1,4 @@
-import * as styles from './AppBanner.css';
+import * as styles from './styles/AppBanner.css';
 import Image from "next/image";
 
 export const AppBanner = () => {

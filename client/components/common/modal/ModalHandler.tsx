@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import ReactDOM from "react-dom";
 import useModalStore, { ModalType } from "@store/modalStore";
-import * as styles from "./BottomUpSlider.css";
+import * as styles from "./styles/BottomUpSlider.css";
 import useModalHook from "@hooks/useModal";
 import { BottomUpSlider } from "@components/common/modal/BottomUpSlider";
 import { SignUpAlert } from "@components/alert-box/SignUpAlert";

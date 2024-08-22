@@ -6,9 +6,8 @@ import {useAuth} from "@providers/AuthProvider";
 import {getMarkerApi} from "@apis/shop/marker.api";
 import {useSession} from "next-auth/react";
 import '@styles/lib/kakao.map.label.scss';
+import {KAKAO_API_KEY} from "@config/processConfig";
 
-const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_API_KEY;
-//todo 맵 데이터를 받아서 하는 방향으로 바꾸면 되지 않을까???
 export const KakaoMap = (): ReactElement => {
   const {data: session} = useSession();
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -40,7 +39,7 @@ export const KakaoMap = (): ReactElement => {
       const {data} = res;
       if (data.result) {
         const script = document.createElement("script");
-        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoAppKey}&autoload=false`;
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false`;
         script.type = "text/javascript";
         script.async = true;
         document.head.appendChild(script);

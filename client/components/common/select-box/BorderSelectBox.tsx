@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, useEffect, useRef, useState } from "react";
-import * as styles from "./BorderSelectBox.css";
+import * as styles from "./styles/BorderSelectBox.css";
 import { Typography } from "@components/common/typography/Typography";
 
 export type Items = {

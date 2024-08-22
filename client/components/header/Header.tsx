@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import * as styles from "./Header.css";
+import * as styles from "./styles/Header.css";
 import {IoSearchOutline} from "react-icons/io5";
 import Link from "next/link";
 

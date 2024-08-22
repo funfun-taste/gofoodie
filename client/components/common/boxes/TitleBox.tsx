@@ -1,6 +1,6 @@
 import { join } from "path";
 import { PropsWithChildren } from "react";
-import * as styles from "./TitleBox.css";
+import * as styles from "./styles/TitleBox.css";
 
 interface TitleProps extends PropsWithChildren {
   title: string;

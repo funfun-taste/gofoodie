@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import {
   TypographyProps,
   Variant,
-} from "./Typography.type";
+} from "./types/Typography.type";
 import { vars } from "@styles/theme.css";
 
 const element: { [key in Variant]: string } = {
