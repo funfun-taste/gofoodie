@@ -1,6 +1,6 @@
 'use client';
 
-import {ReactElement, useEffect, useRef} from "react";
+import {ReactElement, Suspense, useEffect, useRef} from "react";
 import {Skeleton} from "@components/common/skeleton/Skeleton";
 import {useAuth} from "@providers/AuthProvider";
 import {getMarkerApi, Marker} from "@apis/shop/marker.api";
@@ -9,7 +9,7 @@ import {KAKAO_API_KEY} from "@config/processConfig";
 import {useQuery} from "@tanstack/react-query";
 import {queryKeys} from "@services/keys/query.key";
 
-export const KakaoMap = (): ReactElement => {
+const KakaoMap = (): ReactElement => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const {userId} = useAuth();
 
@@ -139,8 +139,6 @@ export const KakaoMap = (): ReactElement => {
   }, [mapContainer, mapData]);
 
   return (
-    <>
-      <Skeleton height={300} isLoading={isLoading}/>
       <div
         id={"map"}
         ref={mapContainer}
@@ -149,6 +147,7 @@ export const KakaoMap = (): ReactElement => {
           height: 300,
         }}
       />
-    </>
   );
 };
+
+export default KakaoMap;

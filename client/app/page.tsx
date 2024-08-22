@@ -1,4 +1,3 @@
-import {KakaoMap} from "@components/kakao/KakaoMap";
 import * as styles from "./page.css";
 import React from "react";
 import {RecentFeed} from "@components/feeds/RecentFeed";
@@ -11,7 +10,7 @@ import {queryClient} from "@lib/tanstack/queryClient";
 import {feedListsApi, recentlyFeedApi} from "@apis/feeds/feeds.api";
 import {queryKeys} from "@services/keys/query.key";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
-import {cookies} from "next/headers";
+import {MapRenderer} from "@components/kakao/MapRenderer";
 
 export default async function HomePage() {
   await queryClient.prefetchInfiniteQuery({
@@ -19,16 +18,6 @@ export default async function HomePage() {
     queryKey: queryKeys.feeds.posts("전체"),
     queryFn: ({pageParam = 1}) => feedListsApi("전체", {pageParam}),
   });
-
-  const allCookies = cookies();
-  const foodieId = allCookies.get('food-id');
-
-  if (!!foodieId?.value) {
-    await queryClient.prefetchQuery({
-      queryKey: queryKeys.feeds.recently(foodieId.value),
-      queryFn: () => recentlyFeedApi(foodieId.value),
-    })
-  }
 
   await queryClient.prefetchQuery({
     queryKey: queryKeys.feeds.recently(''),
@@ -40,7 +29,7 @@ export default async function HomePage() {
       <Header/>
       <div className={styles.homeContainerLayout}>
         {/* 카카오맵 */}
-        <KakaoMap/>
+        <MapRenderer />
         {/* 최근 작성한 여행기 */}
         <RecentFeed/>
         {/* 추천 유저 */}
