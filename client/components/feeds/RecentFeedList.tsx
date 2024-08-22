@@ -14,12 +14,13 @@ export const RecentFeedList = ({
                                  pending,
                                  recentFeedList,
                                }: RecentFeedListProps): ReactElement => {
-  if (pending)
+
+  if (!recentFeedList && pending)
     return (
       <div className={styles.recentFeedListLayout}>
         <FlexBox gap={12}>
           {Array.from({length: 5}).map((_, index) => (
-            <MyFeedSkeleton key={`feed_card_skeleton_${index}`} isLoading={true}/>
+            <MyFeedSkeleton key={`feed_card_skeleton_${index}`}/>
           ))}
         </FlexBox>
       </div>
