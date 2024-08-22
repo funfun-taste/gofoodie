@@ -25,6 +25,13 @@ const baseButton = style({
   }
 });
 
+export const dropdownMenuContainer = style({
+  position:'relative',
+  width: '100%',
+  right: 48,
+  bottom: 2,
+});
+
 export const dropdownMenu = style({
   listStyle: 'none',
   padding: '0.5em 0',
@@ -32,16 +39,19 @@ export const dropdownMenu = style({
   position: 'absolute',
   top: 'calc(100% + 0.5em)',
   left: 0,
-  width: '100%',
+  right: 0,
   backgroundColor: 'white',
   border: '1xp solid rgba(0,0,0,0.1)',
   borderRadius: 8,
   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-  zIndex: 1
-})
+  zIndex: 1,
+  minWidth: 60,
+  width: 'auto',
+});
 
 export const dropdownItem = style({
   padding: '0.6em 1em',
+  textAlign: 'center',
   cursor: 'pointer',
   transition: 'background-color 0.2s ease',
 
@@ -50,7 +60,7 @@ export const dropdownItem = style({
       backgroundColor: '#f5f5f5'
     }
   }
-})
+});
 
 export const dropdownButtonVariants = styleVariants({
   default: [

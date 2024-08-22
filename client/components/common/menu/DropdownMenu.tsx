@@ -36,13 +36,14 @@ export const DropdownMenu = ({
 
   return (
     <div className={styles.dropdownMenuLayout}>
-      <button type={'button'}  className={styles.dropdownButtonVariants[variant]} onClick={onClickDropDown}>
+      <button type={'button'} className={styles.dropdownButtonVariants[variant]} onClick={onClickDropDown}>
         {!!icon && icon}
         <Typography fontWeight={500}>
           {label}
         </Typography>
       </button>
       <motion.div
+        className={styles.dropdownMenuContainer}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -10 }}
         transition={{ duration: 0.2 }}
