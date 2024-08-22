@@ -10,7 +10,7 @@ import { primaryIconColor } from "@styles/theme.css";
 import classNames from "classnames";
 import FlexBox from "@components/common/boxes/FlexBox";
 import { KakaoAddressMap } from "@components/kakao/KakaoAddressMap";
-import { Button } from "@components/common/button/Button";
+import { Button } from "@components/common/buttons/Button";
 import { KakaoAddressSearch } from "@components/kakao/KakaoAddressSearch";
 import { BorderSelectBox } from "@components/common/select-box/BorderSelectBox";
 

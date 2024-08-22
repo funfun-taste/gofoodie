@@ -5,7 +5,7 @@ import * as styles from './styles/ProfileCard.css';
 import FlexBox from "@components/common/boxes/FlexBox";
 import {Avatar} from "@components/common/avatar/Avatar";
 import {Typography} from "@components/common/typography/Typography";
-import {Button} from "@components/common/button/Button";
+import {Button} from "@components/common/buttons/Button";
 
 export interface ProfileUserCard {
   _id: string;
