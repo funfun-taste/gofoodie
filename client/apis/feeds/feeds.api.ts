@@ -1,6 +1,6 @@
 import {FeedsList} from "@interfaces/feeds/feed.list";
 import {axiosInstance} from "@lib/axios";
-import {AxiosResponseData, axiosResponseData} from "@lib/axios/axiosResponse";
+import {axiosResponseConvertor, AxiosResponseData} from "@lib/axios/axiosResponse";
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 
 const FEEDS = "/feeds";
@@ -20,14 +20,14 @@ export const feedListsApi = async (
     AxiosRequestConfig,
     AxiosResponse<AxiosResponseData<FeedsList[]>>
   >(url);
-  return axiosResponseData<FeedsList[]>(data);
+  return axiosResponseConvertor<FeedsList[]>(data);
 };
 
 export const recentlyFeedApi = async (creatorId: string) => {
   if (!creatorId) return [];
   const url = `${FEEDS}/recently/${creatorId}`;
   const {data} = await axiosInstance.get(url);
-  const result = axiosResponseData(data);
+  const result = axiosResponseConvertor(data);
   if (!result) return [];
   return result;
 }

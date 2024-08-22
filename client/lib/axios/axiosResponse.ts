@@ -4,7 +4,7 @@ export interface AxiosResponseData<T> {
   data: T;
 }
 
-export function axiosResponseData<T extends any>(
+export function axiosResponseConvertor<T extends any>(
   payload: AxiosResponseData<T | null>
 ): T | null {
   try {

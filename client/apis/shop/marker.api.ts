@@ -1,6 +1,23 @@
 import {axiosInstance} from "@lib/axios";
+import {AxiosRequestConfig, AxiosResponse} from "axios";
+import {axiosResponseConvertor, AxiosResponseData} from "@lib/axios/axiosResponse";
 
-export const getMarkerApi = async (creatorId: string) => {
+export interface Marker {
+  _id: string;
+  title: string;
+  x: string;
+  y: string;
+}
+
+export const getMarkerApi = async (creatorId: string): Promise<Marker[]>  => {
   const url = `/shop/marker?creatorId=${creatorId}`;
-  return axiosInstance.get(url);
+  const {data} = await axiosInstance.get<
+    AxiosRequestConfig,
+    AxiosResponse<AxiosResponseData<Marker[]>>
+  >(url);
+
+  const result = axiosResponseConvertor<Marker[]>(data);
+  if (!result) return [];
+
+  return result;
 }

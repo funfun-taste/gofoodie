@@ -1,4 +1,3 @@
-
 import { CSSProperties, ReactElement } from "react";
 import * as styles from "./styles/Skeleton.css";
 

@@ -18,5 +18,6 @@ export const NEXT_AUTH_SECRET_KEY =  process.env.NEXTAUTH_SECRET as string;
  * =========================
  */
 export const KAKAO_API_KEY = process.env.NEXT_PUBLIC_KAKAO_API_KEY as string;
+export const KAKAO_REST_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_KEY as string;
 export const NEXT_AUTH_KAKAO_CLIENT_ID =  process.env.KAKAO_CLIENT_ID as string;
 export const NEXT_AUTH_KAKAO_SECRET_KEY = process.env.KAKAO_CLIENT_SECRET as string;
