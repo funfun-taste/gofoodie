@@ -27,17 +27,54 @@ export class FeedRepository {
   }
 
   async findOneFeedDetail(_id: ObjectId) {
+    // return this.feedModel
+    //   .findOne({ _id, isDeleted: false })
+    //   .populate({
+    //     path: 'shopId',
+    //     model: COLLECTIONS.SHOP,
+    //   })
+    //   .populate({
+    //     path: 'feedFileIds',
+    //     model: COLLECTIONS.FILES_FEED_THUMBNAIL,
+    //     select: 'path1',
+    //   })
+    //   .exec();
     return this.feedModel
-      .findOne({ _id, isDeleted: false })
-      .populate({
-        path: 'shopId',
-        model: COLLECTIONS.SHOP,
-      })
-      .populate({
-        path: 'feedFileIds',
-        model: COLLECTIONS.FILES_FEED_THUMBNAIL,
-        select: 'path1',
-      })
+      .aggregate([
+        {
+          $match: { _id, isDeleted: false },
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.SHOP,
+            localField: 'shopId',
+            foreignField: '_id',
+            as: 'shop',
+          },
+        },
+        {
+          $unwind: '$shop',
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.USERS,
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: '$user',
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.FILES_FEED_THUMBNAIL,
+            localField: 'feedFileIds',
+            foreignField: '_id',
+            as: 'filePaths',
+          },
+        },
+      ])
       .exec();
   }
 
@@ -95,6 +132,11 @@ export class FeedRepository {
       {
         $limit,
       },
+      {
+        $sort: {
+          createdDate: -1,
+        },
+      },
     );
 
     return this.feedModel.aggregate(pipeline).exec();
@@ -143,6 +185,11 @@ export class FeedRepository {
         },
         {
           $limit,
+        },
+        {
+          $sort: {
+            createdDate: -1,
+          },
         },
       ])
       .exec();

@@ -1,10 +1,11 @@
-import {style} from "@vanilla-extract/css";
-import {vars} from "@styles/theme.css";
+import { style } from "@vanilla-extract/css";
+import { vars } from "@styles/theme.css";
 
 export const feedListsLayout = style({
   padding: 0,
   width: "100%",
   height: "auto",
+  minHeight: "100vh",
   maxHeight: "100%",
   backgroundColor: vars.colors.backgroundColor,
   display: "flex",
@@ -22,4 +23,3 @@ export const emptyLabel = style({
   marginBottom: 20,
   marginTop: 20,
 });
-

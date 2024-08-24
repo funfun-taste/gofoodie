@@ -1,27 +1,33 @@
 "use client";
 
-import {ReactElement, useEffect, useState} from "react";
+import { ReactElement, useEffect, useState } from "react";
 import * as styles from "./styles/MenuBar.css";
-import {RiHome5Line, RiMessage3Line, RiPencilFill, RiUserLine,} from "react-icons/ri";
-import {usePathname, useRouter} from "next/navigation";
-import {CiViewList} from "react-icons/ci";
-import useModalStore, {ModalType} from "@store/modalStore";
-import {useSession} from "next-auth/react";
+import {
+  RiHome5Line,
+  RiMessage3Line,
+  RiPencilFill,
+  RiUserLine,
+} from "react-icons/ri";
+import { usePathname, useRouter } from "next/navigation";
+import { CiViewList } from "react-icons/ci";
+import useModalStore, { ModalType } from "@store/modalStore";
+import { useSession } from "next-auth/react";
+import path from "path";
 
 const link = {
-  home: {label: "홈", to: "/"},
-  myFeedLists: {label: "내가 작성한 게시글", to: "/feeds/"},
-  posts: {label: "글작성", to: "/feeds/post/"},
-  timeline: {label: "소식", to: "/timeline/"},
-  management: {label: "마이", to: "/management/"},
+  home: { label: "홈", to: "/" },
+  myFeedLists: { label: "내가 작성한 게시글", to: "/feeds/" },
+  posts: { label: "글작성", to: "/feeds/post/" },
+  timeline: { label: "소식", to: "/timeline/" },
+  management: { label: "마이", to: "/management/" },
 };
 
 export const MenuBar = (): ReactElement => {
   const router = useRouter();
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = useState(pathname);
-  const {setIsOpen, setModalType} = useModalStore();
-  const {data: session} = useSession();
+  const { setIsOpen, setModalType } = useModalStore();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (pathname.includes("search")) setCurrentPath("/");
@@ -43,17 +49,14 @@ export const MenuBar = (): ReactElement => {
   };
 
   const active = (to: string): string => {
-    // if (pathname === to) {
-    //   return "#FF7101";
-    // }
-    // if (pathname.startsWith(to) && pathname.charAt(to.length) === "/") {
-    //   const remainingPath = pathname.slice(to.length);
-    //   if (!remainingPath || remainingPath.startsWith("/")) {
-    //     return "#FF7101";
-    //   }
-    // }
-    // return "#646464";
-    return currentPath === to ? "#FF7101" : "#646464"
+    if (to === "/feeds" && pathname === "/feeds") {
+      return "#FF7101";
+    }
+
+    if (to === "/feeds/" && pathname.startsWith("/feeds/")) {
+      return "#FF7101";
+    }
+    return currentPath === to ? "#FF7101" : "#646464";
   };
 
   return (
@@ -66,7 +69,7 @@ export const MenuBar = (): ReactElement => {
             className={styles.buttonItem}
             onClick={() => onClickHandlerMenu(link.home.to)}
           >
-            <RiHome5Line size={22} color={active(link.home.to)}/>
+            <RiHome5Line size={22} color={active(link.home.to)} />
           </button>
           <button
             aria-label="pick-button"
@@ -74,7 +77,7 @@ export const MenuBar = (): ReactElement => {
             className={styles.buttonItem}
             onClick={() => onClickHandlerMenu(link.myFeedLists.to)}
           >
-            <CiViewList size={22} color={active(link.myFeedLists.to)}/>
+            <CiViewList size={22} color={active(link.myFeedLists.to)} />
           </button>
         </li>
         <li className={styles.navBarCenterBox}>
@@ -84,7 +87,7 @@ export const MenuBar = (): ReactElement => {
             className={styles.navBarCenterButton}
             onClick={() => onClickHandlerMenu(link.posts.to)}
           >
-            <RiPencilFill size={22} color={"#fff"}/>
+            <RiPencilFill size={22} color={"#fff"} />
           </button>
         </li>
         <li className={styles.navBarRightBox}>
@@ -94,7 +97,7 @@ export const MenuBar = (): ReactElement => {
             className={styles.buttonItem}
             onClick={() => onClickHandlerMenu(link.timeline.to)}
           >
-            <RiMessage3Line size={22} color={active(link.timeline.to)}/>
+            <RiMessage3Line size={22} color={active(link.timeline.to)} />
           </button>
           <button
             aria-label="management-button"
@@ -102,7 +105,7 @@ export const MenuBar = (): ReactElement => {
             className={styles.buttonItem}
             onClick={() => onClickHandlerMenu(link.management.to)}
           >
-            <RiUserLine size={22} color={active(link.management.to)}/>
+            <RiUserLine size={22} color={active(link.management.to)} />
           </button>
         </li>
       </ul>

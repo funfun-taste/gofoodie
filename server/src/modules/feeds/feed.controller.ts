@@ -34,12 +34,14 @@ export class FeedController {
     return this.feedService.findFeedLists(filters);
   }
 
-  @Get("/my/lists")
+
+  @Get('/my/lists')
   @UseGuards(JwtAuthGuard)
   async getMyFeedLists(
     @UserObject() user: UserPayloadDto,
-    @Query('page') page: number) {
-    const {id} = user;
+    @Query('page') page: number,
+  ) {
+    const { id } = user;
     return this.feedService.getMyFeedLists(id, page);
   }
 
@@ -48,12 +50,12 @@ export class FeedController {
     return this.feedService.findRecentlyFeed(creatorId);
   }
 
-  @Get('/detail/with-comment/:feedId')
+  @Get('/details/with-comment/:feedId')
   async feedDetailWithComment(@Param('feedId') feedId: string) {
     return this.feedService.findOneFeedByFeedId(feedId);
   }
 
-  @Get('/detail/:feedId')
+  @Get('/details/:feedId')
   async feedDetail(@Param('feedId') feedId: string) {
     return this.feedService.findOneFeedByFeedId(feedId);
   }

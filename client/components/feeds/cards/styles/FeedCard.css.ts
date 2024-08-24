@@ -1,5 +1,5 @@
-import {style} from "@vanilla-extract/css";
-import {vars} from "@styles/theme.css";
+import { style } from "@vanilla-extract/css";
+import { vars } from "@styles/theme.css";
 
 export const feedCardLayout = style({
   backgroundColor: vars.colors.white000,
@@ -45,7 +45,7 @@ export const images = style({
 });
 
 export const storeInfoBox = style({
-  backgroundColor: "#FFF5EC",
+  backgroundColor: "#f6f6f6",
   borderRadius: 8,
   border: "1px solid #ededed",
   padding: "1em",

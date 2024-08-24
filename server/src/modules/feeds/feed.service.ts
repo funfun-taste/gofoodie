@@ -111,9 +111,10 @@ export class FeedService {
   }
 
   // 피드 상세 조회
-  async findOneFeedByFeedId(feedId: string): Promise<FeedDocument> {
+  async findOneFeedByFeedId(feedId: string): Promise<any> {
     const _id: ObjectId = stringToObjectId(feedId);
     const feed = await this.feedRepository.findOneFeedDetail(_id);
+    console.log(feed);
     if (!feed) throw new NotFoundException('게시물이 존재하지 않습니다.');
     return feed;
   }
@@ -126,7 +127,10 @@ export class FeedService {
     return this.feedRepository.findRecentlyFeed(findUser._id);
   }
 
-  async findMyFeedList(user: UserPayloadDto, page: number): Promise<FeedDocument[]> {
+  async findMyFeedList(
+    user: UserPayloadDto,
+    page: number,
+  ): Promise<FeedDocument[]> {
     const findUser = await this.userService.findOneByCreatorId(user.id);
     if (!findUser)
       throw new UnauthorizedException('로그인 정보가 유효하지 않습니다.');

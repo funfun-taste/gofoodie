@@ -7,7 +7,7 @@ export const postLayout = style({
   height: "100%",
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-start',
 });
 
 export const postBodyContainer = style({
