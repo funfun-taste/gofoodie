@@ -34,7 +34,6 @@ export class FeedController {
     return this.feedService.findFeedLists(filters);
   }
 
-
   @Get('/my/lists')
   @UseGuards(JwtAuthGuard)
   async getMyFeedLists(

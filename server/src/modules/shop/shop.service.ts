@@ -22,7 +22,7 @@ export class ShopService {
     return this.shopRepository.findOneShop({ x, y });
   }
 
-  async createShop(userId: string, shop: ShopDto): Promise<ShopDocument> {
+  async createShopData(userId: string, shop: ShopDto): Promise<ShopDocument> {
     const { address } = shop;
     const payload: CreateShopDto = {
       userId,

@@ -15,12 +15,15 @@ import { ObjectId } from 'mongodb';
 import { FeedDocument } from '@modules/feeds/schema/feed.schema';
 import { objectIdToString, stringToObjectId } from '@lib/converter';
 import { FeedListDto } from '@modules/feeds/dto/feed.list.dto';
+import { MapService } from '@modules/map/map.service';
+import { CreateMapDto } from '@modules/map/dto/create.map.dto';
 
 @Injectable()
 export class FeedService {
   constructor(
     private readonly userService: UserService,
     private readonly shopService: ShopService,
+    private readonly mapService: MapService,
     private readonly feedRepository: FeedRepository,
   ) {}
 
@@ -38,6 +41,15 @@ export class FeedService {
         content: body.content,
         userId: userId,
       };
+
+      const mapBody: CreateMapDto = {
+        x: '',
+        y: '',
+        marker: 'normal',
+        userId,
+        feedId: '',
+      };
+
       if (this.addressItemCheck(body.item)) {
         const { item } = body;
         const { address } = item;
@@ -46,13 +58,20 @@ export class FeedService {
           address.x,
           address.y,
         );
-        // 없으면 추가
+
         if (!shop) {
-          shop = await this.shopService.createShop(userId, item);
+          shop = await this.shopService.createShopData(userId, item);
         }
+
+        mapBody.x = address.x;
+        mapBody.y = address.y;
+
         createFeed.shopId = objectIdToString(shop._id);
       }
-      return this.feedRepository.saveFeed(createFeed);
+      const feedResult = await this.feedRepository.saveFeed(createFeed);
+      mapBody.feedId = feedResult._id.toString();
+      //todo map을 체크했을 경우 맵 디비에도 채워넣기
+      if (body.mapCheck) await this.mapService.createMapData(mapBody);
     } catch (e) {}
   }
 

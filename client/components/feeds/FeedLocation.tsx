@@ -13,6 +13,8 @@ import { KakaoAddressMap } from "@components/kakao/KakaoAddressMap";
 import { Button } from "@components/common/buttons/Button";
 import { KakaoAddressSearch } from "@components/kakao/KakaoAddressSearch";
 import { BorderSelectBox } from "@components/common/select-box/BorderSelectBox";
+import { ShopCategory } from "@components/shop/ShopCategory";
+import { ShopTitle } from "@components/shop/ShopTitle";
 
 const categories = [
   { label: "한식", key: "한식" },
@@ -54,10 +56,7 @@ export const FeedLocation = (): ReactElement => {
     handleClickLocationForm();
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
+  const handleChange = (name: string, value: string) => {
     setLocationData({
       ...locationData,
       [name]: value,
@@ -134,43 +133,12 @@ export const FeedLocation = (): ReactElement => {
         </button>
       </FlexBox>
 
-      <FlexBox
-        className={classNames(styles.locationItemWrapper)}
-        alignItems={"flex-start"}
-        gap={8}
-        flexDirection={"column"}
-      >
-        <Typography color={"gray500"} fontSize={14} fontWeight={500}>
-          카테고리
-        </Typography>
-        <div>
-          <BorderSelectBox
-            items={categories}
-            onChange={onChangeCategorySelectBox}
-          />
-        </div>
-      </FlexBox>
+      <ShopCategory
+        item={categories}
+        onChangeCategorySelectBox={onChangeCategorySelectBox}
+      />
 
-      <section className={classNames(styles.locationItemWrapper)}>
-        <FlexBox
-          justifyContent={"flex-start"}
-          alignItems={"flex-start"}
-          flexDirection={"column"}
-          gap={8}
-        >
-          <Typography color={"gray500"} fontSize={14} fontWeight={500}>
-            이름
-          </Typography>
-          <input
-            name="title"
-            value={locationData.title}
-            onChange={handleChange}
-            className={styles.input}
-            type="text"
-            placeholder={"방문한 장소의 이름을 입력해주세요."}
-          />
-        </FlexBox>
-      </section>
+      <ShopTitle onChage={handleChange} value={locationData.title} />
 
       <section className={styles.addressSearchContainer}>
         {locationType === "address" ? (

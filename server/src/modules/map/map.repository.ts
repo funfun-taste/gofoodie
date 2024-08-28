@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Map, MapDocument } from './schema/map.schema';
 import { ConnectionNames } from '@database/database.config';
 import { Model } from 'mongoose';
+import { CreateMapDto } from './dto/create.map.dto';
 
 @Injectable()
 export class MapRespository {
@@ -10,4 +11,8 @@ export class MapRespository {
     @InjectModel(Map.name, ConnectionNames.GO_FOODIE)
     private readonly mapModel: Model<MapDocument>,
   ) {}
+
+  async create(body: CreateMapDto) {
+    return 'create';
+  }
 }

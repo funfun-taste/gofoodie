@@ -1,16 +1,18 @@
 "use client";
 
-import {useRouter} from "next/navigation";
-import {FeedPostTitle} from "./layouts/FeedPostTitle";
-import {FeedPostForm} from "./FeedPostForm";
-import {FormEventHandler, useEffect, useState} from "react";
-import {FeedPostBody} from "@interfaces/feeds/feed.post";
-import {feedSubmitApi} from "@apis/feeds/create.feed.api";
-import {postImageUploadApi} from "@apis/files/upload.api";
-import useModalStore, {ModalType} from "@store/modalStore";
-import {User} from "@interfaces/users/user";
+import { useRouter } from "next/navigation";
+import { FeedPostTitle } from "./layouts/FeedPostTitle";
+import { FeedPostForm } from "./FeedPostForm";
+import { FormEventHandler, useEffect, useState } from "react";
+import { FeedPostBody } from "@interfaces/feeds/feed.post";
+import { feedSubmitApi } from "@apis/feeds/create.feed.api";
+import { postImageUploadApi } from "@apis/files/upload.api";
+import useModalStore, { ModalType } from "@store/modalStore";
+import { User } from "@interfaces/users/user";
 import * as styles from "./styles/FeedPost.css";
 import useFeedStore from "@store/feedStore";
+import { queryClient } from "@lib/tanstack/queryClient";
+import { queryKeys } from "@services/keys/query.key";
 
 const user: User = {
   nickname: "",
@@ -42,8 +44,8 @@ export const FeedPost = () => {
     files: [],
   });
   const [previewUrl, setPreviewUrl] = useState<string[]>([]);
-  const {setIsOpen, setModalType} = useModalStore();
-  const {item, setFeedItem} = useFeedStore();
+  const { setIsOpen, setModalType } = useModalStore();
+  const { item, setFeedItem } = useFeedStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -60,18 +62,17 @@ export const FeedPost = () => {
       const body: FeedPostBody = {
         ...postForm,
       };
-      const {data} = await feedSubmitApi(body);
+      const { data } = await feedSubmitApi(body);
       if (data.result) {
         if (postForm.files.length > 0) {
-          const {_id} = data.data;
+          const { _id } = data.data;
           await fileUpload(_id);
         }
 
         //todo 쿼리 초기화 후 마이 피드로 이동
-        //   await queryClient.invalidateQueries([
-        //   queryKeys.feeds.lists,
-        //   queryKeys.maps.marker,
-        // ]);
+        await queryClient.invalidateQueries({
+          queryKey: queryKeys.feeds.clear,
+        });
         router.push("/");
         onClickRemoveLocation();
       }
@@ -116,7 +117,7 @@ export const FeedPost = () => {
   };
 
   const fileUpload = async (postId: string) => {
-    const {files} = postForm;
+    const { files } = postForm;
     const formData = new FormData();
 
     files.forEach((file: File) => {
@@ -132,7 +133,7 @@ export const FeedPost = () => {
 
   return (
     <form className={styles.feedPostFormLayout} onSubmit={handleSubmitFeedPost}>
-      <FeedPostTitle historyBack={() => router.back()}/>
+      <FeedPostTitle historyBack={() => router.back()} />
       <FeedPostForm
         user={user}
         postForm={postForm}
