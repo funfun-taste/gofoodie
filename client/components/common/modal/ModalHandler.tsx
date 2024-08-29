@@ -14,7 +14,7 @@ import * as styles from "./styles/BottomUpSlider.css";
 import useModalHook from "@hooks/useModal";
 import { BottomUpSlider } from "@components/common/modal/BottomUpSlider";
 import { SignUpAlert } from "@components/alert-box/SignUpAlert";
-import { FeedLocation } from "@components/feeds/FeedLocation";
+import { ShopLocation } from "@components/shop/ShopLocation";
 
 type Modal = PropsWithChildren;
 
@@ -77,7 +77,7 @@ export const ModalContainer = () => {
       <div id="modal" />
       <ModalHandler>
         {type === ModalType.SIGN_ALERT && <SignUpAlert />}
-        {type === ModalType.REGISTER_SHOP && <FeedLocation />}
+        {type === ModalType.REGISTER_SHOP && <ShopLocation />}
       </ModalHandler>
     </>
   );
