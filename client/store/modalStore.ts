@@ -23,6 +23,7 @@ type SetModalStore = {
   setIsOpen: (payload: boolean) => void;
   setModalType: (type: ModalType) => void;
   setOpenType: (type: OpenType) => void;
+  closeModal: () => void;
 };
 
 const initialState: ModalInitialState = {
@@ -37,6 +38,12 @@ const useModalStore = create(
       setIsOpen: (payload: boolean) => set(() => ({ isOpen: payload })),
       setModalType: (type: ModalType) => set(() => ({ type })),
       setOpenType: (openType: OpenType) => set(() => ({ openType })),
+      closeModal: () =>
+        set(() => ({
+          isOpen: false,
+          type: ModalType.EMPTY,
+          openType: OpenType.SLIDE,
+        })),
     }))
   )
 );

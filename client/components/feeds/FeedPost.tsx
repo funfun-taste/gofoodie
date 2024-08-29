@@ -79,6 +79,9 @@ export const FeedPost = () => {
       }
     } catch (e) {
       console.log(e);
+      alert("에러가 발생");
+      router.push("/");
+      onClickRemoveLocation();
     }
   };
 
@@ -101,6 +104,16 @@ export const FeedPost = () => {
   const onClickModalIsOpen = () => {
     setModalType(ModalType.REGISTER_SHOP);
     setIsOpen(true);
+  };
+
+  const onClickConfirmed = (add: boolean) => {
+    setPostForm({
+      ...postForm,
+      item: {
+        ...item,
+        mapRegister: add,
+      },
+    });
   };
 
   const onClickRemoveLocation = () => {
@@ -144,6 +157,7 @@ export const FeedPost = () => {
         onChangeFileList={onChangeFileList}
         onClickModalIsOpen={onClickModalIsOpen}
         onClickRemoveLocation={onClickRemoveLocation}
+        onClickConfirmed={onClickConfirmed}
       />
     </form>
   );

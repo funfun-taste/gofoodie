@@ -24,6 +24,7 @@ interface FeedPostFormProps {
   onChangeFileList: (previewUrls: string[], fileList: File[]) => void;
   onClickModalIsOpen: () => void;
   onClickRemoveLocation: () => void;
+  onClickConfirmed: (add: boolean) => void;
 }
 
 export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
@@ -35,10 +36,10 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
     onChangeFileList,
     onClickModalIsOpen,
     onClickRemoveLocation,
+    onClickConfirmed,
   } = props;
 
   const type = useModalStore((state) => state.type);
-  const openType = useModalStore((state) => state.openType);
 
   return (
     <div className={styles.postLayout}>
@@ -140,7 +141,10 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
 
       {type === ModalType.REGISTER_MAP && (
         <ModalHandler modalType={ModalType.REGISTER_MAP}>
-          <MessageDialog message="내 지도에 표시하시겠습니다?" />
+          <MessageDialog
+            message="내 지도에 표시하시겠습니다?"
+            onClickConfirmed={onClickConfirmed}
+          />
         </ModalHandler>
       )}
     </div>

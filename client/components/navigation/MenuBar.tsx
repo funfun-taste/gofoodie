@@ -113,9 +113,11 @@ export const MenuBar = (): ReactElement => {
           </li>
         </ul>
       </nav>
-      <ModalHandler>
-        {type === ModalType.SIGN_ALERT && <SignUpAlert />}
-      </ModalHandler>
+      {type === ModalType.SIGN_ALERT && (
+        <ModalHandler modalType={ModalType.SIGN_ALERT}>
+          <SignUpAlert />
+        </ModalHandler>
+      )}
     </>
   );
 };

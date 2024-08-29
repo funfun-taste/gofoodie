@@ -13,7 +13,6 @@ import { KakaoAddressSearch } from "@components/kakao/KakaoAddressSearch";
 import { ShopCategory } from "@components/shop/ShopCategory";
 import { ShopTitle } from "@components/shop/ShopTitle";
 import { LocationTabs, LocationType } from "./LocationTabs";
-import { ModalHandler } from "@components/common/modal/ModalHandler";
 
 const categories = [
   { label: "한식", key: "한식" },
@@ -53,24 +52,11 @@ export const ShopLocation = (): ReactElement => {
   const handleClickSendLocationData = () => {
     setModalType(ModalType.REGISTER_MAP);
     setOpenType(OpenType.FADE);
-    // const confirmed = confirm("등록?");
 
-    // //TODO 장소 등록 클릭 시 맵에 등록할건지 확인 모달 추가
-    // // dialog
-    // if (confirmed) {
-    //   setModalType(ModalType.TEST);
-
-    //   alert("등록해보아요");
-    //   setModalType(ModalType.TEST);
-    // } else {
-    //   alert("등록하지 않아요");
-    // }
-    return;
     setFeedItem({
       ...item,
       ...locationData,
     });
-    handleClickLocationForm();
   };
 
   const handleChange = (name: string, value: string) => {
