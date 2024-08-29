@@ -40,6 +40,7 @@ export const FeedPost = () => {
         x: "",
         y: "",
       },
+      mapRegister: false,
     },
     files: [],
   });
@@ -113,6 +114,7 @@ export const FeedPost = () => {
         x: "",
         y: "",
       },
+      mapRegister: false,
     });
   };
 

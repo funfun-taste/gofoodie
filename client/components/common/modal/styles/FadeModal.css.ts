@@ -4,7 +4,8 @@ import { vars } from "@styles/theme.css";
 export const modalLayout = style({
   position: "fixed",
   bottom: "0",
-  width: "100%",
+  width: "100vw",
+  height: "100vh",
   maxWidth: 428,
   display: "flex",
   alignItems: "center",
@@ -25,23 +26,25 @@ export const modalBackGroundLayer = style({
   transition: "all 0.3s ease-in-out",
 });
 
-export const bottomSlideContainer = style({
+export const fadeModalContainer = style({
   width: "100%",
   height: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  padding: "0 1.25em",
 });
 
-export const bottomSlideBody = style({
+export const fadeModalBody = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "center",
   background: vars.colors.white000,
   width: "100%",
   minHeight: 300,
   height: "auto",
-  borderRadius: "20px 20px 0 0",
+  borderRadius: 4,
   boxShadow: "0 0 16px rgb(50 50 50 / 12%)",
-  // position: 'absolute'
+  padding: "1em",
 });

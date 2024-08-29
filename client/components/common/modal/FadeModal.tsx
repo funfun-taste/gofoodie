@@ -21,8 +21,8 @@ export const FadeModal = (props: ModalProps): ReactElement => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <motion.div className={styles.bottomSlideContainer}>
-            <div className={styles.bottomSlideBody} ref={ele}>
+          <motion.div className={styles.fadeModalContainer}>
+            <div className={styles.fadeModalBody} ref={ele}>
               {children}
             </div>
           </motion.div>

@@ -2,8 +2,8 @@
 
 import React, { ReactElement, useState } from "react";
 import * as styles from "./styles/ShopLocation.css";
-import useModalStore, { ModalType } from "@store/modalStore";
-import { IoAdd, IoClose, IoLocate, IoLocation } from "react-icons/io5";
+import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import { IoAdd, IoClose } from "react-icons/io5";
 import { Typography } from "@components/common/typography/Typography";
 import useFeedStore, { LocationState } from "@store/feedStore";
 import FlexBox from "@components/common/boxes/FlexBox";
@@ -13,6 +13,7 @@ import { KakaoAddressSearch } from "@components/kakao/KakaoAddressSearch";
 import { ShopCategory } from "@components/shop/ShopCategory";
 import { ShopTitle } from "@components/shop/ShopTitle";
 import { LocationTabs, LocationType } from "./LocationTabs";
+import { ModalHandler } from "@components/common/modal/ModalHandler";
 
 const categories = [
   { label: "한식", key: "한식" },
@@ -33,7 +34,7 @@ const categories = [
 ];
 
 export const ShopLocation = (): ReactElement => {
-  const { setIsOpen, setModalType } = useModalStore();
+  const { setIsOpen, setModalType, type, setOpenType } = useModalStore();
   const [locationData, setLocationData] = useState<LocationState>({
     title: "",
     category: "한식",
@@ -50,15 +51,20 @@ export const ShopLocation = (): ReactElement => {
   };
 
   const handleClickSendLocationData = () => {
-    const confirmed = confirm("등록?");
-    //todo 장소 등록 클릭 시 맵에 등록할건지 확인 모달 추가
-    // dialog
-    if (confirmed) {
-      alert("등록해보아요");
-      setModalType(ModalType.TEST);
-    } else {
-      alert("등록하지 않아요");
-    }
+    setModalType(ModalType.REGISTER_MAP);
+    setOpenType(OpenType.FADE);
+    // const confirmed = confirm("등록?");
+
+    // //TODO 장소 등록 클릭 시 맵에 등록할건지 확인 모달 추가
+    // // dialog
+    // if (confirmed) {
+    //   setModalType(ModalType.TEST);
+
+    //   alert("등록해보아요");
+    //   setModalType(ModalType.TEST);
+    // } else {
+    //   alert("등록하지 않아요");
+    // }
     return;
     setFeedItem({
       ...item,
@@ -82,58 +88,60 @@ export const ShopLocation = (): ReactElement => {
   };
 
   return (
-    <div className={styles.feedLocationLayout}>
-      <FlexBox justifyContent="flex-end" alignItems="flex-end">
-        <button type="button" onClick={handleClickLocationForm}>
-          <IoClose size={24} color={"#FF7101"} />
-        </button>
-      </FlexBox>
+    <>
+      <div className={styles.feedLocationLayout}>
+        <FlexBox justifyContent="flex-end" alignItems="flex-end">
+          <button type="button" onClick={handleClickLocationForm}>
+            <IoClose size={24} color={"#FF7101"} />
+          </button>
+        </FlexBox>
 
-      <LocationTabs
-        locationType={locationType}
-        onClick={(type: LocationType) => setLocationType(type)}
-      />
-
-      <ShopCategory
-        item={categories}
-        onChangeCategorySelectBox={onChangeCategorySelectBox}
-      />
-
-      <ShopTitle onChage={handleChange} value={locationData.title} />
-
-      <div className={styles.addressSearchContainer}>
-        {locationType === "address" ? (
-          <KakaoAddressSearch />
-        ) : (
-          <KakaoAddressMap />
-        )}
-      </div>
-
-      <label className={styles.feedLocationContainer}>
-        <input
-          disabled={true}
-          readOnly={true}
-          value={item.address.name}
-          className={styles.fullAddressInput}
-          type="text"
-          placeholder={"전체 주소"}
+        <LocationTabs
+          locationType={locationType}
+          onClick={(type: LocationType) => setLocationType(type)}
         />
-      </label>
 
-      <FlexBox>
-        <Button
-          borderRadius={4}
-          width={200}
-          onClick={handleClickSendLocationData}
-        >
-          <FlexBox flexDirection="row" gap={8}>
-            <IoAdd size={24} color={"#fff"} />
-            <Typography as={"span"} color="white000">
-              장소 등록
-            </Typography>
-          </FlexBox>
-        </Button>
-      </FlexBox>
-    </div>
+        <ShopCategory
+          item={categories}
+          onChangeCategorySelectBox={onChangeCategorySelectBox}
+        />
+
+        <ShopTitle onChage={handleChange} value={locationData.title} />
+
+        <div className={styles.addressSearchContainer}>
+          {locationType === "address" ? (
+            <KakaoAddressSearch />
+          ) : (
+            <KakaoAddressMap />
+          )}
+        </div>
+
+        <label className={styles.feedLocationContainer}>
+          <input
+            disabled={true}
+            readOnly={true}
+            value={item.address.name}
+            className={styles.fullAddressInput}
+            type="text"
+            placeholder={"전체 주소"}
+          />
+        </label>
+
+        <FlexBox>
+          <Button
+            borderRadius={4}
+            width={200}
+            onClick={handleClickSendLocationData}
+          >
+            <FlexBox flexDirection="row" gap={8}>
+              <IoAdd size={24} color={"#fff"} />
+              <Typography as={"span"} color="white000">
+                장소 등록
+              </Typography>
+            </FlexBox>
+          </Button>
+        </FlexBox>
+      </div>
+    </>
   );
 };

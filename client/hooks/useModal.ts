@@ -1,14 +1,15 @@
 import React from "react";
-import useModalStore, { ModalType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "@store/modalStore";
 
 export type Element = React.MutableRefObject<HTMLDivElement> | any;
 
 export default function useModal(ele: Element) {
-  const { setModalType, setIsOpen } = useModalStore();
+  const { setModalType, setIsOpen, setOpenType } = useModalStore();
 
   const onRequestClose = () => {
     setIsOpen(false);
     setModalType(ModalType.EMPTY);
+    setOpenType(OpenType.SLIDE);
   };
 
   const outerClickEvent = (e: React.MouseEvent) => {

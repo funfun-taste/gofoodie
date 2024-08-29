@@ -13,7 +13,8 @@ import { User } from "@interfaces/users/user";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 import { ModalHandler } from "@components/common/modal/ModalHandler";
 import { ShopLocation } from "@components/shop/ShopLocation";
-import useModalStore, { ModalType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import { MessageDialog } from "@components/common/dialog/MessageDialog";
 
 interface FeedPostFormProps {
   user: User;
@@ -37,6 +38,7 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
   } = props;
 
   const type = useModalStore((state) => state.type);
+  const openType = useModalStore((state) => state.openType);
 
   return (
     <div className={styles.postLayout}>
@@ -129,9 +131,18 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
           ))}
         </div>
       </div>
-      <ModalHandler>
-        {type === ModalType.REGISTER_SHOP && <ShopLocation />}
-      </ModalHandler>
+
+      {type === ModalType.REGISTER_SHOP && (
+        <ModalHandler modalType={ModalType.REGISTER_SHOP}>
+          <ShopLocation />
+        </ModalHandler>
+      )}
+
+      {type === ModalType.REGISTER_MAP && (
+        <ModalHandler modalType={ModalType.REGISTER_MAP}>
+          <MessageDialog message="내 지도에 표시하시겠습니다?" />
+        </ModalHandler>
+      )}
     </div>
   );
 };

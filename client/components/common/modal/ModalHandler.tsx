@@ -6,26 +6,34 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
 import ReactDOM from "react-dom";
-import useModalStore from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "@store/modalStore";
 import * as styles from "./styles/BottomUpSlider.css";
 import useModal from "@hooks/useModal";
 import { BottomUpSlider } from "@components/common/modal/BottomUpSlider";
+import { FadeModal } from "./FadeModal";
 
 type Modal = PropsWithChildren;
 
 export type ModalProps = {
   isOpen: boolean;
   ele: Element | any;
+  outerClick?: boolean;
 } & Modal;
 
-export const ModalHandler: React.FC<Modal> = (props) => {
+interface ModalHandlerProps extends PropsWithChildren {
+  outerClick?: boolean;
+  modalType: ModalType;
+}
+
+export const ModalHandler = (props: ModalHandlerProps) => {
   const [showChild, setShowChild] = useState(false);
-  const { children } = props;
-  const { isOpen, type } = useModalStore();
+  const { children, outerClick, modalType } = props;
+  const { isOpen, type, openType: modalOpenType } = useModalStore();
   const ele = useRef<HTMLDivElement>(null);
 
   const { outerClickEvent } = useModal(ele);
@@ -45,19 +53,40 @@ export const ModalHandler: React.FC<Modal> = (props) => {
     }
   }, [isOpen]);
 
+  const open = useMemo((): boolean => {
+    return isOpen && modalType === type;
+  }, [isOpen, modalType]);
+
   const modalHandler = useCallback(
     (children: ReactNode): ReactElement => {
+      if (modalOpenType === OpenType.FADE)
+        return (
+          <>
+            <div
+              className={styles.modalBackGroundLayer}
+              onClick={outerClickEvent}
+              style={{
+                opacity: open ? "1" : "0",
+                visibility: open ? "visible" : "hidden",
+              }}
+            />
+            <FadeModal ele={ele} isOpen={open}>
+              {children}
+            </FadeModal>
+          </>
+        );
+
       return (
         <>
           <div
             className={styles.modalBackGroundLayer}
             onClick={outerClickEvent}
             style={{
-              opacity: isOpen ? "1" : "0",
-              visibility: isOpen ? "visible" : "hidden",
+              opacity: open ? "1" : "0",
+              visibility: open ? "visible" : "hidden",
             }}
           />
-          <BottomUpSlider ele={ele} isOpen={isOpen}>
+          <BottomUpSlider ele={ele} isOpen={open}>
             {children}
           </BottomUpSlider>
         </>
