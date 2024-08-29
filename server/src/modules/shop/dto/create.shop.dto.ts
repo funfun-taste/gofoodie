@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsObject, IsString } from 'class-validator';
 
 export class Address {
   @IsString()
@@ -28,6 +28,9 @@ export class ShopDto {
   @IsObject()
   @Type(() => Address)
   address: Address;
+
+  @IsBoolean()
+  mapRegister: boolean;
 }
 
 export class CreateShopDto {

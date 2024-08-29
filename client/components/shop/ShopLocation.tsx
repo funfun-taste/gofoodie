@@ -37,6 +37,7 @@ export const ShopLocation = (): ReactElement => {
   const [locationData, setLocationData] = useState<LocationState>({
     title: "",
     category: "한식",
+    mapRegister: false,
   });
   const { setFeedItem, item } = useFeedStore();
   const [locationType, setLocationType] = useState<LocationType>(
@@ -49,7 +50,16 @@ export const ShopLocation = (): ReactElement => {
   };
 
   const handleClickSendLocationData = () => {
+    const confirmed = confirm("등록?");
     //todo 장소 등록 클릭 시 맵에 등록할건지 확인 모달 추가
+    // dialog
+    if (confirmed) {
+      alert("등록해보아요");
+      setModalType(ModalType.TEST);
+    } else {
+      alert("등록하지 않아요");
+    }
+    return;
     setFeedItem({
       ...item,
       ...locationData,

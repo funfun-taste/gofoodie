@@ -71,7 +71,7 @@ export class FeedService {
       const feedResult = await this.feedRepository.saveFeed(createFeed);
       mapBody.feedId = feedResult._id.toString();
       //todo map을 체크했을 경우 맵 디비에도 채워넣기
-      if (body.mapCheck) await this.mapService.createMapData(mapBody);
+      if (body.item.mapRegister) await this.mapService.createMapData(mapBody);
     } catch (e) {}
   }
 

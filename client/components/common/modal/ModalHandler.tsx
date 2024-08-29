@@ -4,17 +4,16 @@ import React, {
   PropsWithChildren,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
 import ReactDOM from "react-dom";
-import useModalStore, { ModalType } from "@store/modalStore";
+import useModalStore from "@store/modalStore";
 import * as styles from "./styles/BottomUpSlider.css";
-import useModalHook from "@hooks/useModal";
+import useModal from "@hooks/useModal";
 import { BottomUpSlider } from "@components/common/modal/BottomUpSlider";
-import { SignUpAlert } from "@components/alert-box/SignUpAlert";
-import { ShopLocation } from "@components/shop/ShopLocation";
 
 type Modal = PropsWithChildren;
 
@@ -26,10 +25,10 @@ export type ModalProps = {
 export const ModalHandler: React.FC<Modal> = (props) => {
   const [showChild, setShowChild] = useState(false);
   const { children } = props;
-  const { isOpen } = useModalStore();
+  const { isOpen, type } = useModalStore();
   const ele = useRef<HTMLDivElement>(null);
 
-  const { outerClickEvent } = useModalHook(ele);
+  const { outerClickEvent } = useModal(ele);
 
   const element =
     typeof window !== "undefined" &&
@@ -46,39 +45,29 @@ export const ModalHandler: React.FC<Modal> = (props) => {
     }
   }, [isOpen]);
 
-  if (!showChild) return null;
+  const modalHandler = useCallback(
+    (children: ReactNode): ReactElement => {
+      return (
+        <>
+          <div
+            className={styles.modalBackGroundLayer}
+            onClick={outerClickEvent}
+            style={{
+              opacity: isOpen ? "1" : "0",
+              visibility: isOpen ? "visible" : "hidden",
+            }}
+          />
+          <BottomUpSlider ele={ele} isOpen={isOpen}>
+            {children}
+          </BottomUpSlider>
+        </>
+      );
+    },
+    [type, outerClickEvent]
+  );
 
-  const modalHandler = (children: ReactNode): ReactElement => {
-    return (
-      <>
-        <div
-          className={styles.modalBackGroundLayer}
-          onClick={outerClickEvent}
-          style={{
-            opacity: isOpen ? "1" : "0",
-            visibility: isOpen ? "visible" : "hidden",
-          }}
-        />
-        <BottomUpSlider ele={ele} isOpen={isOpen}>
-          {children}
-        </BottomUpSlider>
-      </>
-    );
-  };
+  if (!showChild) return null;
 
   if (!element) return <></>;
   else return <>{ReactDOM.createPortal(modalHandler(children), element)}</>;
-};
-
-export const ModalContainer = () => {
-  const { type } = useModalStore();
-  return (
-    <>
-      <div id="modal" />
-      <ModalHandler>
-        {type === ModalType.SIGN_ALERT && <SignUpAlert />}
-        {type === ModalType.REGISTER_SHOP && <ShopLocation />}
-      </ModalHandler>
-    </>
-  );
 };

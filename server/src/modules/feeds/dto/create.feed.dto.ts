@@ -2,7 +2,6 @@ import { ShopDto } from '@modules/shop/dto/create.shop.dto';
 import { Type } from 'class-transformer';
 import {
   IsArray,
-  IsBoolean,
   IsNotEmpty,
   IsObject,
   IsOptional,
@@ -21,9 +20,6 @@ export class CreateFeedDto {
   @Type(() => ShopDto)
   @IsObject()
   item: ShopDto;
-
-  @IsBoolean()
-  mapCheck: boolean;
 }
 
 export class CreateFeedPayloadDto {

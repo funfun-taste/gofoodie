@@ -14,7 +14,8 @@ export const Layout = ({ children }: Props): ReactElement => {
       <AppBanner />
       <div className={styles.appContainer}>
         {children}
-        <ModalContainer />
+        <div id="modal" />
+        {/* <ModalContainer /> */}
         <MenuBar />
       </div>
     </main>

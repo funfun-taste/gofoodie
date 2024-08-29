@@ -11,6 +11,9 @@ import { FileUploadButton } from "@components/common/buttons/FileUploadButton";
 import Image from "next/image";
 import { User } from "@interfaces/users/user";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
+import { ModalHandler } from "@components/common/modal/ModalHandler";
+import { ShopLocation } from "@components/shop/ShopLocation";
+import useModalStore, { ModalType } from "@store/modalStore";
 
 interface FeedPostFormProps {
   user: User;
@@ -32,7 +35,8 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
     onClickModalIsOpen,
     onClickRemoveLocation,
   } = props;
-  
+
+  const type = useModalStore((state) => state.type);
 
   return (
     <div className={styles.postLayout}>
@@ -125,6 +129,9 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
           ))}
         </div>
       </div>
+      <ModalHandler>
+        {type === ModalType.REGISTER_SHOP && <ShopLocation />}
+      </ModalHandler>
     </div>
   );
 };

@@ -5,7 +5,7 @@ export enum ModalType {
   EMPTY = '',
   SIGN_ALERT = 'signInAlertModal',
   REGISTER_SHOP = 'registerShop',
-
+  TEST = 'test'
 }
 
 type ModalInitialState = {
