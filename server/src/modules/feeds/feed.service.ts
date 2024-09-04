@@ -1,5 +1,7 @@
 import {
+  BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -20,6 +22,8 @@ import { CreateMapDto } from '@modules/map/dto/create.map.dto';
 
 @Injectable()
 export class FeedService {
+  private readonly logger = new Logger(FeedService.name);
+
   constructor(
     private readonly userService: UserService,
     private readonly shopService: ShopService,
@@ -29,6 +33,7 @@ export class FeedService {
 
   // 피드 생성
   async createFeed(body: CreateFeedDto, user: UserPayloadDto) {
+    console.log(body);
     try {
       const findUser = await this.userService.findOneByCreatorId(user.id);
 
@@ -72,7 +77,10 @@ export class FeedService {
       mapBody.feedId = feedResult._id.toString();
       //todo map을 체크했을 경우 맵 디비에도 채워넣기
       if (body.item.mapRegister) await this.mapService.createMapData(mapBody);
-    } catch (e) {}
+    } catch (e) {
+      this.logger.error(e);
+      throw new BadRequestException('피드 등록 중 에러가 발생');
+    }
   }
 
   // 피드 리스트 조회

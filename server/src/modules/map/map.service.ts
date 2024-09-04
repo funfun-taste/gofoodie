@@ -7,7 +7,6 @@ export class MapService {
   constructor(private readonly mapRespository: MapRespository) {}
 
   async createMapData(body: CreateMapDto) {
-    const result = await this.mapRespository.create(body);
-    console.log(result);
+    return this.mapRespository.saveMapData(body);
   }
 }

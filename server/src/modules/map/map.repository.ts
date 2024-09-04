@@ -12,7 +12,8 @@ export class MapRespository {
     private readonly mapModel: Model<MapDocument>,
   ) {}
 
-  async create(body: CreateMapDto) {
-    return 'create';
+  async saveMapData(body: CreateMapDto) {
+    const model = new this.mapModel(body);
+    return model.save();
   }
 }
