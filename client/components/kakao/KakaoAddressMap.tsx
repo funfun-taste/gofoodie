@@ -39,7 +39,7 @@ export const KakaoAddressMap = (): ReactElement => {
         const imageSrc =
           "https://gofoodie-images.s3.ap-northeast-2.amazonaws.com/assets/marker.svg"; // 마커 이미지 URL
         const imageSize = new kakao.maps.Size(20, 30); // 마커 이미지 크기
-        const imageOption = { offset: new kakao.maps.Point(20, 30) }; // 마커 이미지의 좌표 옵션
+        const imageOption = { offset: new kakao.maps.Point(8, 26) }; // 마커 이미지의 좌표 옵션
 
         const mapElement = document.getElementById("map");
 
