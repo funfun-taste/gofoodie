@@ -1,27 +1,30 @@
-'use client';
+"use client";
 
-import {ReactElement, Suspense, useEffect, useRef} from "react";
-import {Skeleton} from "@components/common/skeleton/Skeleton";
-import {useAuth} from "@providers/AuthProvider";
-import {getMarkerApi, Marker} from "@apis/shop/marker.api";
-import '@styles/lib/kakao.map.label.scss';
-import {KAKAO_API_KEY} from "@config/processConfig";
-import {useQuery} from "@tanstack/react-query";
-import {queryKeys} from "@services/keys/query.key";
+import { ReactElement, Suspense, useEffect, useRef } from "react";
+import { Skeleton } from "@components/common/skeleton/Skeleton";
+import { useAuth } from "@providers/AuthProvider";
+import { getMarkerApi, Marker } from "@apis/shop/marker.api";
+import "@styles/lib/kakao.map.label.scss";
+import { KAKAO_API_KEY } from "@config/processConfig";
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@services/keys/query.key";
 
 const KakaoMap = (): ReactElement => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const {userId} = useAuth();
+  const { userId } = useAuth();
 
-  const {data: mapData, isLoading} = useQuery<Marker[], unknown, any, string[]>(
-    {
-      queryKey: queryKeys.map.marker(userId),
-      queryFn: () => getMarkerApi(userId),
-      placeholderData: (previousData) => previousData,
-      gcTime: 6 * 1000,
-      staleTime: 6 * 1000
-    }
-  );
+  const { data: mapData, isLoading } = useQuery<
+    Marker[],
+    unknown,
+    any,
+    string[]
+  >({
+    queryKey: queryKeys.map.marker(userId),
+    queryFn: () => getMarkerApi(userId),
+    placeholderData: (previousData) => previousData,
+    gcTime: 6 * 1000,
+    staleTime: 6 * 1000,
+  });
 
   const drawMarker = async (kakao: any, map: any): Promise<void> => {
     const positions = mapData.map((value: any) => {
@@ -131,22 +134,28 @@ const KakaoMap = (): ReactElement => {
       const scripts = document.head.getElementsByTagName("script");
       for (let i = 0; i < scripts.length; i++) {
         const script = scripts[i];
-        if ( script.parentNode && script.src && script.src.includes("dapi.kakao.com")) {
+        if (
+          script.parentNode &&
+          script.src &&
+          script.src.includes("dapi.kakao.com")
+        ) {
           script.parentNode.removeChild(script);
         }
       }
     };
   }, [mapContainer, mapData]);
 
+  if (isLoading) return <div />;
+
   return (
-      <div
-        id={"map"}
-        ref={mapContainer}
-        style={{
-          width: "100%",
-          height: 300,
-        }}
-      />
+    <div
+      id={"map"}
+      ref={mapContainer}
+      style={{
+        width: "100%",
+        height: 300,
+      }}
+    />
   );
 };
 

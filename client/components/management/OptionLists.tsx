@@ -6,17 +6,23 @@ import { Typography } from "@components/common/typography/Typography";
 import { useAuth } from "@providers/AuthProvider";
 import { Cookies } from "react-cookie";
 import { signOut } from "next-auth/react";
+import { queryClient } from "@lib/tanstack/queryClient";
 
 export const OptionLists = (): ReactElement => {
   const { isLogin } = useAuth();
   const cookies = new Cookies();
 
   const handleClickSignOut = async () => {
-    const isProd = process.env.NODE_ENV !== "development";
+    queryClient.invalidateQueries();
+    const isProd = process.env.NODE_ENV === "production";
     const domain = isProd
       ? process.env.NEXT_PUBLIC_PROD
       : process.env.NEXT_PUBLIC_LOCAL;
     cookies.remove("Authorization", {
+      domain,
+      path: "/",
+    });
+    cookies.remove("foodie-id", {
       domain,
       path: "/",
     });

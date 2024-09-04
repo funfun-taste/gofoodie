@@ -26,88 +26,95 @@ export const KakaoAddressMap = (): ReactElement => {
   }, [address]);
 
   useEffect(() => {
-    const imageSrc =
-      "https://gofoodie-images.s3.ap-northeast-2.amazonaws.com/assets/marker.svg";
+    const script = document.createElement("script");
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
+    script.type = "text/javascript";
+    script.async = true;
 
-    if (typeof window !== "undefined") {
-      const script = document.createElement("script");
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
-      script.type = "text/javascript";
-      script.async = true;
-      document.head.appendChild(script);
+    document.head.appendChild(script);
 
-      script.onload = () => {
-        const kakao: any = (window as any).kakao;
-        kakao.maps.load(() => {
-          const mapElement = document.getElementById("map");
+    script.onload = () => {
+      const kakao: any = (window as any).kakao;
+      kakao.maps.load(() => {
+        const imageSrc =
+          "https://gofoodie-images.s3.ap-northeast-2.amazonaws.com/assets/marker.svg"; // 마커 이미지 URL
+        const imageSize = new kakao.maps.Size(20, 30); // 마커 이미지 크기
+        const imageOption = { offset: new kakao.maps.Point(20, 30) }; // 마커 이미지의 좌표 옵션
 
-          navigator.geolocation.getCurrentPosition(function (position) {
-            const lat = position.coords.latitude, // 위도
-              lon = position.coords.longitude; // 경도
-            const options = {
-              center: new kakao.maps.LatLng(lat, lon),
-              level: 4,
-            };
-            const map = new kakao.maps.Map(mapElement, options);
-            const geocoder = new kakao.maps.services.Geocoder();
-            const marker = new kakao.maps.Marker(); // 클릭한 위치를 표시할 마커입니다
+        const mapElement = document.getElementById("map");
 
-            searchAddrFromCoords(map.getCenter(), () => {});
+        const markerImage = new kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imageOption
+        );
 
-            kakao.maps.event.addListener(
-              map,
-              "click",
-              function (mouseEvent: any) {
-                searchDetailAddrFromCoords(
-                  mouseEvent.latLng,
-                  function (result: any, status: any) {
-                    const { address } = result[0];
-                    const {
-                      address_name,
-                      region_1depth_name,
-                      region_2depth_name,
-                    } = address;
-
-                    if (status === kakao.maps.services.Status.OK) {
-                      marker.setPosition(mouseEvent.latLng);
-                      marker.setMap(map);
-                      const x = String(mouseEvent.latLng.getLng());
-                      const y = String(mouseEvent.latLng.getLat());
-                      const address = {
-                        x,
-                        y,
-                        name: address_name,
-                        sido: region_1depth_name,
-                        sigungu: region_2depth_name,
-                      };
-                      setAddress(address);
-                    }
-                  }
-                );
-              }
-            );
-
-            function searchAddrFromCoords(coords: any, callback: any) {
-              // 좌표로 행정동 주소 정보를 요청합니다
-              geocoder.coord2RegionCode(
-                coords.getLng(),
-                coords.getLat(),
-                callback
-              );
-            }
-
-            function searchDetailAddrFromCoords(coords: any, callback: any) {
-              // 좌표로 법정동 상세 주소 정보를 요청합니다
-              geocoder.coord2Address(
-                coords.getLng(),
-                coords.getLat(),
-                callback
-              );
-            }
-          });
+        const marker = new kakao.maps.Marker({
+          image: markerImage, // 마커에 이미지 설정
         });
-      };
-    }
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+          const options = {
+            center: new kakao.maps.LatLng(lat, lon),
+            level: 4,
+          };
+          const map = new kakao.maps.Map(mapElement, options);
+          const geocoder = new kakao.maps.services.Geocoder();
+
+          searchAddrFromCoords(map.getCenter(), () => {});
+
+          kakao.maps.event.addListener(
+            map,
+            "click",
+            function (mouseEvent: any) {
+              searchDetailAddrFromCoords(
+                mouseEvent.latLng,
+                function (result: any, status: any) {
+                  const { address } = result[0];
+                  const {
+                    address_name,
+                    region_1depth_name,
+                    region_2depth_name,
+                  } = address;
+
+                  if (status === kakao.maps.services.Status.OK) {
+                    marker.setPosition(mouseEvent.latLng);
+                    marker.setMap(map);
+
+                    const x = String(mouseEvent.latLng.getLng());
+                    const y = String(mouseEvent.latLng.getLat());
+                    const address = {
+                      x,
+                      y,
+                      name: address_name,
+                      sido: region_1depth_name,
+                      sigungu: region_2depth_name,
+                    };
+                    setAddress(address);
+                  }
+                }
+              );
+            }
+          );
+
+          function searchAddrFromCoords(coords: any, callback: any) {
+            // 좌표로 행정동 주소 정보를 요청합니다
+            geocoder.coord2RegionCode(
+              coords.getLng(),
+              coords.getLat(),
+              callback
+            );
+          }
+
+          function searchDetailAddrFromCoords(coords: any, callback: any) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+          }
+        });
+      });
+    };
 
     setPending(false);
 
