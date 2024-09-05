@@ -32,7 +32,7 @@ interface ModalHandlerProps extends PropsWithChildren {
 
 export const ModalHandler = (props: ModalHandlerProps) => {
   const [showChild, setShowChild] = useState(false);
-  const { children, outerClick, modalType } = props;
+  const { children, modalType } = props;
   const { isOpen, type, openType: modalOpenType } = useModalStore();
   const ele = useRef<HTMLDivElement>(null);
 

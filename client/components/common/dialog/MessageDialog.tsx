@@ -22,18 +22,19 @@ export const MessageDialog = ({
   };
 
   return (
-    <FlexBox flexDirection="column">
+    <FlexBox flexDirection="column" gap={20}>
       <div>
         <Typography>{message}</Typography>
       </div>
-      <div>
-        <Button onClick={() => handleClickButton(false)}>
+      <div>맵 마커 선택</div>
+      <FlexBox flexDirection="row" gap={10}>
+        <Button variant="gray" onClick={() => handleClickButton(false)}>
           글만 작성할래요
         </Button>
-        <Button onClick={() => handleClickButton(true)}>
+        <Button variant="primary" onClick={() => handleClickButton(true)}>
           지도에 표시할래요
         </Button>
-      </div>
+      </FlexBox>
     </FlexBox>
   );
 };

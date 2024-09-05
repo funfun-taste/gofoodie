@@ -104,6 +104,7 @@ export const FeedPost = () => {
   const onClickModalIsOpen = () => {
     setModalType(ModalType.REGISTER_SHOP);
     setIsOpen(true);
+    onClickRemoveLocation();
   };
 
   const onClickConfirmed = (add: boolean) => {

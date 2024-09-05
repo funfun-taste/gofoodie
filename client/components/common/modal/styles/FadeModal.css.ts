@@ -42,7 +42,7 @@ export const fadeModalBody = style({
   justifyContent: "center",
   background: vars.colors.white000,
   width: "100%",
-  minHeight: 300,
+  minHeight: 226,
   height: "auto",
   borderRadius: 4,
   boxShadow: "0 0 16px rgb(50 50 50 / 12%)",

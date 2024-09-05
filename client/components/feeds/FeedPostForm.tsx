@@ -69,20 +69,39 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
                 <FlexBox
                   justifyContent={"flex-start"}
                   alignItems={"flex-start"}
+                  flexDirection="column"
                 >
                   <Typography fontSize={14} fontWeight={500}>
                     {postForm.item.title}
                   </Typography>
-                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {postForm.item.category}
-                  </Typography>
-                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {postForm.item.address.sido} /{" "}
-                    {postForm.item.address.sigungu}
-                  </Typography>
-                  <Typography color={"gray400"} fontSize={14} fontWeight={300}>
-                    {postForm.item.address.name}
-                  </Typography>
+                  <FlexBox
+                    justifyContent={"flex-start"}
+                    alignItems={"flex-start"}
+                    gap={10}
+                  >
+                    <Typography
+                      color={"gray400"}
+                      fontSize={14}
+                      fontWeight={300}
+                    >
+                      {postForm.item.category}
+                    </Typography>
+                    <Typography
+                      color={"gray400"}
+                      fontSize={14}
+                      fontWeight={300}
+                    >
+                      {postForm.item.address.sido} /{" "}
+                      {postForm.item.address.sigungu}
+                    </Typography>
+                    <Typography
+                      color={"gray400"}
+                      fontSize={14}
+                      fontWeight={300}
+                    >
+                      {postForm.item.address.name}
+                    </Typography>
+                  </FlexBox>
                 </FlexBox>
 
                 <Button
@@ -142,7 +161,7 @@ export const FeedPostForm = (props: FeedPostFormProps): ReactElement => {
       {type === ModalType.REGISTER_MAP && (
         <ModalHandler modalType={ModalType.REGISTER_MAP}>
           <MessageDialog
-            message="내 지도에 표시하시겠습니다?"
+            message="오늘의 기록을 내 지도에 표시해보세요!"
             onClickConfirmed={onClickConfirmed}
           />
         </ModalHandler>
