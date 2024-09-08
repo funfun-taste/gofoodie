@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, Suspense, useEffect, useRef } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import { useAuth } from "@providers/AuthProvider";
 import "@styles/lib/kakao.map.label.scss";
 import { KAKAO_API_KEY } from "@config/processConfig";
@@ -27,16 +27,13 @@ const KakaoMap = (): ReactElement => {
 
   const drawMarker = async (kakao: any, map: any): Promise<void> => {
     const positions = mapData.map((value: any) => {
-      const { _id, x, y, title, shopId, fullAddress, sido, sigungu, category } =
-        value;
+      const { feedId, x, y, title, shopId, address, description } = value;
       return {
-        feedId: _id,
+        feedId,
         title,
         shopId,
-        fullAddress,
-        sido,
-        sigungu,
-        category,
+        address,
+        description,
         latlng: new kakao.maps.LatLng(+y, +x),
       };
     });
@@ -56,8 +53,8 @@ const KakaoMap = (): ReactElement => {
         "        </div>" +
         '        <div class="body">' +
         '            <div class="desc">' +
-        `                <div class="ellipsis">${positions[i].fullAddress}</div>` +
-        `                <div class="jibun ellipsis">${positions[i].category} / ${positions[i].sido} ${positions[i].sigungu}</div>` +
+        `                <div class="jibun ellipsis">${positions[i].description}</div>` +
+        `                <div class="ellipsis">${positions[i].address}</div>` +
         "            </div>" +
         "        </div>" +
         "    </div>" +

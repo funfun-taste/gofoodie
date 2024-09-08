@@ -114,11 +114,7 @@ export const ShopLocation = (): ReactElement => {
         </label>
 
         <FlexBox>
-          <Button
-            borderRadius={4}
-            width={200}
-            onClick={handleClickSendLocationData}
-          >
+          <Button width={200} onClick={handleClickSendLocationData}>
             <FlexBox flexDirection="row" gap={8}>
               <IoAdd size={24} color={"#fff"} />
               <Typography as={"span"} color="white000">
