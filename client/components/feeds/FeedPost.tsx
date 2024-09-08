@@ -7,7 +7,7 @@ import { FormEventHandler, useEffect, useState } from "react";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 import { feedSubmitApi } from "@apis/feeds/create.feed.api";
 import { postImageUploadApi } from "@apis/files/upload.api";
-import useModalStore, { ModalType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "@store/modalStore";
 import { User } from "@interfaces/users/user";
 import * as styles from "./styles/FeedPost.css";
 import useFeedStore from "@store/feedStore";
@@ -45,7 +45,7 @@ export const FeedPost = () => {
     files: [],
   });
   const [previewUrl, setPreviewUrl] = useState<string[]>([]);
-  const { setIsOpen, setModalType } = useModalStore();
+  const { setIsOpen, setModalType, setOpenType } = useModalStore();
   const { item, setFeedItem } = useFeedStore();
   const router = useRouter();
 
@@ -115,6 +115,7 @@ export const FeedPost = () => {
         mapRegister: add,
       },
     });
+    setIsOpen(false);
   };
 
   const onClickRemoveLocation = () => {

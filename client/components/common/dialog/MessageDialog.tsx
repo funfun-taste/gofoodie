@@ -17,7 +17,7 @@ export const MessageDialog = ({
   const { closeModal } = useModalStore();
 
   const handleClickButton = (add: boolean): void => {
-    closeModal();
+    // closeModal();
     onClickConfirmed && onClickConfirmed(add);
   };
 

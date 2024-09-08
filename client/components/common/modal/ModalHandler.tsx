@@ -33,7 +33,7 @@ interface ModalHandlerProps extends PropsWithChildren {
 export const ModalHandler = (props: ModalHandlerProps) => {
   const [showChild, setShowChild] = useState(false);
   const { children, modalType } = props;
-  const { isOpen, type, openType: modalOpenType } = useModalStore();
+  const { isOpen, type, openType: modalOpenType, closeModal } = useModalStore();
   const ele = useRef<HTMLDivElement>(null);
 
   const { outerClickEvent } = useModal(ele);
@@ -51,6 +51,8 @@ export const ModalHandler = (props: ModalHandlerProps) => {
     if (html) {
       isOpen ? (html.style.overflow = "hidden") : (html.style.overflow = "");
     }
+
+    if (!isOpen) closeModal();
   }, [isOpen]);
 
   const open = useMemo((): boolean => {
