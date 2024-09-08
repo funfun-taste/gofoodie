@@ -17,6 +17,9 @@ export class Map {
   @Prop({ type: String })
   description: string; // map 제목
 
+  @Prop({ type: String })
+  address: string;
+
   @Prop({ type: String, required: false })
   marker: string;
 
