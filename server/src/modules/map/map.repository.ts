@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Map, MapDocument } from './schema/map.schema';
 import { ConnectionNames } from '@database/database.config';
 import { Model } from 'mongoose';
+import { ObjectId } from 'mongodb';
 import { CreateMapDto } from './dto/create.map.dto';
 
 @Injectable()
@@ -15,5 +16,9 @@ export class MapRespository {
   async saveMapData(body: CreateMapDto) {
     const model = new this.mapModel(body);
     return model.save();
+  }
+
+  async findMapCoordinate(userId: ObjectId) {
+    return this.mapModel.aggregate([{ $match: { userId } }]).exec();
   }
 }

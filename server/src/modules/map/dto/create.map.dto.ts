@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateMapDto {
   @IsString()
@@ -11,6 +11,18 @@ export class CreateMapDto {
 
   @IsString()
   @IsNotEmpty()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  address: string;
+
+  @IsString()
+  @IsNotEmpty()
   marker: string; // enum
 
   @IsString()
@@ -20,4 +32,8 @@ export class CreateMapDto {
   @IsString()
   @IsNotEmpty()
   feedId: string; // feedId
+
+  @IsString()
+  @IsNotEmpty()
+  shopId: string;
 }

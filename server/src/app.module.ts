@@ -9,6 +9,7 @@ import { DatabaseModule } from '@database/database.module';
 import { FeedModule } from '@modules/feeds/feed.module';
 import { FileModule } from '@modules/files/file.module';
 import { ShopModule } from '@modules/shop/shop.module';
+import { MapModule } from '@modules/map/map.module';
 
 const envFilePath = ['.env'];
 
@@ -29,6 +30,7 @@ const envFilePath = ['.env'];
     FeedModule,
     ShopModule,
     FileModule,
+    MapModule,
   ],
   controllers: [AppController],
   providers: [

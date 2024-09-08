@@ -11,6 +11,12 @@ export class Map {
   @Prop({ type: String, required: false })
   y: string;
 
+  @Prop({ type: String })
+  title: string; // map 제목
+
+  @Prop({ type: String })
+  description: string; // map 제목
+
   @Prop({ type: String, required: false })
   marker: string;
 
@@ -24,10 +30,13 @@ export class Map {
   deletedDate: Date;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: COLLECTIONS.USERS })
-  userId: string;
+  userId: mongoose.ObjectId;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: COLLECTIONS.FEEDS })
-  feedId: string;
+  feedId: mongoose.ObjectId;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: COLLECTIONS.SHOP })
+  shopId: mongoose.ObjectId;
 }
 
 export const MapSchema = SchemaFactory.createForClass(Map);

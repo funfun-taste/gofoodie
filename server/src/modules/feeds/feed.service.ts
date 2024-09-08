@@ -50,9 +50,13 @@ export class FeedService {
       const mapBody: CreateMapDto = {
         x: '',
         y: '',
+        title: '',
+        description: '',
+        address: '',
         marker: 'normal',
         userId,
         feedId: '',
+        shopId: '',
       };
 
       if (this.addressItemCheck(body.item)) {
@@ -70,6 +74,10 @@ export class FeedService {
 
         mapBody.x = address.x;
         mapBody.y = address.y;
+        mapBody.shopId = String(shop._id);
+        mapBody.title = item.title;
+        mapBody.description = `${item.category}`;
+        mapBody.address = `${item.address.sido} ${item.address.sigungu} ${item.address.name}`;
 
         createFeed.shopId = objectIdToString(shop._id);
       }

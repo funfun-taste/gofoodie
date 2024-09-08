@@ -10,7 +10,7 @@ export interface Marker {
 }
 
 export const getMarkerApi = async (creatorId: string): Promise<Marker[]>  => {
-  const url = `/shop/marker?creatorId=${creatorId}`;
+  const url = `/map/marker?creatorId=${creatorId}`;
   const {data} = await axiosInstance.get<
     AxiosRequestConfig,
     AxiosResponse<AxiosResponseData<Marker[]>>

@@ -11,12 +11,6 @@ export class ShopService {
     private readonly shopRepository: ShopRepository,
   ) {}
 
-  async drawShopMarker(creatorId: string) {
-    const findUser = await this.userService.findOneByCreatorId(creatorId);
-    if (findUser)
-      return this.shopRepository.findShopCoordinateByUserId(findUser._id);
-  }
-
   // x,y 좌표로 shop 조회
   async findOneByXy(x: string, y: string): Promise<ShopDocument> {
     return this.shopRepository.findOneShop({ x, y });

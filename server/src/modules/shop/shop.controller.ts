@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ShopService } from './shop.service';
 
 @Controller({
@@ -6,9 +6,4 @@ import { ShopService } from './shop.service';
 })
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
-
-  @Get('/marker')
-  async drawShopMarker(@Query('creatorId') creatorId: string) {
-    return this.shopService.drawShopMarker(creatorId);
-  }
 }
