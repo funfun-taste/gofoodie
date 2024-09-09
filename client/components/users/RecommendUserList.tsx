@@ -1,7 +1,7 @@
 import FlexBox from "@components/common/boxes/FlexBox";
-import {AvatarCardSkeleton} from "@components/common/skeleton/AvatarCardSkeleton";
-import {Fragment, ReactElement} from "react";
-import {ProfileCard, ProfileUserCard} from './cards/ProfileCard';
+import { AvatarCardSkeleton } from "@components/common/skeleton/AvatarCardSkeleton";
+import { Fragment, ReactElement } from "react";
+import { ProfileCard, ProfileUserCard } from "./cards/ProfileCard";
 
 interface RecommendUserProps {
   pending: boolean;
@@ -9,15 +9,18 @@ interface RecommendUserProps {
 }
 
 export const RecommendUserList = ({
-                                    pending,
-                                    recommendUserList,
-                                  }: RecommendUserProps): ReactElement => {
+  pending,
+  recommendUserList,
+}: RecommendUserProps): ReactElement => {
   if (pending)
     return (
       <div>
         <FlexBox gap={12}>
-          {Array.from({length: 5}).map((_, index) => (
-            <AvatarCardSkeleton isLoading={true} key={`recommend_user_${index}`}/>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <AvatarCardSkeleton
+              isLoading={true}
+              key={`recommend_user_${index}`}
+            />
           ))}
         </FlexBox>
       </div>
@@ -34,7 +37,7 @@ export const RecommendUserList = ({
           <>
             {recommendUserList.map((user) => (
               <Fragment key={user._id}>
-                <ProfileCard user={user}/>
+                <ProfileCard user={user} />
               </Fragment>
             ))}
           </>
