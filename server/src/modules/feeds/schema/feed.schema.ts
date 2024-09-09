@@ -32,6 +32,8 @@ export class Feed {
 
 export const FeedSchema = SchemaFactory.createForClass(Feed);
 
+FeedSchema.index({ userId: 1, isDeleted: 1 });
+
 export type FeedDocument = HydratedDocument<Feed>;
 
 export const FeedFeature = MongooseModule.forFeature(

@@ -10,6 +10,7 @@ import { FeedModule } from '@modules/feeds/feed.module';
 import { FileModule } from '@modules/files/file.module';
 import { ShopModule } from '@modules/shop/shop.module';
 import { MapModule } from '@modules/map/map.module';
+import { FeedCommentModule } from '@modules/feeds/comments/feed.comment.module';
 
 const envFilePath = ['.env'];
 
@@ -28,9 +29,11 @@ const envFilePath = ['.env'];
     ]),
     UserModule,
     FeedModule,
+    FeedCommentModule,
     ShopModule,
     FileModule,
     MapModule,
+    FeedCommentModule,
   ],
   controllers: [AppController],
   providers: [

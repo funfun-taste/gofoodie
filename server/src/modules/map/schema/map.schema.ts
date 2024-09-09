@@ -43,6 +43,11 @@ export class Map {
 }
 
 export const MapSchema = SchemaFactory.createForClass(Map);
+
+MapSchema.index({ userId: 1 });
+MapSchema.index({ feedId: 1 });
+MapSchema.index({ shopId: 1 });
+
 export type MapDocument = HydratedDocument<Map>;
 
 export const MapFeature = MongooseModule.forFeature(
