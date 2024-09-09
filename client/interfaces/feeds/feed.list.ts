@@ -1,5 +1,4 @@
-
-export interface FeedDetailSate  {
+export interface FeedDetailSate {
   shop: {
     shopName: string;
     shopCategory: string;
@@ -39,11 +38,10 @@ export interface FeedListShop {
   };
 }
 
-interface FeedUser {
+export interface FeedUser {
   username: string;
   profileImage: string;
 }
-
 
 interface FeedFiles {
   name: string;
@@ -65,5 +63,4 @@ export interface FeedsList {
   user: FeedUser;
 }
 
-export interface Feed extends FeedsList{}
-
+export interface Feed extends FeedsList {}

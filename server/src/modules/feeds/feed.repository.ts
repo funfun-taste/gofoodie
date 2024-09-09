@@ -62,6 +62,64 @@ export class FeedRepository {
             as: 'filePaths',
           },
         },
+        {
+          $lookup: {
+            from: COLLECTIONS.FILES_FEED_THUMBNAIL,
+            localField: 'feedFileIds',
+            foreignField: '_id',
+            as: 'filePaths',
+          },
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.FEEDS_COMMENT,
+            localField: '_id',
+            foreignField: 'feedId',
+            as: 'comments',
+          },
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.USERS, // USERS 컬렉션
+            localField: 'comments.userId', // comments의 userId와
+            foreignField: '_id', // USERS 컬렉션의 _id 필드를 조인
+            as: 'commentUsers', // 결과를 저장할 필드
+          },
+        },
+        {
+          $addFields: {
+            comments: {
+              $map: {
+                input: '$comments',
+                as: 'comment',
+                in: {
+                  $mergeObjects: [
+                    '$$comment',
+                    {
+                      user: {
+                        $arrayElemAt: [
+                          {
+                            $filter: {
+                              input: '$commentUsers',
+                              as: 'commentUser',
+                              cond: {
+                                $eq: ['$$commentUser._id', '$$comment.userId'],
+                              },
+                            },
+                          },
+                          0,
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+        {
+          $project: { commentUsers: 0 },
+        },
       ])
       .exec();
   }

@@ -13,6 +13,7 @@ import { CreateFeedDto } from './dto/create.feed.dto';
 import { UserObject } from '@modules/users/decorators/user-info.decorator';
 import { UserPayloadDto } from '@modules/users/dto/user.payload.dto';
 import { FilterDto } from './dto/filter.dto';
+import { FeedDetailsDto } from '@modules/feeds/dto/feed.details.dto';
 
 @Controller({
   path: 'feeds',
@@ -49,13 +50,8 @@ export class FeedController {
     return this.feedService.findRecentlyFeed(creatorId);
   }
 
-  @Get('/details/with-comment/:feedId')
-  async feedDetailWithComment(@Param('feedId') feedId: string) {
-    return this.feedService.findOneFeedByFeedId(feedId);
-  }
-
   @Get('/details/:feedId')
-  async feedDetail(@Param('feedId') feedId: string) {
+  async feedDetail(@Param('feedId') feedId: string): Promise<FeedDetailsDto> {
     return this.feedService.findOneFeedByFeedId(feedId);
   }
 

@@ -55,5 +55,5 @@ export const recentlyFeedApi = async (creatorId: string) => {
 export const getFeedDetailsApi = async (postId: string) => {
   const url = `/feeds/details/${postId}`;
   const { data } = await axiosInstance.get(url);
-  console.log(data);
+  return data;
 };

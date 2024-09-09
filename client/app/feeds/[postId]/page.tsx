@@ -1,7 +1,11 @@
 "use client";
 
+import { ReactElement, useEffect, useState } from "react";
+import { FeedDetails } from "@components/feeds/FeedDetails";
+import { CommentForm } from "@components/feeds/comments/CommentForm";
+import { CommentList } from "@components/feeds/comments/CommentList";
 import { getFeedDetailsApi } from "@apis/feeds/feeds.api";
-import { ReactElement, useEffect } from "react";
+import { Feed } from "@interfaces/feeds/feed.list";
 
 interface FeedDetailsPageProps {
   params: {
@@ -14,18 +18,25 @@ export default function FeedDetailsPage({
 }: FeedDetailsPageProps): ReactElement {
   const { postId } = params;
 
-  //todo postId 가 유효하지 않을 경우 404 리다이렉트
+  const [feed, setFeed] = useState<Feed | null>(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    getFeedDetailsApi(postId);
+    getFeedDetailsApi(postId).then((res) => {
+      const { data } = res;
+      setFeed(data.feed);
+    });
   }, [postId]);
+
+  if (!feed) return <div />;
 
   return (
     <div>
-      <div>
-        상세조회
-        {params.postId}
-      </div>
+      <FeedDetails feed={feed} />
+
+      <CommentList comments={comments} />
+
+      <CommentForm />
     </div>
   );
 }

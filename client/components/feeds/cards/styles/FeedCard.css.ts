@@ -56,16 +56,8 @@ export const storeOptions = style({
   padding: "1em 0",
 });
 
-export const feedOptionList = style({
-  position: "absolute",
-  right: 22,
-  border: `1px solid ${vars.colors.gray000}`,
-  padding: "0.5em 0",
-  borderRadius: 4,
-  width: 100,
-  textAlign: "center",
+export const comment = style({
   display: "flex",
-  flexDirection: "column",
-  gap: 10,
-  backgroundColor: vars.colors.white000,
+  alignItems: "center",
+  gap: 8,
 });

@@ -34,6 +34,9 @@ export class FeedComment {
 }
 
 export const FeedCommentSchema = SchemaFactory.createForClass(FeedComment);
+
+FeedCommentSchema.index({ feedId: 1 });
+
 export type FeedCommentDocument = HydratedDocument<FeedComment>;
 
 export const FeedCommentFeature = MongooseModule.forFeature(

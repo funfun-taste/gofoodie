@@ -108,10 +108,12 @@ export const FeedCard = ({ feed }: FeedCardProps): ReactElement => {
         <Typography fontSize={14} fontWeight={300} color={"gray400"}>
           0
         </Typography>
-        <FaComment color={"#FF7101"} />
-        <Typography fontSize={14} fontWeight={300} color={"gray400"}>
-          0
-        </Typography>
+        <Link href={`/feeds/${feedId}`} className={styles.comment}>
+          <FaComment color={"#FF7101"} />
+          <Typography fontSize={14} fontWeight={300} color={"gray400"}>
+            0
+          </Typography>
+        </Link>
       </FlexBox>
     </div>
   );

@@ -19,6 +19,7 @@ import { objectIdToString, stringToObjectId } from '@lib/converter';
 import { FeedListDto } from '@modules/feeds/dto/feed.list.dto';
 import { MapService } from '@modules/map/map.service';
 import { CreateMapDto } from '@modules/map/dto/create.map.dto';
+import { FeedDetailsDto } from '@modules/feeds/dto/feed.details.dto';
 
 @Injectable()
 export class FeedService {
@@ -146,12 +147,32 @@ export class FeedService {
   }
 
   // 피드 상세 조회
-  async findOneFeedByFeedId(feedId: string): Promise<any> {
+  async findOneFeedByFeedId(feedId: string): Promise<FeedDetailsDto> {
     const _id: ObjectId = stringToObjectId(feedId);
     const feed = await this.feedRepository.findOneFeedDetail(_id);
-    console.log(feed);
-    if (!feed) throw new NotFoundException('게시물이 존재하지 않습니다.');
-    return feed;
+    if (feed.length === 0)
+      throw new NotFoundException('게시물이 존재하지 않습니다.');
+
+    return feed.map((feedValue: any): FeedDetailsDto => {
+      return {
+        feed: {
+          feedId: String(feedValue._id),
+          content: feedValue.content,
+          createdDate: feedValue.createdDate,
+          shop: {
+            category: feedValue?.shop.category || '',
+            fullAddress: '',
+            title: feedValue?.shop.title || '',
+          },
+          files: [],
+          user: {
+            username: feedValue.user.username,
+            profileImage: feedValue.user.profileImage,
+          },
+        },
+        comments: [],
+      };
+    })[0];
   }
 
   // 최근 피드 조회
