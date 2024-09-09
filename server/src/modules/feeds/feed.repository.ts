@@ -27,18 +27,6 @@ export class FeedRepository {
   }
 
   async findOneFeedDetail(_id: ObjectId) {
-    // return this.feedModel
-    //   .findOne({ _id, isDeleted: false })
-    //   .populate({
-    //     path: 'shopId',
-    //     model: COLLECTIONS.SHOP,
-    //   })
-    //   .populate({
-    //     path: 'feedFileIds',
-    //     model: COLLECTIONS.FILES_FEED_THUMBNAIL,
-    //     select: 'path1',
-    //   })
-    //   .exec();
     return this.feedModel
       .aggregate([
         {

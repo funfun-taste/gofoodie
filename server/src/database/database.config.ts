@@ -9,6 +9,7 @@ export enum DbNames {
 export enum COLLECTIONS {
   USERS = 'users',
   FEEDS = 'feeds',
+  FEEDS_COMMENT = 'feeds.comment',
   SHOP = 'shop',
   MAP = 'map',
   FILES_USER_PROFILE = 'files.user.profile',
