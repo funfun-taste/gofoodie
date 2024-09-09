@@ -114,9 +114,8 @@ export const KakaoAddressMap = (): ReactElement => {
           }
         });
       });
+      setPending(false);
     };
-
-    setPending(false);
 
     return () => {
       const scripts = document.head.getElementsByTagName("script");
@@ -131,19 +130,18 @@ export const KakaoAddressMap = (): ReactElement => {
         }
       }
     };
-  }, [mapContainer]);
+  }, [mapContainer, pending]);
+
+  if (pending) return <Skeleton isLoading={pending} />;
 
   return (
-    <>
-      {<Skeleton isLoading={pending} />}
-      <div
-        id={"map"}
-        ref={mapContainer}
-        style={{
-          width: "100%",
-          height: 300,
-        }}
-      />
-    </>
+    <div
+      id={"map"}
+      ref={mapContainer}
+      style={{
+        width: "100%",
+        height: 300,
+      }}
+    />
   );
 };
