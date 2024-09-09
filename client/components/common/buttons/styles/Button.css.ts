@@ -10,7 +10,7 @@ import { style } from "@vanilla-extract/css";
 export const defaultButton = style({
   borderRadius: 50,
   backgroundColor: vars.colors.primary,
-  padding: "4px 8px",
+  padding: "6px 12px",
 });
 
 export const gray = style({

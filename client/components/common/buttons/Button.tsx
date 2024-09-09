@@ -1,5 +1,10 @@
 import classNames from "classnames";
-import { ComponentProps, CSSProperties, ReactElement } from "react";
+import React, {
+  ComponentProps,
+  CSSProperties,
+  ReactElement,
+  useMemo,
+} from "react";
 import * as styles from "./styles/Button.css";
 
 export type ButtonType = "button" | "submit" | "reset";
@@ -13,7 +18,7 @@ interface ButtonProps extends ComponentProps<"button"> {
   height?: string | number;
 }
 
-export const Button = (props: ButtonProps): ReactElement => {
+const ButtonComponent = (props: ButtonProps): ReactElement => {
   const {
     variant = "defaultButton",
     className,
@@ -26,10 +31,13 @@ export const Button = (props: ButtonProps): ReactElement => {
     ...rest
   } = props;
 
-  const style: CSSProperties = {
-    width: `${width}px`,
-    height: `${height}px`,
-  };
+  const style: CSSProperties = useMemo(
+    () => ({
+      width: width ? `${width}px` : "auto",
+      height: height ? `${height}px` : "auto",
+    }),
+    [width, height]
+  );
 
   return (
     <button
@@ -43,3 +51,5 @@ export const Button = (props: ButtonProps): ReactElement => {
     </button>
   );
 };
+
+export const Button = React.memo(ButtonComponent);
