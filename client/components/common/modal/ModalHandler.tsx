@@ -11,7 +11,7 @@ import React, {
   useState,
 } from "react";
 import ReactDOM from "react-dom";
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "../../../states/store/modalStore";
 import * as styles from "./styles/BottomUpSlider.css";
 import useModal from "@hooks/useModal";
 import { BottomUpSlider } from "@components/common/modal/BottomUpSlider";

@@ -1,9 +1,11 @@
 export const isProd = process.env.NODE_ENV === 'production';
 export const LOCAL_DOCKER_RUN = process.env.DOCKER_RUN === 'docker';
-export const PRODUCTION_HOST = process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
-export const LOCAL_HOST = process.env.NEXT_PUBLIC_LOCAL_API_URL;
+export const PRODUCTION_HOST = process.env.NEXT_PUBLIC_PRODUCTION_API_URL  as string;
+export const LOCAL_HOST = process.env.NEXT_PUBLIC_LOCAL_API_URL  as string;
 
 export const BASE_URL = isProd ? PRODUCTION_HOST : LOCAL_HOST;
+
+export const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN as string;
 
 /**
  * =========================

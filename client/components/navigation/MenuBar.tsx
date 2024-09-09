@@ -10,9 +10,8 @@ import {
 } from "react-icons/ri";
 import { usePathname, useRouter } from "next/navigation";
 import { CiViewList } from "react-icons/ci";
-import useModalStore, { ModalType } from "@store/modalStore";
+import useModalStore, { ModalType } from "@states/store/modalStore";
 import { useSession } from "next-auth/react";
-import path from "path";
 import { ModalHandler } from "@components/common/modal/ModalHandler";
 import { SignUpAlert } from "@components/alert-box/SignUpAlert";
 

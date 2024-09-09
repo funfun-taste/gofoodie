@@ -7,12 +7,12 @@ import { FormEventHandler, useEffect, useState } from "react";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 import { feedSubmitApi } from "@apis/feeds/create.feed.api";
 import { postImageUploadApi } from "@apis/files/upload.api";
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType } from "@states/store/modalStore";
 import { User } from "@interfaces/users/user";
 import * as styles from "./styles/FeedPost.css";
-import useFeedStore from "@store/feedStore";
+import useFeedStore from "@states/store/feedStore";
 import { queryClient } from "@lib/tanstack/queryClient";
-import { queryKeys } from "@services/keys/query.key";
+import { queryKeys } from "@states/keys/query.key";
 
 const user: User = {
   nickname: "",

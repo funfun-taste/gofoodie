@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, useEffect, useRef, useState } from "react";
-import useFeedStore from "@store/feedStore";
+import useFeedStore from "@states/store/feedStore";
 import { AddressState } from "@interfaces/feeds/feed.post";
 import { Skeleton } from "@components/common/skeleton/Skeleton";
 import { KAKAO_API_KEY } from "@config/processConfig";

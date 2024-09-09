@@ -2,9 +2,9 @@
 
 import {FeedList} from "./FeedList";
 import * as styles from "./styles/FeedHome.css";
-import {useFeedListsInfinityScrollQuery} from "@services/queries/feeds/useFeedListsInfinityScrollQuery";
+import {useFeedListsInfinityScrollQuery} from "@states/queries/feeds/useFeedListsInfinityScrollQuery";
 import {useIntersectionObserver} from "@hooks/useIntersectionObserver";
-import useRegionFilterStore from "@store/regionFilterStore";
+import useRegionFilterStore from "../../states/store/regionFilterStore";
 import {BounceSpinner, Spinner} from "@components/common/spinner";
 
 export const FeedHome = () => {

@@ -5,7 +5,7 @@ import { FeedTitle } from "./layouts/FeedTitle";
 import { useRouter } from "next/navigation";
 import {
   useMyFeedListsInfinityScrollQuery
-} from "@services/queries/feeds/useFeedListsInfinityScrollQuery";
+} from "@states/queries/feeds/useFeedListsInfinityScrollQuery";
 import {useIntersectionObserver} from "@hooks/useIntersectionObserver";
 import {FeedList} from "@components/feeds/FeedList";
 import {BounceSpinner} from "@components/common/spinner";

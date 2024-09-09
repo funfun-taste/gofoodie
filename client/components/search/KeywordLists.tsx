@@ -2,7 +2,6 @@ import {Keywords} from "@components/search/SearchForm";
 import * as styles from './styles/KeywordList.css';
 import {Typography} from "@components/common/typography/Typography";
 import {IoIosCloseCircle} from "react-icons/io";
-import {BsFillTrashFill} from "react-icons/bs";
 import FlexBox from "@components/common/boxes/FlexBox";
 
 interface KeywordListsProps {

@@ -6,7 +6,7 @@ import { region } from "./initialState/region";
 import * as styles from "./styles/RegionFilter.css";
 import { Typography } from "@components/common/typography/Typography";
 import { RegionFilterButton } from "./RegionFilterButton";
-import useRegionFilterStore from "@store/regionFilterStore";
+import useRegionFilterStore from "@states/store/regionFilterStore";
 
 export const RegionFilter = () => {
   const [isOpen, setIsOpen] = useState(false);

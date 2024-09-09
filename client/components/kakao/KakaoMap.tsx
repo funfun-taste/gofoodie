@@ -5,7 +5,7 @@ import { useAuth } from "@providers/AuthProvider";
 import "@styles/lib/kakao.map.label.scss";
 import { KAKAO_API_KEY } from "@config/processConfig";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@services/keys/query.key";
+import { queryKeys } from "@states/keys/query.key";
 import { getMarkerApi, Marker } from "@apis/map/marker.api";
 
 const KakaoMap = (): ReactElement => {

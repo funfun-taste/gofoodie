@@ -13,7 +13,7 @@ import { User } from "@interfaces/users/user";
 import { FeedPostBody } from "@interfaces/feeds/feed.post";
 import { ModalHandler } from "@components/common/modal/ModalHandler";
 import { ShopLocation } from "@components/shop/ShopLocation";
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType } from "@states/store/modalStore";
 import { MessageDialog } from "@components/common/dialog/MessageDialog";
 
 interface FeedPostFormProps {

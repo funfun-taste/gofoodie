@@ -2,7 +2,7 @@
 
 import useCookies from "@hooks/useCookie";
 import {useSession} from "next-auth/react";
-import {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 
 type Props = {
   children: React.ReactNode;

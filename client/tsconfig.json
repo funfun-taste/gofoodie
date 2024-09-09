@@ -68,6 +68,9 @@
       ],
       "@config/*": [
         "config/*"
+      ],
+      "@states/*": [
+        "states/*"
       ]
     }
   },

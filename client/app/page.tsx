@@ -8,7 +8,7 @@ import {Header} from "@components/header/Header";
 import {Footer} from "@components/footer/Footer";
 import {queryClient} from "@lib/tanstack/queryClient";
 import {feedListsApi, recentlyFeedApi} from "@apis/feeds/feeds.api";
-import {queryKeys} from "@services/keys/query.key";
+import {queryKeys} from "@states/keys/query.key";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {MapRenderer} from "@components/kakao/MapRenderer";
 

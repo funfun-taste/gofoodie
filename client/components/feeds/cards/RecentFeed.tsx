@@ -5,7 +5,7 @@ import { HorizontalBar } from "../../navigation/HorizontalBar";
 import { RecentFeedList } from "../RecentFeedList";
 import * as styles from "../styles/RecentFeed.css";
 import { Typography } from "@components/common/typography/Typography";
-import { useRecentlyFeedListQuery } from "@services/queries/feeds/useRecentlyFeedListQuery";
+import { useRecentlyFeedListQuery } from "@states/queries/feeds/useRecentlyFeedListQuery";
 import { useAuth } from "@providers/AuthProvider";
 import useCookie from "@hooks/useCookie";
 

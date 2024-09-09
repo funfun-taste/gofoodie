@@ -2,10 +2,10 @@
 
 import React, { ReactElement, useState } from "react";
 import * as styles from "./styles/ShopLocation.css";
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "@states/store/modalStore";
 import { IoAdd, IoClose } from "react-icons/io5";
 import { Typography } from "@components/common/typography/Typography";
-import useFeedStore, { LocationState } from "@store/feedStore";
+import useFeedStore, { LocationState } from "@states/store/feedStore";
 import FlexBox from "@components/common/boxes/FlexBox";
 import { KakaoAddressMap } from "@components/kakao/KakaoAddressMap";
 import { Button } from "@components/common/buttons/Button";

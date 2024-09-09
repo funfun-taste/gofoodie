@@ -6,7 +6,7 @@ import {ReactElement} from "react";
 import {RecommendUserList} from "./RecommendUserList";
 import * as styles from "./styles/RecommendUser.css";
 import {useAuth} from "@providers/AuthProvider";
-import {useRecommendUserQuery} from "@services/queries/users/useRecommendUserQuery";
+import {useRecommendUserQuery} from "@states/queries/users/useRecommendUserQuery";
 import {useSession} from "next-auth/react";
 
 export const RecommendUser = (): ReactElement => {

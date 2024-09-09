@@ -1,5 +1,5 @@
 import React from "react";
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "../states/store/modalStore";
 
 export type Element = React.MutableRefObject<HTMLDivElement> | any;
 

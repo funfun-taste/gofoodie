@@ -1,6 +1,6 @@
 "use client";
 
-import useModalStore, { ModalType, OpenType } from "@store/modalStore";
+import useModalStore, { ModalType, OpenType } from "../../../states/store/modalStore";
 import FlexBox from "../boxes/FlexBox";
 import { Button } from "../buttons/Button";
 import { Typography } from "../typography/Typography";

@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {queryKeys} from "@services/keys/query.key";
+import {queryKeys} from "@states/keys/query.key";
 import {recentlyFeedApi} from "@apis/feeds/feeds.api";
 
 export const useRecentlyFeedListQuery = (creatorId: string) => {

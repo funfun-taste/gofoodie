@@ -7,6 +7,7 @@ import { useAuth } from "@providers/AuthProvider";
 import { Cookies } from "react-cookie";
 import { signOut } from "next-auth/react";
 import { queryClient } from "@lib/tanstack/queryClient";
+import { DOMAIN } from "@config/processConfig";
 
 export const OptionLists = (): ReactElement => {
   const { isLogin } = useAuth();
@@ -14,16 +15,12 @@ export const OptionLists = (): ReactElement => {
 
   const handleClickSignOut = async () => {
     queryClient.invalidateQueries();
-    const isProd = process.env.NODE_ENV === "production";
-    const domain = isProd
-      ? process.env.NEXT_PUBLIC_PROD
-      : process.env.NEXT_PUBLIC_LOCAL;
     cookies.remove("Authorization", {
-      domain,
+      domain: DOMAIN,
       path: "/",
     });
     cookies.remove("foodie-id", {
-      domain,
+      domain: DOMAIN,
       path: "/",
     });
     await signOut();

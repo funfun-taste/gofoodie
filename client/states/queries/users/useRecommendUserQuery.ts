@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {queryKeys} from "@services/keys/query.key";
+import {queryKeys} from "@states/keys/query.key";
 import {todayRecommendUserApi} from "@apis/users/user.api";
 
 export const useRecommendUserQuery = (creatorId?: string) => {
