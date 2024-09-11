@@ -2,3 +2,6 @@
 .vscode
 .DB_Store
 server/src/.DS_Store
+
+
+/node_modules/
