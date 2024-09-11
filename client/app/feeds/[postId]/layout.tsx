@@ -1,5 +1,6 @@
 import React from "react";
 import { HistoryBackTitleBox } from "@components/common/boxes/HistoryBackTitleBox";
+import * as styles from "./page.css";
 
 export default function ManagementLayout({
   children,
@@ -7,7 +8,7 @@ export default function ManagementLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className={styles.feedDetailsPageLayout}>
       <HistoryBackTitleBox title={"마이피드"} />
       {children}
     </div>

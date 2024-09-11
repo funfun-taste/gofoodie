@@ -19,6 +19,6 @@ export const commentItem = style({
   background: "white",
   boxShadow: "0 0 16px rgb(50, 50, 50 / 12%)",
   backgroundColor: vars.colors.white000,
-  maxWidth: "428px",
+  maxWidth: 428,
   width: "100%",
 });
