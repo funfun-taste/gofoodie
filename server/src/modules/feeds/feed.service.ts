@@ -221,6 +221,206 @@ export class FeedService {
             like: 7,
             userPick: [],
           },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글1',
+            createdDate: new Date(),
+            like: 1,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글2',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글3',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글4',
+            createdDate: new Date(),
+            like: 10,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글5',
+            createdDate: new Date(),
+            like: 7,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글1',
+            createdDate: new Date(),
+            like: 1,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글2',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글3',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글4',
+            createdDate: new Date(),
+            like: 10,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글5',
+            createdDate: new Date(),
+            like: 7,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글1',
+            createdDate: new Date(),
+            like: 1,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글2',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글3',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글4',
+            createdDate: new Date(),
+            like: 10,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글5',
+            createdDate: new Date(),
+            like: 7,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글1',
+            createdDate: new Date(),
+            like: 1,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글2',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글3',
+            createdDate: new Date(),
+            like: 0,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글4',
+            createdDate: new Date(),
+            like: 10,
+            userPick: [],
+          },
+          {
+            user: {
+              username: feedValue.user.username,
+              profileImage: feedValue.user.profileImage,
+            },
+            comment: '댓글5',
+            createdDate: new Date(),
+            like: 7,
+            userPick: [],
+          },
         ],
       };
     })[0];

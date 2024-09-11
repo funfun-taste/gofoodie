@@ -7,6 +7,7 @@ import { CommentList } from "@components/feeds/comments/CommentList";
 import { getFeedDetailsApi } from "@apis/feeds/feeds.api";
 import { Feed } from "@interfaces/feeds/feed.list";
 import { Comment } from "@interfaces/feeds/comment";
+import FlexBox from "@components/common/boxes/FlexBox";
 
 interface FeedDetailsPageProps {
   params: {
@@ -35,10 +36,15 @@ export default function FeedDetailsPage({
   return (
     <div>
       <FeedDetails feed={feed} />
+      <FlexBox
+        flexDirection={"column"}
+        gap={20}
+        justifyContent={"space-between"}
+      >
+        <CommentList comments={comments} />
 
-      <CommentList comments={comments} />
-
-      <CommentForm />
+        <CommentForm />
+      </FlexBox>
     </div>
   );
 }
